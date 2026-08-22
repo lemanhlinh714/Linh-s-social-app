@@ -54,7 +54,7 @@ module.exports = function (_config) {
       },
       icon: './assets/app-icons/ios_icon_default_next.png',
       userInterfaceStyle: 'automatic',
-      primaryColor: '#006AFF',
+      primaryColor: '#000000',
       ios: {
         supportsTablet: false,
         bundleIdentifier: 'xyz.blueskyweb.app',
