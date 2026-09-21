@@ -1,5 +1,5 @@
 import {useCallback, useMemo, useState} from 'react'
-import {View} from 'react-native'
+import {Pressable, View} from 'react-native'
 import {type $Typed} from '@atproto/lex'
 import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
@@ -19,14 +19,17 @@ import {
 import {cleanError} from '#/lib/strings/errors'
 import {useBookmarkMutation} from '#/state/queries/bookmarks/useBookmarkMutation'
 import {useBookmarksQuery} from '#/state/queries/bookmarks/useBookmarksQuery'
+import {useSession} from '#/state/session'
 import {Post} from '#/view/com/post/Post'
+import {PostFeed} from '#/view/com/posts/PostFeed'
 import {EmptyState} from '#/view/com/util/EmptyState'
 import {List} from '#/view/com/util/List'
 import {PostFeedLoadingPlaceholder} from '#/view/com/util/LoadingPlaceholder'
-import {atoms as a, useTheme} from '#/alf'
+import {atoms as a, useTheme, web} from '#/alf'
 import {Button, ButtonIcon, ButtonText} from '#/components/Button'
 import {BookmarkDeleteLarge, BookmarkFilled} from '#/components/icons/Bookmark'
 import {CircleQuestion_Stroke2_Corner2_Rounded as QuestionIcon} from '#/components/icons/CircleQuestion'
+import {Heart2_Stroke1_Corner0_Rounded as HeartIcon} from '#/components/icons/Heart2'
 import * as Layout from '#/components/Layout'
 import {ListFooter} from '#/components/Lists'
 import * as Skele from '#/components/Skeleton'
@@ -41,6 +44,13 @@ type Props = NativeStackScreenProps<CommonNavigatorParams, 'Bookmarks'>
 
 export function BookmarksScreen({}: Props) {
   const ax = useAnalytics()
+  const {_, i18n} = useLingui()
+  const t = useTheme()
+  const [tab, setTab] = useState<'saved' | 'liked'>('saved')
+  const isVietnamese = i18n.locale.startsWith('vi')
+  const savedLabel = isVietnamese ? 'Đã lưu' : _(msg`Saved`)
+  const likedLabel = isVietnamese ? 'Đã thích' : _(msg`Likes`)
+  const savedPostsLabel = isVietnamese ? 'Bài viết đã lưu' : _(msg`Saved Posts`)
 
   useFocusEffect(
     useCallback(() => {
@@ -53,14 +63,91 @@ export function BookmarksScreen({}: Props) {
       <Layout.Header.Outer>
         <Layout.Header.BackButton />
         <Layout.Header.Content>
-          <Layout.Header.TitleText>
-            <Trans>Saved Posts</Trans>
-          </Layout.Header.TitleText>
+          <Layout.Header.TitleText>{savedPostsLabel}</Layout.Header.TitleText>
         </Layout.Header.Content>
         <Layout.Header.Slot />
       </Layout.Header.Outer>
-      <BookmarksInner />
+      <Layout.Center style={web([a.sticky, {top: 52}, a.z_10, t.atoms.bg])}>
+        <View
+          accessibilityRole="tablist"
+          style={[
+            a.flex_row,
+            t.atoms.border_contrast_low,
+            {borderBottomWidth: 1},
+          ]}>
+          <Pressable
+            accessibilityRole="tab"
+            accessibilityState={{selected: tab === 'saved'}}
+            onPress={() => setTab('saved')}
+            style={[a.flex_1, a.align_center, a.justify_center, {height: 52}]}>
+            <Text
+              style={[
+                a.text_md,
+                a.font_semi_bold,
+                tab === 'saved' ? t.atoms.text : t.atoms.text_contrast_medium,
+              ]}>
+              {savedLabel}
+            </Text>
+            {tab === 'saved' && (
+              <View
+                style={[
+                  a.absolute,
+                  {bottom: -1, height: 3, left: '15%', right: '15%'},
+                  {backgroundColor: t.palette.primary_500},
+                ]}
+              />
+            )}
+          </Pressable>
+          <Pressable
+            accessibilityRole="tab"
+            accessibilityState={{selected: tab === 'liked'}}
+            onPress={() => setTab('liked')}
+            style={[a.flex_1, a.align_center, a.justify_center, {height: 52}]}>
+            <Text
+              style={[
+                a.text_md,
+                a.font_semi_bold,
+                tab === 'liked' ? t.atoms.text : t.atoms.text_contrast_medium,
+              ]}>
+              {likedLabel}
+            </Text>
+            {tab === 'liked' && (
+              <View
+                style={[
+                  a.absolute,
+                  {bottom: -1, height: 3, left: '15%', right: '15%'},
+                  {backgroundColor: t.palette.primary_500},
+                ]}
+              />
+            )}
+          </Pressable>
+        </View>
+      </Layout.Center>
+      {tab === 'saved' ? <BookmarksInner /> : <LikedPostsInner />}
     </Layout.Screen>
+  )
+}
+
+function LikedPostsInner() {
+  const {_, i18n} = useLingui()
+  const {currentAccount} = useSession()
+  const emptyMessage = i18n.locale.startsWith('vi')
+    ? 'Chưa có bài viết đã thích'
+    : _(msg`No likes yet`)
+
+  if (!currentAccount) return null
+
+  return (
+    <PostFeed
+      feed={`likes|${currentAccount.did}`}
+      renderEmptyState={() => (
+        <EmptyState
+          icon={HeartIcon}
+          message={emptyMessage}
+          style={[a.pt_3xl]}
+        />
+      )}
+    />
   )
 }
 
