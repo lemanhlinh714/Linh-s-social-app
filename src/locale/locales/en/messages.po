@@ -2107,7 +2107,7 @@ msgstr ""
 #: src/components/dialogs/StarterPackDialog.tsx:69
 #: src/components/StarterPack/ProfileStarterPacks.tsx:267
 #: src/components/StarterPack/ProfileStarterPacks.tsx:277
-#: src/view/screens/Profile.tsx:351
+#: src/view/screens/Profile.tsx:340
 msgid "Before creating a starter pack, you must first verify your email."
 msgstr ""
 
@@ -2444,7 +2444,7 @@ msgstr ""
 msgid "Business"
 msgstr ""
 
-#: src/screens/Bookmarks.tsx:293
+#: src/screens/Bookmarks.tsx:380
 msgid "Button to go back to the home timeline"
 msgstr ""
 
@@ -3641,8 +3641,8 @@ msgstr ""
 msgid "Create a starter pack"
 msgstr ""
 
-#: src/view/screens/Profile.tsx:575
-#: src/view/screens/Profile.tsx:576
+#: src/view/screens/Profile.tsx:549
+#: src/view/screens/Profile.tsx:550
 msgid "Create a Starter Pack"
 msgstr ""
 
@@ -5254,7 +5254,7 @@ msgstr ""
 #: src/screens/Search/SearchResults.tsx:113
 #: src/screens/StarterPack/StarterPackScreen.tsx:194
 #: src/view/screens/Feeds.tsx:504
-#: src/view/screens/Profile.tsx:240
+#: src/view/screens/Profile.tsx:236
 #: src/view/shell/desktop/LeftNav.tsx:711
 #: src/view/shell/Drawer.tsx:592
 msgid "Feeds"
@@ -5843,7 +5843,7 @@ msgstr ""
 msgid "Go back to previous step"
 msgstr ""
 
-#: src/screens/Bookmarks.tsx:294
+#: src/screens/Bookmarks.tsx:381
 #: src/view/screens/NotFound.tsx:51
 #: src/view/screens/NotFound.tsx:52
 #: src/view/screens/NotFound.tsx:57
@@ -6841,7 +6841,7 @@ msgid "Labeled by the author."
 msgstr ""
 
 #: src/view/com/composer/labels/LabelsBtn.tsx:70
-#: src/view/screens/Profile.tsx:233
+#: src/view/screens/Profile.tsx:230
 msgid "Labels"
 msgstr ""
 
@@ -7138,9 +7138,9 @@ msgid "Liked by {likeCount, plural, one {# user} other {# users}}"
 msgstr ""
 
 #: src/lib/hooks/useNotificationHandler.ts:158
+#: src/screens/Bookmarks.tsx:52
 #: src/screens/Settings/NotificationSettings/index.tsx:159
 #: src/screens/Settings/NotificationSettings/index.tsx:314
-#: src/view/screens/Profile.tsx:239
 msgid "Likes"
 msgstr ""
 
@@ -7251,8 +7251,8 @@ msgstr ""
 
 #: src/Navigation.tsx:175
 #: src/view/screens/Lists.tsx:60
-#: src/view/screens/Profile.tsx:234
-#: src/view/screens/Profile.tsx:242
+#: src/view/screens/Profile.tsx:231
+#: src/view/screens/Profile.tsx:238
 #: src/view/shell/desktop/LeftNav.tsx:721
 #: src/view/shell/Drawer.tsx:607
 msgid "Lists"
@@ -7476,7 +7476,7 @@ msgid "Me"
 msgstr "Me"
 
 #: src/screens/Search/components/AdvancedSearchDialog/index.tsx:375
-#: src/view/screens/Profile.tsx:237
+#: src/view/screens/Profile.tsx:234
 msgid "Media"
 msgstr ""
 
@@ -8007,7 +8007,7 @@ msgstr ""
 #: src/screens/ProfileList/index.tsx:277
 #: src/view/screens/Feeds.tsx:545
 #: src/view/screens/Notifications.tsx:165
-#: src/view/screens/Profile.tsx:606
+#: src/view/screens/Profile.tsx:580
 msgid "New post"
 msgstr ""
 
@@ -8154,8 +8154,8 @@ msgid "No language filter"
 msgstr "No language filter"
 
 #: src/components/LikedByList.tsx:90
+#: src/screens/Bookmarks.tsx:136
 #: src/view/com/post-thread/PostLikedBy.tsx:90
-#: src/view/screens/Profile.tsx:538
 msgid "No likes yet"
 msgstr ""
 
@@ -8177,7 +8177,7 @@ msgstr ""
 msgid "No media filter"
 msgstr "No media filter"
 
-#: src/view/screens/Profile.tsx:484
+#: src/view/screens/Profile.tsx:473
 msgid "No media yet"
 msgstr ""
 
@@ -8232,7 +8232,7 @@ msgid "No posts here"
 msgstr ""
 
 #: src/screens/Profile/Sections/Feed.tsx:84
-#: src/view/screens/Profile.tsx:442
+#: src/view/screens/Profile.tsx:431
 msgid "No posts yet"
 msgstr ""
 
@@ -8245,7 +8245,7 @@ msgstr ""
 msgid "No recent GIFs yet. Pick one to see it here."
 msgstr "No recent GIFs yet. Pick one to see it here."
 
-#: src/view/screens/Profile.tsx:469
+#: src/view/screens/Profile.tsx:458
 msgid "No replies yet"
 msgstr ""
 
@@ -8295,7 +8295,7 @@ msgstr "No results found for your query with advanced search filters applied."
 msgid "No results."
 msgstr ""
 
-#: src/view/screens/Profile.tsx:570
+#: src/view/screens/Profile.tsx:544
 msgid "No Starter Packs yet"
 msgstr ""
 
@@ -8308,7 +8308,7 @@ msgstr ""
 msgid "No translation received from your device."
 msgstr "No translation received from your device."
 
-#: src/view/screens/Profile.tsx:511
+#: src/view/screens/Profile.tsx:500
 msgid "No video posts yet"
 msgstr ""
 
@@ -8368,7 +8368,7 @@ msgid "Not followed by anyone you’re following"
 msgstr "Not followed by anyone you’re following"
 
 #: src/Navigation.tsx:170
-#: src/view/screens/Profile.tsx:132
+#: src/view/screens/Profile.tsx:131
 msgid "Not Found"
 msgstr ""
 
@@ -8388,7 +8388,7 @@ msgstr "Note: Bluesky is part of the Atmosphere, an open public network. These s
 msgid "Note: This post is only visible to logged-in users."
 msgstr ""
 
-#: src/screens/Bookmarks.tsx:290
+#: src/screens/Bookmarks.tsx:377
 msgid "Nothing saved yet"
 msgstr ""
 
@@ -8598,7 +8598,7 @@ msgstr "Oops, this profile doesn't exist. Try scanning another one."
 #: src/components/StarterPack/ProfileStarterPacks.tsx:375
 #: src/screens/Settings/AppPasswords.tsx:59
 #: src/screens/Settings/components/ChangeHandleDialog.tsx:108
-#: src/view/screens/Profile.tsx:132
+#: src/view/screens/Profile.tsx:131
 msgid "Oops!"
 msgstr ""
 
@@ -9356,13 +9356,13 @@ msgctxt "post-number-in-thread"
 msgid "Post {index} of {count}"
 msgstr "Post {index} of {count}"
 
-#: src/view/screens/Profile.tsx:488
-#: src/view/screens/Profile.tsx:489
+#: src/view/screens/Profile.tsx:477
+#: src/view/screens/Profile.tsx:478
 msgid "Post a photo"
 msgstr ""
 
-#: src/view/screens/Profile.tsx:515
-#: src/view/screens/Profile.tsx:516
+#: src/view/screens/Profile.tsx:504
+#: src/view/screens/Profile.tsx:505
 msgid "Post a video"
 msgstr ""
 
@@ -9461,7 +9461,7 @@ msgstr ""
 #: src/screens/ProfileList/index.tsx:164
 #: src/screens/Settings/NotificationSettings/ActivityNotificationSettings.tsx:216
 #: src/screens/StarterPack/StarterPackScreen.tsx:195
-#: src/view/screens/Profile.tsx:235
+#: src/view/screens/Profile.tsx:232
 msgid "Posts"
 msgstr ""
 
@@ -9838,7 +9838,7 @@ msgstr ""
 #: src/components/FeedCard.tsx:375
 #: src/components/StarterPack/Wizard/WizardListCard.tsx:105
 #: src/components/StarterPack/Wizard/WizardListCard.tsx:112
-#: src/screens/Bookmarks.tsx:256
+#: src/screens/Bookmarks.tsx:343
 #: src/screens/Messages/ConversationSettings/Member.tsx:162
 #: src/screens/Messages/ConversationSettings/prompts.tsx:178
 #: src/screens/Moderation/index.tsx:530
@@ -9939,7 +9939,7 @@ msgid "Remove from saved feeds"
 msgstr ""
 
 #: src/components/PostControls/BookmarkButton.tsx:120
-#: src/screens/Bookmarks.tsx:250
+#: src/screens/Bookmarks.tsx:337
 msgid "Remove from saved posts"
 msgstr ""
 
@@ -10020,7 +10020,7 @@ msgid "Removed from saved feeds"
 msgstr ""
 
 #: src/components/PostControls/BookmarkButton.tsx:88
-#: src/screens/Bookmarks.tsx:209
+#: src/screens/Bookmarks.tsx:296
 msgid "Removed from saved posts"
 msgstr ""
 
@@ -10097,7 +10097,7 @@ msgstr "Replied-to message, tap to scroll to it"
 #: src/screens/Settings/NotificationSettings/ActivityNotificationSettings.tsx:218
 #: src/screens/Settings/NotificationSettings/index.tsx:181
 #: src/screens/Settings/NotificationSettings/index.tsx:330
-#: src/view/screens/Profile.tsx:236
+#: src/view/screens/Profile.tsx:233
 msgid "Replies"
 msgstr ""
 
@@ -10591,6 +10591,10 @@ msgstr ""
 msgid "Save to my feeds"
 msgstr ""
 
+#: src/screens/Bookmarks.tsx:51
+msgid "Saved"
+msgstr "Saved"
+
 #: src/view/shell/desktop/LeftNav.tsx:731
 #: src/view/shell/Drawer.tsx:633
 msgctxt "link to bookmarks screen"
@@ -10604,7 +10608,7 @@ msgstr ""
 
 #: src/components/dialogs/nuxs/BookmarksAnnouncement.tsx:145
 #: src/Navigation.tsx:585
-#: src/screens/Bookmarks.tsx:57
+#: src/screens/Bookmarks.tsx:53
 msgid "Saved Posts"
 msgstr ""
 
@@ -11838,7 +11842,7 @@ msgid "Starter packs"
 msgstr "Starter packs"
 
 #: src/screens/Search/Explore.tsx:658
-#: src/view/screens/Profile.tsx:241
+#: src/view/screens/Profile.tsx:237
 msgid "Starter Packs"
 msgstr ""
 
@@ -11850,7 +11854,7 @@ msgstr ""
 msgid "Starter packs let you share your favorite feeds and people with your friends."
 msgstr ""
 
-#: src/view/screens/Profile.tsx:568
+#: src/view/screens/Profile.tsx:542
 msgid "Starter Packs let you share your favorite feeds and people with your friends."
 msgstr ""
 
@@ -12824,7 +12828,7 @@ msgstr ""
 msgid "This post is only visible to logged-in users."
 msgstr ""
 
-#: src/screens/Bookmarks.tsx:246
+#: src/screens/Bookmarks.tsx:333
 msgid "This post was deleted by its author"
 msgstr ""
 
@@ -13600,7 +13604,7 @@ msgstr ""
 msgid "Use your account email address, or another real email address you control, in case KWS or Bluesky needs to contact you."
 msgstr ""
 
-#: src/view/screens/Profile.tsx:395
+#: src/view/screens/Profile.tsx:384
 msgid "user"
 msgstr "user"
 
@@ -13859,7 +13863,7 @@ msgstr ""
 msgid "Video: {0}"
 msgstr ""
 
-#: src/view/screens/Profile.tsx:238
+#: src/view/screens/Profile.tsx:235
 msgid "Videos"
 msgstr ""
 
@@ -14431,8 +14435,8 @@ msgstr ""
 msgid "Would you like to save this as a draft to edit later?"
 msgstr ""
 
-#: src/view/screens/Profile.tsx:446
-#: src/view/screens/Profile.tsx:447
+#: src/view/screens/Profile.tsx:435
+#: src/view/screens/Profile.tsx:436
 msgid "Write a post"
 msgstr ""
 
