@@ -13,7 +13,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 
-import {DISCOVER_FEED_URI, DISCOVER_SAVED_FEED} from '#/lib/constants'
+import {LINH_TEST_FEED_URI, LINH_TEST_SAVED_FEED} from '#/lib/constants'
 import {sanitizeDisplayName} from '#/lib/strings/display-names'
 import {sanitizeHandle} from '#/lib/strings/handles'
 import {GCTIME, STALE} from '#/state/queries'
@@ -417,11 +417,11 @@ export type SavedFeedSourceInfo = FeedSourceInfo & {
   savedFeed: app.bsky.actor.defs.SavedFeed
 }
 
-const PWI_DISCOVER_FEED_STUB: SavedFeedSourceInfo = {
+const PWI_LINH_TEST_FEED_STUB: SavedFeedSourceInfo = {
   type: 'feed',
-  displayName: 'Discover',
-  uri: DISCOVER_FEED_URI,
-  feedDescriptor: `feedgen|${DISCOVER_FEED_URI}`,
+  displayName: 'Linh test',
+  uri: LINH_TEST_FEED_URI,
+  feedDescriptor: `feedgen|${LINH_TEST_FEED_URI}`,
   route: {
     href: '/',
     name: 'Home',
@@ -437,7 +437,7 @@ const PWI_DISCOVER_FEED_STUB: SavedFeedSourceInfo = {
   // ---
   savedFeed: {
     id: 'pwi-discover',
-    ...DISCOVER_SAVED_FEED,
+    ...LINH_TEST_SAVED_FEED,
   },
   contentMode: undefined,
 }
@@ -475,7 +475,7 @@ export function usePinnedFeedsInfos() {
     enabled: !isLoadingPrefs,
     queryFn: async () => {
       if (!hasSession) {
-        return [PWI_DISCOVER_FEED_STUB]
+        return [PWI_LINH_TEST_FEED_STUB]
       }
 
       let resolved = new Map<string, FeedSourceInfo>()

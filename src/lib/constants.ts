@@ -87,6 +87,9 @@ export function IS_PROD_SERVICE(url?: string) {
 export const PROD_DEFAULT_FEED = (rkey: string) =>
   `at://did:plc:z72i7hdynmk6r22z27h6tvur/app.bsky.feed.generator/${rkey}`
 
+export const LINH_TEST_FEED_URI =
+  'at://did:plc:gphlz3v6t7p2fi5uniuploi7/app.bsky.feed.generator/aaamigneoawts'
+
 export const STAGING_DEFAULT_FEED = (rkey: string) =>
   `at://did:plc:yofh3kx63drvfljkibw5zuxo/app.bsky.feed.generator/${rkey}`
 
@@ -162,6 +165,11 @@ export const DISCOVER_SAVED_FEED = {
   value: DISCOVER_FEED_URI,
   pinned: true,
 }
+export const LINH_TEST_SAVED_FEED = {
+  type: 'feed' as const,
+  value: LINH_TEST_FEED_URI,
+  pinned: true,
+}
 export const TIMELINE_SAVED_FEED = {
   type: 'timeline',
   value: 'following',
@@ -176,7 +184,7 @@ export const VIDEO_SAVED_FEED = {
 export const RECOMMENDED_SAVED_FEEDS: Pick<
   app.bsky.actor.defs.SavedFeed,
   'type' | 'value' | 'pinned'
->[] = [DISCOVER_SAVED_FEED, TIMELINE_SAVED_FEED]
+>[] = [LINH_TEST_SAVED_FEED, TIMELINE_SAVED_FEED]
 
 export const KNOWN_SHUTDOWN_FEEDS = [
   'at://did:plc:wqowuobffl66jv3kpsvo7ak4/app.bsky.feed.generator/the-algorithm', // for you by skygaze

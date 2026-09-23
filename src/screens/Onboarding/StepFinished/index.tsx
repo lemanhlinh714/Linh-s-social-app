@@ -11,8 +11,7 @@ import {useQueryClient} from '@tanstack/react-query'
 
 import {uploadBlob} from '#/lib/api'
 import {
-  BSKY_APP_ACCOUNT_DID,
-  DISCOVER_SAVED_FEED,
+  LINH_TEST_SAVED_FEED,
   TIMELINE_SAVED_FEED,
   VIDEO_SAVED_FEED,
 } from '#/lib/constants'
@@ -98,10 +97,7 @@ export function StepFinished() {
      * Hoisted above the `try`: React Compiler cannot lower these inside one, and
      * `listItems` is already settled by the earlier try/catch.
      */
-    const followDids = [
-      BSKY_APP_ACCOUNT_DID,
-      ...(listItems?.map(i => i.subject.did) ?? []),
-    ]
+    const followDids = listItems?.map(i => i.subject.did) ?? []
     const starterPackRef = starterPack
       ? {uri: starterPack.uri, cid: starterPack.cid}
       : undefined
@@ -119,7 +115,7 @@ export function StepFinished() {
           // Default feeds that every user should have pinned when landing in the app
           const feedsToSave: app.bsky.actor.defs.SavedFeed[] = [
             {
-              ...DISCOVER_SAVED_FEED,
+              ...LINH_TEST_SAVED_FEED,
               id: TID.nextStr(),
             },
             {
