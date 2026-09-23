@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import {TID} from '@atproto/common-web'
 import {type DidString} from '@atproto/syntax'
 import {
   addSavedFeeds,
@@ -24,7 +25,11 @@ import {
 import {type LabelPreference} from '@bsky/sdk/moderation'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 
-import {PROD_DEFAULT_FEED} from '#/lib/constants'
+import {
+  DISCOVER_FEED_URI,
+  LINH_TEST_SAVED_FEED,
+  PROD_DEFAULT_FEED,
+} from '#/lib/constants'
 import {replaceEqualDeep} from '#/lib/functions'
 import {getAge} from '#/lib/strings/time'
 import {GCTIME, STALE} from '#/state/queries'
@@ -52,7 +57,7 @@ export * from '#/state/queries/preferences/types'
 export const preferencesQueryKey = createQueryKey(
   'getPreferences',
   {},
-  {persistedVersion: 1},
+  {persistedVersion: 2},
 )
 
 export function usePreferencesQuery() {
@@ -97,9 +102,35 @@ export function usePreferencesQuery() {
          * `BskyPreferences` is now the sdk's own type, so the assembled
          * response types structurally with no cast at this seam.
          */
+        let savedFeeds = res.savedFeeds.filter(f => f.type !== 'unknown')
+        const existingLinhTestFeed = savedFeeds.find(
+          feed => feed.value === LINH_TEST_SAVED_FEED.value,
+        )
+        const migratedSavedFeeds = [
+          {
+            ...(existingLinhTestFeed ?? LINH_TEST_SAVED_FEED),
+            id: existingLinhTestFeed?.id ?? TID.nextStr(),
+            pinned: true,
+          },
+          ...savedFeeds.filter(
+            feed =>
+              feed.value !== LINH_TEST_SAVED_FEED.value &&
+              feed.value !== DISCOVER_FEED_URI,
+          ),
+        ]
+        const needsFeedMigration =
+          !existingLinhTestFeed ||
+          !existingLinhTestFeed.pinned ||
+          savedFeeds[0]?.value !== LINH_TEST_SAVED_FEED.value ||
+          savedFeeds.some(feed => feed.value === DISCOVER_FEED_URI)
+        if (needsFeedMigration) {
+          await client.call(overwriteSavedFeeds, migratedSavedFeeds)
+          savedFeeds = migratedSavedFeeds
+        }
+
         const preferences: UsePreferencesQueryResponse = {
           ...res,
-          savedFeeds: res.savedFeeds.filter(f => f.type !== 'unknown'),
+          savedFeeds,
           /**
            * Special preference, only used for following feed, previously
            * called `home`

@@ -36,6 +36,10 @@ export async function bulkWriteFollows(
       value: r,
     }))
 
+  if (followWrites.length === 0) {
+    return new Map()
+  }
+
   const chunks = chunk(followWrites, 50)
   for (const chunk of chunks) {
     await pdsClient.call(com.atproto.repo.applyWrites, {
