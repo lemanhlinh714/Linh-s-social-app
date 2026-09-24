@@ -40,10 +40,8 @@ import {
 } from '#/components/icons/Bell'
 import {Bookmark, BookmarkFilled} from '#/components/icons/Bookmark'
 import {BulletList_Stroke2_Corner0_Rounded as List} from '#/components/icons/BulletList'
-import {
-  Hashtag_Filled_Corner0_Rounded as HashtagFilled,
-  Hashtag_Stroke2_Corner0_Rounded as Hashtag,
-} from '#/components/icons/Hashtag'
+import {DotGrid3x1_Stroke2_Corner0_Rounded as Ellipsis} from '#/components/icons/DotGrid'
+import {Hashtag_Stroke2_Corner0_Rounded as Hashtag} from '#/components/icons/Hashtag'
 import {
   HomeOpen_Filled_Corner0_Rounded as HomeFilled,
   HomeOpen_Stoke2_Corner0_Rounded as Home,
@@ -62,6 +60,7 @@ import {
   UserCircle_Stroke2_Corner0_Rounded as UserCircle,
 } from '#/components/icons/UserCircle'
 import {InlineLinkText} from '#/components/Link'
+import * as Menu from '#/components/Menu'
 import {OTAChannelNotice} from '#/components/OTAChannelNotice'
 import {ProfileBadges} from '#/components/ProfileBadges'
 import {Text} from '#/components/Typography'
@@ -190,7 +189,6 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
   const {
     isAtHome,
     isAtSearch,
-    isAtFeeds,
     isAtBookmarks,
     isAtNotifications,
     isAtMyProfile,
@@ -269,15 +267,15 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
     onPressTab('MyProfile', 'drawerHeader')
   }, [onPressTab])
 
-  const onPressMyFeeds = useCallback(() => {
-    ax.metric('nav:click', {item: 'feeds', surface: 'drawer'})
-    navigation.navigate('Feeds')
-    setDrawerOpen(false)
-  }, [navigation, setDrawerOpen, ax])
-
   const onPressLists = useCallback(() => {
     ax.metric('nav:click', {item: 'lists', surface: 'drawer'})
     navigation.navigate('Lists')
+    setDrawerOpen(false)
+  }, [navigation, setDrawerOpen, ax])
+
+  const onPressFeeds = useCallback(() => {
+    ax.metric('nav:click', {item: 'feeds', surface: 'drawer'})
+    navigation.navigate('Feeds')
     setDrawerOpen(false)
   }, [navigation, setDrawerOpen, ax])
 
@@ -358,8 +356,6 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
               isActive={isAtNotifications}
               onPress={onPressNotifications}
             />
-            <FeedsMenuItem isActive={isAtFeeds} onPress={onPressMyFeeds} />
-            <ListsMenuItem onPress={onPressLists} />
             <BookmarksMenuItem
               isActive={isAtBookmarks}
               onPress={onPressBookmarks}
@@ -369,11 +365,14 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
               onPress={onPressProfile}
             />
             <SettingsMenuItem onPress={onPressSettings} />
+            <MoreMenuItem
+              onPressFeeds={onPressFeeds}
+              onPressLists={onPressLists}
+            />
           </>
         ) : (
           <>
             <HomeMenuItem isActive={isAtHome} onPress={onPressHome} />
-            <FeedsMenuItem isActive={isAtFeeds} onPress={onPressMyFeeds} />
             <SearchMenuItem isActive={isAtSearch} onPress={onPressSearch} />
           </>
         )}
@@ -571,45 +570,52 @@ let NotificationsMenuItem = ({
 }
 NotificationsMenuItem = memo(NotificationsMenuItem)
 
-let FeedsMenuItem = ({
-  isActive,
-  onPress,
+let MoreMenuItem = ({
+  onPressFeeds,
+  onPressLists,
 }: {
-  isActive: boolean
-  onPress: () => void
+  onPressFeeds: () => void
+  onPressLists: () => void
 }): React.ReactNode => {
   const {_} = useLingui()
   const t = useTheme()
-  return (
-    <MenuItem
-      icon={
-        isActive ? (
-          <HashtagFilled width={iconWidth} style={[t.atoms.text]} />
-        ) : (
-          <Hashtag width={iconWidth} style={[t.atoms.text]} />
-        )
-      }
-      label={_(msg`Feeds`)}
-      bold={isActive}
-      onPress={onPress}
-    />
-  )
-}
-FeedsMenuItem = memo(FeedsMenuItem)
-
-let ListsMenuItem = ({onPress}: {onPress: () => void}): React.ReactNode => {
-  const {_} = useLingui()
-  const t = useTheme()
 
   return (
-    <MenuItem
-      icon={<List style={[t.atoms.text]} width={iconWidth} />}
-      label={_(msg`Lists`)}
-      onPress={onPress}
-    />
+    <Menu.Root>
+      <Menu.Trigger label={_(msg`More`)}>
+        {({props}) => (
+          <MenuItem
+            {...props}
+            icon={<Ellipsis style={[t.atoms.text]} width={30} />}
+            label={_(msg`More`)}
+            style={[a.py_lg]}
+          />
+        )}
+      </Menu.Trigger>
+      <Menu.Outer>
+        <Menu.Item
+          label={_(msg`Feeds`)}
+          style={{minHeight: 56, paddingVertical: 14}}
+          onPress={onPressFeeds}>
+          <Menu.ItemIcon icon={Hashtag} />
+          <Menu.ItemText style={a.text_lg}>
+            <Trans>Feeds</Trans>
+          </Menu.ItemText>
+        </Menu.Item>
+        <Menu.Item
+          label={_(msg`Lists`)}
+          style={{minHeight: 56, paddingVertical: 14}}
+          onPress={onPressLists}>
+          <Menu.ItemIcon icon={List} />
+          <Menu.ItemText style={a.text_lg}>
+            <Trans>Lists</Trans>
+          </Menu.ItemText>
+        </Menu.Item>
+      </Menu.Outer>
+    </Menu.Root>
   )
 }
-ListsMenuItem = memo(ListsMenuItem)
+MoreMenuItem = memo(MoreMenuItem)
 
 let BookmarksMenuItem = ({
   isActive,

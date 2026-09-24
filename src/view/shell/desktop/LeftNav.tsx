@@ -45,17 +45,11 @@ import {
   Bookmark as BookmarkIcon,
   BookmarkFilled as BookmarkFilledIcon,
 } from '#/components/icons/Bookmark'
-import {
-  BulletList_Filled_Corner0_Rounded as ListFilledIcon,
-  BulletList_Stroke2_Corner0_Rounded as ListIcon,
-} from '#/components/icons/BulletList'
+import {BulletList_Stroke2_Corner0_Rounded as ListIcon} from '#/components/icons/BulletList'
 import {type Props as SVGIconProps} from '#/components/icons/common'
 import {DotGrid3x1_Stroke2_Corner0_Rounded as EllipsisIcon} from '#/components/icons/DotGrid'
 import {EditBig_Stroke2_Corner2_Rounded as EditBigIcon} from '#/components/icons/EditBig'
-import {
-  Hashtag_Filled_Corner0_Rounded as HashtagFilledIcon,
-  Hashtag_Stroke2_Corner0_Rounded as HashtagIcon,
-} from '#/components/icons/Hashtag'
+import {Hashtag_Stroke2_Corner0_Rounded as HashtagIcon} from '#/components/icons/Hashtag'
 import {
   HomeOpen_Filled_Corner0_Rounded as HomeFilledIcon,
   HomeOpen_Stoke2_Corner0_Rounded as HomeIcon,
@@ -536,6 +530,68 @@ function NavItem({
   )
 }
 
+function MoreNavItem({minimal}: {minimal: boolean}) {
+  const {t: l} = useLingui()
+  const t = useTheme()
+  const navigation = useNavigation<NavigationProp>()
+  const ax = useAnalytics()
+
+  return (
+    <Menu.Root>
+      <Menu.Trigger label={l`More`}>
+        {({props, control}) => (
+          <PressableWithHover
+            {...props}
+            style={[
+              a.flex_row,
+              a.align_center,
+              a.p_md,
+              a.rounded_full,
+              a.gap_sm,
+              a.outline_inset_1,
+              a.transition_color,
+              a.w_full,
+            ]}
+            hoverStyle={t.atoms.bg_contrast_25}>
+            <EllipsisIcon width={NAV_ICON_WIDTH} style={t.atoms.text} />
+            {!minimal && (
+              <Text style={[a.text_xl, control.isOpen && a.font_bold]}>
+                <Trans>More</Trans>
+              </Text>
+            )}
+          </PressableWithHover>
+        )}
+      </Menu.Trigger>
+      <Menu.Outer>
+        <Menu.Item
+          label={l`Feeds`}
+          style={{minHeight: 56, paddingVertical: 14}}
+          onPress={() => {
+            ax.metric('nav:click', {item: 'feeds', surface: 'leftNav'})
+            navigation.navigate('Feeds')
+          }}>
+          <Menu.ItemIcon icon={HashtagIcon} />
+          <Menu.ItemText style={a.text_lg}>
+            <Trans>Feeds</Trans>
+          </Menu.ItemText>
+        </Menu.Item>
+        <Menu.Item
+          label={l`Lists`}
+          style={{minHeight: 56, paddingVertical: 14}}
+          onPress={() => {
+            ax.metric('nav:click', {item: 'lists', surface: 'leftNav'})
+            navigation.navigate('Lists')
+          }}>
+          <Menu.ItemIcon icon={ListIcon} />
+          <Menu.ItemText style={a.text_lg}>
+            <Trans>Lists</Trans>
+          </Menu.ItemText>
+        </Menu.Item>
+      </Menu.Outer>
+    </Menu.Root>
+  )
+}
+
 function ComposeBtn({minimal}: {minimal: boolean}) {
   const {currentAccount} = useSession()
   const {getState} = useNavigation()
@@ -708,26 +764,6 @@ export function DesktopLeftNav({routeName}: {routeName: string}) {
             }}
           />
           <NavItem
-            label={l`Feeds`}
-            href="/feeds"
-            navItem="feeds"
-            minimal={leftNavMinimal}
-            icons={{
-              inactive: HashtagIcon,
-              active: HashtagFilledIcon,
-            }}
-          />
-          <NavItem
-            label={l`Lists`}
-            href="/lists"
-            navItem="lists"
-            minimal={leftNavMinimal}
-            icons={{
-              inactive: ListIcon,
-              active: ListFilledIcon,
-            }}
-          />
-          <NavItem
             label={l({
               message: 'Saved',
               context: 'link to bookmarks screen',
@@ -760,6 +796,7 @@ export function DesktopLeftNav({routeName}: {routeName: string}) {
               active: SettingsFilledIcon,
             }}
           />
+          <MoreNavItem minimal={leftNavMinimal} />
 
           <ComposeBtn minimal={leftNavMinimal} />
         </>

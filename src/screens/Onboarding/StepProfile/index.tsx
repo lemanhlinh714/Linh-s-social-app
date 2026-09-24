@@ -149,26 +149,26 @@ export function StepProfile() {
   const onContinue = useCallback(async () => {
     let imageUri = avatar?.image?.path
 
-    // In the event that view-shot didn't load in time and the user pressed continue, this will just be undefined
-    // and the default avatar will be used. We don't want to block getting through create if this fails for some
-    // reason
-    if (!imageUri || avatar.useCreatedAvatar) {
+    // Only capture the generated avatar after the user explicitly chooses it.
+    // Leaving the avatar untouched should keep the profile avatar unset so the
+    // standard user placeholder is rendered instead of the default "@" icon.
+    if (avatar.useCreatedAvatar) {
       imageUri = await canvasRef.current?.capture()
     }
 
-    if (imageUri) {
-      dispatch({
-        type: 'setProfileStepResults',
-        image: avatar.image,
-        imageUri,
-        imageMime: avatar.image?.mime ?? 'image/jpeg',
-        isCreatedAvatar: avatar.useCreatedAvatar,
-        creatorState: {
-          emoji: avatar.placeholder,
-          backgroundColor: avatar.backgroundColor,
-        },
-      })
-    }
+    dispatch({
+      type: 'setProfileStepResults',
+      image: avatar.useCreatedAvatar ? avatar.image : undefined,
+      imageUri,
+      imageMime: avatar.image?.mime ?? 'image/jpeg',
+      isCreatedAvatar: avatar.useCreatedAvatar && Boolean(imageUri),
+      creatorState: avatar.useCreatedAvatar
+        ? {
+            emoji: avatar.placeholder,
+            backgroundColor: avatar.backgroundColor,
+          }
+        : undefined,
+    })
 
     dispatch({type: 'next'})
     ax.metric('onboarding:profile:nextPressed', {})
