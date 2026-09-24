@@ -1527,10 +1527,6 @@ msgstr ""
 msgid "Already have a code?"
 msgstr ""
 
-#: src/components/WelcomeModal.tsx:190
-msgid "Already have an account?"
-msgstr ""
-
 #. placeholder {0}: account.handle
 #: src/screens/Login/ChooseAccountForm.tsx:44
 msgid "Already signed in as @{0}"
@@ -3069,7 +3065,7 @@ msgstr "Close banner"
 msgid "Close dialog"
 msgstr ""
 
-#: src/view/shell/index.web.tsx:127
+#: src/view/shell/index.web.tsx:120
 msgid "Close drawer menu"
 msgstr ""
 
@@ -3103,10 +3099,6 @@ msgstr "Close the incoming requests banner"
 #: src/components/intents/GroupChatJoinDialog.tsx:282
 #: src/components/Menu/index.tsx:367
 msgid "Close this dialog"
-msgstr ""
-
-#: src/components/WelcomeModal.tsx:215
-msgid "Close welcome modal"
 msgstr ""
 
 #: src/screens/Login/PasswordUpdatedForm.tsx:31
@@ -3152,7 +3144,7 @@ msgstr ""
 msgid "Community Guidelines"
 msgstr ""
 
-#: src/screens/Onboarding/StepFinished/index.tsx:335
+#: src/screens/Onboarding/StepFinished/index.tsx:331
 msgid "Complete onboarding and start using your account"
 msgstr ""
 
@@ -3650,8 +3642,6 @@ msgstr ""
 msgid "Create a starter pack for me"
 msgstr ""
 
-#: src/components/WelcomeModal.tsx:156
-#: src/components/WelcomeModal.tsx:164
 #: src/screens/Messages/JoinRequest.tsx:318
 #: src/screens/Signup/index.tsx:139
 #: src/view/com/auth/SplashScreen.tsx:108
@@ -4823,11 +4813,6 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
-#: src/components/WelcomeModal.tsx:169
-#: src/components/WelcomeModal.tsx:178
-msgid "Explore the app"
-msgstr ""
-
 #: src/screens/Messages/Settings.tsx:329
 #: src/screens/Messages/Settings.tsx:338
 #: src/screens/Settings/components/ExportCarDialog.tsx:134
@@ -5316,7 +5301,7 @@ msgctxt "search"
 msgid "Filters"
 msgstr "Filters"
 
-#: src/screens/Onboarding/StepFinished/index.tsx:341
+#: src/screens/Onboarding/StepFinished/index.tsx:337
 msgid "Finalizing"
 msgstr ""
 
@@ -7052,7 +7037,7 @@ msgstr ""
 msgid "Let's get your password reset!"
 msgstr ""
 
-#: src/screens/Onboarding/StepFinished/index.tsx:343
+#: src/screens/Onboarding/StepFinished/index.tsx:339
 msgid "Let's go!"
 msgstr ""
 
@@ -8057,8 +8042,8 @@ msgstr ""
 #: src/screens/Login/ForgotPasswordForm.tsx:154
 #: src/screens/Login/SetNewPasswordForm.tsx:176
 #: src/screens/Login/SetNewPasswordForm.tsx:182
-#: src/screens/Onboarding/StepFinished/index.tsx:336
-#: src/screens/Onboarding/StepFinished/index.tsx:345
+#: src/screens/Onboarding/StepFinished/index.tsx:332
+#: src/screens/Onboarding/StepFinished/index.tsx:341
 #: src/screens/Settings/components/AddAppPasswordDialog.tsx:157
 #: src/screens/Settings/components/AddAppPasswordDialog.tsx:165
 #: src/screens/Signup/BackNextButtons.tsx:68
@@ -9767,14 +9752,6 @@ msgstr ""
 msgid "Read the Bluesky Terms of Service"
 msgstr ""
 
-#: src/components/WelcomeModal.tsx:147
-msgid "Real conversations."
-msgstr ""
-
-#: src/components/WelcomeModal.tsx:145
-msgid "Real people."
-msgstr ""
-
 #: src/screens/Takendown.tsx:156
 #: src/screens/Takendown.tsx:164
 msgid "Reason for appeal"
@@ -11470,8 +11447,6 @@ msgstr ""
 
 #: src/components/dialogs/Signin.tsx:98
 #: src/components/dialogs/Signin.tsx:100
-#: src/components/WelcomeModal.tsx:196
-#: src/components/WelcomeModal.tsx:207
 #: src/screens/Hashtag.tsx:233
 #: src/screens/Login/index.tsx:143
 #: src/screens/Login/index.tsx:165
@@ -11578,8 +11553,8 @@ msgstr "Since"
 #: src/components/contacts/screens/VerifyNumber.tsx:208
 #: src/screens/Onboarding/StepFindContactsIntro/index.tsx:86
 #: src/screens/Onboarding/StepFindContactsIntro/index.tsx:90
-#: src/screens/Onboarding/StepFinished/index.tsx:301
-#: src/screens/Onboarding/StepFinished/index.tsx:323
+#: src/screens/Onboarding/StepFinished/index.tsx:297
+#: src/screens/Onboarding/StepFinished/index.tsx:319
 #: src/screens/Onboarding/StepSuggestedAccounts/index.tsx:285
 #: src/screens/Onboarding/StepSuggestedStarterpacks/index.tsx:105
 #: src/screens/StarterPack/Wizard/index.tsx:202
@@ -11595,8 +11570,8 @@ msgstr ""
 msgid "Skip empty posts?"
 msgstr "Skip empty posts?"
 
-#: src/screens/Onboarding/StepFinished/index.tsx:294
-#: src/screens/Onboarding/StepFinished/index.tsx:320
+#: src/screens/Onboarding/StepFinished/index.tsx:290
+#: src/screens/Onboarding/StepFinished/index.tsx:316
 msgid "Skip introduction and start using your account"
 msgstr ""
 
@@ -11619,10 +11594,6 @@ msgstr ""
 
 #: src/view/com/composer/drafts/DraftsListDialog.tsx:155
 msgid "So many thoughts, you should post one"
-msgstr ""
-
-#: src/components/WelcomeModal.tsx:149
-msgid "Social media you control."
 msgstr ""
 
 #. Name for a feature flag
