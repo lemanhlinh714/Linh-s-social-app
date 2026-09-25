@@ -1,4 +1,12 @@
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import {View} from 'react-native'
 import {useLingui} from '@lingui/react/macro'
 import {useNavigation} from '@react-navigation/native'
 
@@ -9,7 +17,9 @@ import {logger} from '#/logger'
 import {useProfileFollowsQuery} from '#/state/queries/profile-follows'
 import {useResolveDidQuery} from '#/state/queries/resolve-uri'
 import {useSession} from '#/state/session'
+import {atoms as a} from '#/alf'
 import {FindContactsBannerNUX} from '#/components/contacts/FindContactsBannerNUX'
+import {SearchInput} from '#/components/forms/SearchInput'
 import {PeopleRemove2_Stroke1_Corner0_Rounded as PeopleRemoveIcon} from '#/components/icons/PeopleRemove2'
 import {ListFooter, ListMaybePlaceholder} from '#/components/Lists'
 import {useAnalytics} from '#/analytics'
@@ -61,6 +71,7 @@ export function ProfileFollows({name}: {name: string}) {
   }, [navigation])
 
   const [isPTRing, setIsPTRing] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const {
     data: resolvedDid,
     isLoading: isDidLoading,
@@ -88,6 +99,23 @@ export function ProfileFollows({name}: {name: string}) {
     }
     return []
   }, [data])
+
+  const deferredSearchQuery = useDeferredValue(searchQuery)
+  const normalizedSearchQuery = deferredSearchQuery
+    .trim()
+    .replace(/^@/, '')
+    .toLowerCase()
+  const filteredFollows = useMemo(() => {
+    if (!normalizedSearchQuery) return follows
+    return follows.filter(profile => {
+      const handle = profile.handle.toLowerCase()
+      const displayName = profile.displayName?.toLowerCase() || ''
+      return (
+        handle.includes(normalizedSearchQuery) ||
+        displayName.includes(normalizedSearchQuery)
+      )
+    })
+  }, [follows, normalizedSearchQuery])
 
   // Track pagination events - fire for page 3+ (pages 1-2 may auto-load)
   const paginationTrackingRef = useRef<{
@@ -141,6 +169,24 @@ export function ProfileFollows({name}: {name: string}) {
       logger.error('Failed to load more follows', {error: err})
     }
   }, [isFetchingNextPage, hasNextPage, error, fetchNextPage])
+
+  useEffect(() => {
+    if (
+      !normalizedSearchQuery ||
+      filteredFollows.length > 0 ||
+      !hasNextPage ||
+      isFetchingNextPage
+    ) {
+      return
+    }
+    void fetchNextPage()
+  }, [
+    normalizedSearchQuery,
+    filteredFollows.length,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  ])
 
   const renderItemWithContext = useCallback(
     ({item, index}: {item: app.bsky.actor.defs.ProfileView; index: number}) =>
@@ -213,7 +259,7 @@ export function ProfileFollows({name}: {name: string}) {
 
   return (
     <List
-      data={follows}
+      data={filteredFollows}
       renderItem={renderItemWithContext}
       keyExtractor={keyExtractor}
       refreshing={isPTRing}
@@ -221,7 +267,31 @@ export function ProfileFollows({name}: {name: string}) {
       onEndReached={() => void onEndReached()}
       onEndReachedThreshold={4}
       onItemSeen={onItemSeen}
-      ListHeaderComponent={<FindContactsBannerNUX />}
+      ListHeaderComponent={
+        <>
+          <View style={[a.px_lg, a.pt_sm, a.pb_xs]}>
+            <SearchInput
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              onClearText={() => setSearchQuery('')}
+              label={l`Search accounts this user follows`}
+            />
+          </View>
+          <FindContactsBannerNUX />
+        </>
+      }
+      ListEmptyComponent={
+        normalizedSearchQuery && !isFetchingNextPage ? (
+          <ListMaybePlaceholder
+            isLoading={false}
+            isError={false}
+            emptyType="results"
+            emptyMessage={l`No accounts found`}
+            sideBorders={false}
+            useEmptyState={true}
+          />
+        ) : undefined
+      }
       ListFooterComponent={
         <ListFooter
           isFetchingNextPage={isFetchingNextPage}
