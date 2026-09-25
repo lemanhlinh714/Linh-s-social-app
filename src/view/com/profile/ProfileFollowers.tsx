@@ -1,4 +1,12 @@
-import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import {
+  useCallback,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
+import {View} from 'react-native'
 import {useLingui} from '@lingui/react/macro'
 import {useNavigation} from '@react-navigation/native'
 
@@ -9,7 +17,9 @@ import {logger} from '#/logger'
 import {useProfileFollowersQuery} from '#/state/queries/profile-followers'
 import {useResolveDidQuery} from '#/state/queries/resolve-uri'
 import {useSession} from '#/state/session'
+import {atoms as a} from '#/alf'
 import {useIsFindContactsFeatureEnabledBasedOnGeolocation} from '#/components/contacts/country-allowlist'
+import {SearchInput} from '#/components/forms/SearchInput'
 import {PeopleRemove2_Stroke1_Corner0_Rounded as PeopleRemoveIcon} from '#/components/icons/PeopleRemove2'
 import {ListFooter, ListMaybePlaceholder} from '#/components/Lists'
 import {useAnalytics} from '#/analytics'
@@ -56,6 +66,7 @@ export function ProfileFollowers({name}: {name: string}) {
   const isSortEnabled = ax.features.enabled(ax.features.FollowSortEnable)
 
   const [isPTRing, setIsPTRing] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const {
     data: resolvedDid,
     isLoading: isDidLoading,
@@ -83,6 +94,23 @@ export function ProfileFollowers({name}: {name: string}) {
     }
     return []
   }, [data])
+
+  const deferredSearchQuery = useDeferredValue(searchQuery)
+  const normalizedSearchQuery = deferredSearchQuery
+    .trim()
+    .replace(/^@/, '')
+    .toLowerCase()
+  const filteredFollowers = useMemo(() => {
+    if (!normalizedSearchQuery) return followers
+    return followers.filter(profile => {
+      const handle = profile.handle.toLowerCase()
+      const displayName = profile.displayName?.toLowerCase() || ''
+      return (
+        handle.includes(normalizedSearchQuery) ||
+        displayName.includes(normalizedSearchQuery)
+      )
+    })
+  }, [followers, normalizedSearchQuery])
 
   // Track pagination events - fire for page 3+ (pages 1-2 may auto-load)
   const paginationTrackingRef = useRef<{
@@ -136,6 +164,24 @@ export function ProfileFollowers({name}: {name: string}) {
       logger.error('Failed to load more followers', {message: err})
     }
   }, [isFetchingNextPage, hasNextPage, error, fetchNextPage])
+
+  useEffect(() => {
+    if (
+      !normalizedSearchQuery ||
+      filteredFollowers.length > 0 ||
+      !hasNextPage ||
+      isFetchingNextPage
+    ) {
+      return
+    }
+    void fetchNextPage()
+  }, [
+    normalizedSearchQuery,
+    filteredFollowers.length,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  ])
 
   const renderItemWithContext = useCallback(
     ({item, index}: {item: app.bsky.actor.defs.ProfileView; index: number}) =>
@@ -231,7 +277,7 @@ export function ProfileFollowers({name}: {name: string}) {
         />
       ) : (
         <List
-          data={followers}
+          data={filteredFollowers}
           renderItem={renderItemWithContext}
           keyExtractor={keyExtractor}
           refreshing={isPTRing}
@@ -239,6 +285,28 @@ export function ProfileFollowers({name}: {name: string}) {
           onEndReached={() => void onEndReached()}
           onEndReachedThreshold={4}
           onItemSeen={onItemSeen}
+          ListHeaderComponent={
+            <View style={[a.px_lg, a.pt_sm, a.pb_xs]}>
+              <SearchInput
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                onClearText={() => setSearchQuery('')}
+                label={l`Search accounts following this user`}
+              />
+            </View>
+          }
+          ListEmptyComponent={
+            normalizedSearchQuery && !isFetchingNextPage ? (
+              <ListMaybePlaceholder
+                isLoading={false}
+                isError={false}
+                emptyType="results"
+                emptyMessage={l`No accounts found`}
+                sideBorders={false}
+                useEmptyState={true}
+              />
+            ) : undefined
+          }
           ListFooterComponent={
             <ListFooter
               isFetchingNextPage={isFetchingNextPage}
