@@ -1,0 +1,56 @@
+{
+  "id": "app.linh.profileMetadata",
+  "defs": {
+    "main": {
+      "key": "literal:self",
+      "type": "record",
+      "record": {
+        "type": "object",
+        "required": [
+          "links",
+          "updatedAt"
+        ],
+        "properties": {
+          "location": {
+            "type": "string",
+            "maxLength": 200,
+            "maxGraphemes": 100
+          },
+          "links": {
+            "type": "array",
+            "maxLength": 10,
+            "items": {
+              "ref": "#externalLink",
+              "type": "ref"
+            }
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    },
+    "externalLink": {
+      "type": "object",
+      "required": [
+        "label",
+        "url"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "maxLength": 100,
+          "maxGraphemes": 50
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        }
+      }
+    }
+  },
+  "$type": "com.atproto.lexicon.schema",
+  "lexicon": 1
+}

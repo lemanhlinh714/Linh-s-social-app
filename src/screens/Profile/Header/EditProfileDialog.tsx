@@ -10,6 +10,11 @@ import {isOverMaxGraphemeCount} from '#/lib/strings/helpers'
 import {logger} from '#/logger'
 import {type ImageMeta} from '#/state/gallery'
 import {useProfileUpdateMutation} from '#/state/queries/profile'
+import {
+  type ProfileMetadataLinkInput,
+  useProfileMetadataMutation,
+  useProfileMetadataQuery,
+} from '#/state/queries/profile-metadata'
 import {ErrorMessage} from '#/view/com/util/error/ErrorMessage'
 import {EditableUserAvatar} from '#/view/com/util/UserAvatar'
 import {UserBanner} from '#/view/com/util/UserBanner'
@@ -76,8 +81,9 @@ export function EditProfileDialog({
         title={_(msg`Discard changes?`)}
         description={_(msg`Are you sure you want to discard your changes?`)}
         onConfirm={() => control.close()}
-        confirmButtonCta={_(msg`Discard`)}
+        confirmButtonCta={_(msg`Hủy bỏ`)}
         confirmButtonColor="negative"
+        cancelButtonCta={_(msg`Tiếp tục chỉnh sửa`)}
       />
     </Dialog.Outer>
   )
@@ -106,11 +112,17 @@ function DialogInner({
     isError: isUpdateProfileError,
     isPending: isUpdatingProfile,
   } = useProfileUpdateMutation()
+  const {data: savedMetadata} = useProfileMetadataQuery(profile.did)
+  const {mutateAsync: updateMetadata} = useProfileMetadataMutation()
   const [imageError, setImageError] = useState('')
   const initialDisplayName = profile.displayName || ''
   const [displayName, setDisplayName] = useState(initialDisplayName)
   const initialDescription = profile.description || ''
   const [description, setDescription] = useState(initialDescription)
+  const [location, setLocation] = useState('')
+  const [externalLinks, setExternalLinks] = useState<
+    ProfileMetadataLinkInput[]
+  >([])
   const [userBanner, setUserBanner] = useState<string | undefined | null>(
     profile.banner,
   )
@@ -124,11 +136,25 @@ function DialogInner({
     ImageMeta | undefined | null
   >()
 
+  useEffect(() => {
+    setLocation(savedMetadata?.location || '')
+    setExternalLinks(
+      savedMetadata?.links.map(link => ({label: link.label, url: link.url})) ||
+        [],
+    )
+  }, [savedMetadata])
+
+  const initialMetadata = JSON.stringify({
+    location: savedMetadata?.location || '',
+    links: savedMetadata?.links || [],
+  })
+
   const dirty =
     displayName !== initialDisplayName ||
     description !== initialDescription ||
     userAvatar !== profile.avatar ||
-    userBanner !== profile.banner
+    userBanner !== profile.banner ||
+    JSON.stringify({location, links: externalLinks}) !== initialMetadata
 
   useEffect(() => {
     setDirty(dirty)
@@ -182,6 +208,7 @@ function DialogInner({
         newUserAvatar,
         newUserBanner,
       })
+      await updateMetadata({location: location.trim(), links: externalLinks})
       control.close(() => onUpdate?.())
       Toast.show(_(msg({message: 'Profile updated', context: 'toast'})))
     } catch (e: any) {
@@ -196,6 +223,10 @@ function DialogInner({
     description,
     newUserAvatar,
     newUserBanner,
+    updateMetadata,
+    location,
+    externalLinks,
+    initialMetadata,
     setImageError,
     _,
   ])
@@ -383,6 +414,83 @@ function DialogInner({
               />
             </Text>
           )}
+        </View>
+
+        <View>
+          <TextField.LabelText>
+            <Trans>Location</Trans>
+          </TextField.LabelText>
+          <TextField.Root>
+            <Dialog.Input
+              defaultValue={location}
+              onChangeText={setLocation}
+              label={_(msg`Location`)}
+              placeholder={_(msg`e.g. Hà Nội, Việt Nam`)}
+              testID="editProfileLocationInput"
+            />
+          </TextField.Root>
+        </View>
+
+        <View style={[a.gap_sm]}>
+          <TextField.LabelText>
+            <Trans>External links</Trans>
+          </TextField.LabelText>
+          {externalLinks.map((link, index) => (
+            <View key={`${index}-${link.url}`} style={[a.gap_xs]}>
+              <TextField.Root>
+                <Dialog.Input
+                  defaultValue={link.label}
+                  onChangeText={label => {
+                    setExternalLinks(links =>
+                      links.map((item, itemIndex) =>
+                        itemIndex === index ? {...item, label} : item,
+                      ),
+                    )
+                  }}
+                  label={_(msg`Link name`)}
+                />
+              </TextField.Root>
+              <TextField.Root>
+                <Dialog.Input
+                  defaultValue={link.url}
+                  onChangeText={url => {
+                    setExternalLinks(links =>
+                      links.map((item, itemIndex) =>
+                        itemIndex === index ? {...item, url} : item,
+                      ),
+                    )
+                  }}
+                  label={_(msg`Link URL`)}
+                  keyboardType="url"
+                  autoCapitalize="none"
+                />
+              </TextField.Root>
+              <Button
+                size="small"
+                color="negative_subtle"
+                label={_(msg`Remove link`)}
+                onPress={() =>
+                  setExternalLinks(links =>
+                    links.filter((_, itemIndex) => itemIndex !== index),
+                  )
+                }>
+                <ButtonText>
+                  <Trans>Remove</Trans>
+                </ButtonText>
+              </Button>
+            </View>
+          ))}
+          <Button
+            size="small"
+            color="secondary"
+            label={_(msg`Add external link`)}
+            onPress={() =>
+              setExternalLinks(links => [...links, {label: '', url: ''}])
+            }>
+            <ButtonText>
+              <Trans>Add link</Trans>
+            </ButtonText>
+          </Button>
         </View>
       </View>
     </Dialog.ScrollableInner>
