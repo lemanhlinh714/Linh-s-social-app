@@ -45,6 +45,7 @@ import {ProfileHeaderDisplayName} from './DisplayName'
 import {EditProfileDialog} from './EditProfileDialog'
 import {ProfileHeaderHandle} from './Handle'
 import {ProfileHeaderMetrics} from './Metrics'
+import {ProfileMetadata} from './ProfileMetadata'
 import {ProfileHeaderShell} from './Shell'
 import {ProfileHeaderSuggestedFollows} from './SuggestedFollows'
 
@@ -156,6 +157,7 @@ let ProfileHeaderStandard = ({
                   />
                 </View>
               ) : undefined}
+              <ProfileMetadata did={profile.did} />
 
               {profile.associated?.germ && (
                 <GermButton germ={profile.associated.germ} profile={profile} />

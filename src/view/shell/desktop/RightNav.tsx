@@ -8,7 +8,6 @@ import {useNavigation} from '@react-navigation/native'
 import {FEEDBACK_FORM_URL, HELP_DESK_URL} from '#/lib/constants'
 import {useSession} from '#/state/session'
 import {useLogoVariant} from '#/view/icons/useLogoVariant'
-import {DesktopFeeds} from '#/view/shell/desktop/Feeds'
 import {DesktopSearch} from '#/view/shell/desktop/Search'
 import {SidebarTrendingTopics} from '#/view/shell/desktop/SidebarTrendingTopics'
 import {
@@ -23,7 +22,7 @@ import {CENTER_COLUMN_OFFSET} from '#/components/Layout'
 import {InlineLinkText} from '#/components/Link'
 import {ProgressGuideList} from '#/components/ProgressGuide/List'
 import {Text} from '#/components/Typography'
-import {SidebarLiveEventFeedsBanner} from '#/features/liveEvents/components/SidebarLiveEventFeedsBanner'
+import {SidebarAdBanner} from '#/features/advertising/SidebarAdBanner'
 
 function useWebQueryParams() {
   const navigation = useNavigation()
@@ -89,12 +88,11 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
 
       {hasSession && (
         <>
-          <DesktopFeeds />
+          <SidebarAdBanner />
           <ProgressGuideList />
         </>
       )}
 
-      {showExploreScreenDuplicatedContent && <SidebarLiveEventFeedsBanner />}
       {showExploreScreenDuplicatedContent && <SidebarTrendingTopics />}
 
       <Text style={[a.leading_snug, t.atoms.text_contrast_low]}>
