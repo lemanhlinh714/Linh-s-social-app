@@ -242,6 +242,7 @@ export function DraftItem({
         onConfirm={handleDelete}
         confirmButtonCta={_(msg`Discard`)}
         confirmButtonColor="negative"
+        cancelButtonCta={_(msg`Keep`)}
       />
     </>
   )
