@@ -1,4 +1,5 @@
-import {StyleSheet, View} from 'react-native'
+import {Pressable, StyleSheet, View} from 'react-native'
+import {useLingui} from '@lingui/react/macro'
 import {DismissableLayer, FocusGuards, FocusScope} from 'radix-ui/internal'
 import {RemoveScrollBar} from 'react-remove-scroll-bar'
 
@@ -28,6 +29,7 @@ export function Composer() {
 function Inner({state}: {state: ComposerOpts}) {
   const ref = useComposerCancelRef()
   const t = useTheme()
+  const {t: l} = useLingui()
   const {gtMobile} = useBreakpoints()
   const {reduceMotionEnabled} = useA11y()
 
@@ -48,11 +50,18 @@ function Inner({state}: {state: ComposerOpts}) {
           !reduceMotionEnabled && a.fade_in,
         ])}
         onFocusOutside={evt => evt.preventDefault()}
-        onInteractOutside={evt => evt.preventDefault()}
         onDismiss={() => ref.current?.onPressCancel()}>
+        <Pressable
+          style={[a.absolute, a.inset_0]}
+          onPress={() => ref.current?.onPressCancel()}
+          accessibilityRole="button"
+          accessibilityLabel={l`Close composer`}
+          accessibilityHint={l`Opens the save or discard options for your draft`}
+        />
         <View
           style={[
             styles.container,
+            {zIndex: 1},
             !gtMobile && styles.containerMobile,
             t.atoms.bg,
             t.atoms.border_contrast_medium,

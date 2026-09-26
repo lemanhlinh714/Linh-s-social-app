@@ -4284,7 +4284,11 @@ msgstr ""
 #: src/view/com/composer/drafts/DraftsButton.tsx:79
 #: src/view/com/composer/drafts/DraftsListDialog.tsx:119
 msgid "Drafts"
-msgstr ""
+msgstr "Nháp"
+
+#: src/view/com/composer/drafts/DraftItem.tsx
+msgid "Keep"
+msgstr "Giữ lại"
 
 #: src/view/com/composer/text-input/TextInput.web.tsx:371
 msgid "Drop to add images"
