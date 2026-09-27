@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
-import {View} from 'react-native'
+import {Linking, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useLingui} from '@lingui/react/macro'
 import {useQueryClient} from '@tanstack/react-query'
@@ -15,14 +15,18 @@ import {
 } from '#/state/shell/logged-out'
 import {useEnableMinimalShellMode} from '#/state/shell/minimal-mode'
 import {ErrorBoundary} from '#/view/com/util/ErrorBoundary'
+import {LoggedOutLayout} from '#/view/com/util/layouts/LoggedOutLayout'
 import {Login} from '#/screens/Login'
 import {JoinRequest} from '#/screens/Messages/JoinRequest'
 import {Signup} from '#/screens/Signup'
 import {LandingScreen} from '#/screens/StarterPack/StarterPackLandingScreen'
 import {atoms as a, native, tokens, useTheme} from '#/alf'
-import {Button, ButtonIcon} from '#/components/Button'
+import {Admonition} from '#/components/Admonition'
+import {Button, ButtonIcon, ButtonText} from '#/components/Button'
 import {TimesLarge_Stroke2_Corner0_Rounded as XIcon} from '#/components/icons/Times'
+import {Text} from '#/components/Typography'
 import {useAnalytics} from '#/analytics'
+import {IS_WEB} from '#/env'
 import {app} from '#/lexicons'
 import {SplashScreen} from './SplashScreen'
 
@@ -30,6 +34,7 @@ enum ScreenState {
   S_LoginOrCreateAccount,
   S_Login,
   S_CreateAccount,
+  S_ChooseSignupMethod,
   S_StarterPack,
   S_GroupChatJoinRequest,
 }
@@ -38,7 +43,7 @@ export {ScreenState as LoggedOutScreenState}
 function getInitialScreenState(requestedAccountSwitchTo?: string): ScreenState {
   switch (requestedAccountSwitchTo) {
     case 'new':
-      return ScreenState.S_CreateAccount
+      return ScreenState.S_ChooseSignupMethod
     case 'starterpack':
       return ScreenState.S_StarterPack
     case 'groupchat':
@@ -67,6 +72,28 @@ export function LoggedOut({onDismiss}: {onDismiss?: () => void}) {
   const queryClient = useQueryClient()
   const {accounts} = useSession()
   const client = useAppviewClient()
+  const [signupChoiceReturnState, setSignupChoiceReturnState] = useState(
+    ScreenState.S_LoginOrCreateAccount,
+  )
+
+  const onPressCreateAccount = useCallback(() => {
+    ax.metric('splash:createAccountPressed', {})
+    setSignupChoiceReturnState(screenState)
+    setScreenState(ScreenState.S_ChooseSignupMethod)
+  }, [ax, screenState])
+
+  const onContinueToBluesky = useCallback(() => {
+    if (IS_WEB) {
+      window.open(
+        'https://bsky.app/',
+        'bluesky-signup',
+        'popup,width=520,height=760',
+      )
+    } else {
+      void Linking.openURL('https://bsky.app/')
+    }
+  }, [])
+
   useEffect(() => {
     const actors = accounts.map(acc => acc.did)
     if (actors.length === 0) return
@@ -153,18 +180,19 @@ export function LoggedOut({onDismiss}: {onDismiss?: () => void}) {
               setScreenState(ScreenState.S_Login)
               ax.metric('splash:signInPressed', {})
             }}
-            onPressCreateAccount={() => {
-              setScreenState(ScreenState.S_CreateAccount)
-              ax.metric('splash:createAccountPressed', {})
-            }}
+            onPressCreateAccount={onPressCreateAccount}
           />
         ) : undefined}
         {screenState === ScreenState.S_Login ? (
           <Login
             onPressBack={onPressBack}
-            onPressCreateAccount={() => {
-              setScreenState(ScreenState.S_CreateAccount)
-            }}
+            onPressCreateAccount={onPressCreateAccount}
+          />
+        ) : undefined}
+        {screenState === ScreenState.S_ChooseSignupMethod ? (
+          <SignupMethodScreen
+            onBack={() => setScreenState(signupChoiceReturnState)}
+            onContinueToBluesky={onContinueToBluesky}
           />
         ) : undefined}
         {screenState === ScreenState.S_CreateAccount ? (
@@ -172,5 +200,87 @@ export function LoggedOut({onDismiss}: {onDismiss?: () => void}) {
         ) : undefined}
       </ErrorBoundary>
     </View>
+  )
+}
+
+function SignupMethodScreen({
+  onBack,
+  onContinueToBluesky,
+}: {
+  onBack: () => void
+  onContinueToBluesky: () => void
+}) {
+  const {i18n, t: l} = useLingui()
+  const isVietnamese = i18n.locale === 'vi'
+  const [showAppNotice, setShowAppNotice] = useState(false)
+
+  return (
+    <LoggedOutLayout
+      leadin={isVietnamese ? 'Tham gia trò chuyện' : l`Join the conversation`}
+      title={isVietnamese ? 'Tạo tài khoản' : l`Create an account`}
+      description={
+        isVietnamese
+          ? 'Chọn nơi bạn muốn tạo tài khoản.'
+          : l`Choose where you want to create your account.`
+      }
+      scrollable>
+      <View style={[a.gap_md, a.px_xl, a.pt_2xl]}>
+        <Admonition type="warning">
+          {isVietnamese
+            ? 'Nếu bạn là người đấu tranh vì dân chủ, hãy ưu tiên sử dụng Bluesky. Đây là mạng xã hội mở, cho phép bạn chọn nhà cung cấp. Hãy cân nhắc quyền riêng tư trước khi chia sẻ thông tin nhạy cảm.'
+            : l`For people advocating for democracy, we recommend considering Bluesky: it is an open social network with a choice of providers. Review its privacy and safety settings before sharing sensitive information.`}
+        </Admonition>
+
+        <Button
+          testID="createBlueskyAccountButton"
+          label={
+            isVietnamese
+              ? 'Tạo tài khoản Bluesky'
+              : l`Create an account with Bluesky`
+          }
+          color="primary"
+          size="large"
+          onPress={onContinueToBluesky}>
+          <ButtonText>
+            {isVietnamese ? 'Tạo bằng Bluesky' : l`Create with Bluesky`}
+          </ButtonText>
+        </Button>
+
+        <Button
+          testID="createAppAccountButton"
+          label={
+            isVietnamese
+              ? 'Tạo tài khoản bằng ứng dụng này'
+              : l`Create an account with this app`
+          }
+          color="secondary"
+          size="large"
+          onPress={() => {
+            setShowAppNotice(true)
+          }}>
+          <ButtonText>
+            {isVietnamese ? 'Tạo bằng ứng dụng này' : l`Create with this app`}
+          </ButtonText>
+        </Button>
+
+        {showAppNotice && (
+          <Admonition type="tip">
+            <Text>
+              {isVietnamese
+                ? 'Tính năng tạo tài khoản bằng ứng dụng này đang được cập nhật và hiện chưa khả dụng.'
+                : l`Account creation in this app is being updated and is not available yet.`}
+            </Text>
+          </Admonition>
+        )}
+
+        <Button
+          label={isVietnamese ? 'Quay lại' : l`Back`}
+          color="secondary"
+          size="large"
+          onPress={onBack}>
+          <ButtonText>{isVietnamese ? 'Quay lại' : l`Back`}</ButtonText>
+        </Button>
+      </View>
+    </LoggedOutLayout>
   )
 }

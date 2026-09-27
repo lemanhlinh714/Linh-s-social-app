@@ -12,6 +12,24 @@ const IFRAME_HOST = IS_WEB
     ? 'http://localhost:8100'
     : 'https://bsky.app'
 
+function getYouTubePlayerUri(videoId: string, start: string): string {
+  if (
+    IS_WEB &&
+    window.location.hostname === 'localhost' &&
+    window.location.port !== '8100'
+  ) {
+    const params = new URLSearchParams({
+      autoplay: '1',
+      playsinline: '1',
+      rel: '0',
+      start,
+    })
+    return `https://www.youtube.com/embed/${videoId}?${params}`
+  }
+
+  return `${IFRAME_HOST}/iframe/youtube.html?videoId=${videoId}&start=${start}`
+}
+
 export const embedPlayerSources = [
   'youtube',
   'youtubeShorts',
@@ -116,7 +134,7 @@ export function parseEmbedPlayerFromUrl(
       return {
         type: 'youtube_video',
         source: 'youtube',
-        playerUri: `${IFRAME_HOST}/iframe/youtube.html?videoId=${videoId}&start=${seek}`,
+        playerUri: getYouTubePlayerUri(videoId, seek),
       }
     }
   }
@@ -142,7 +160,7 @@ export function parseEmbedPlayerFromUrl(
         type: isShorts ? 'youtube_short' : 'youtube_video',
         source: isShorts ? 'youtubeShorts' : 'youtube',
         hideDetails: isShorts ? true : undefined,
-        playerUri: `${IFRAME_HOST}/iframe/youtube.html?videoId=${videoId}&start=${seek}`,
+        playerUri: getYouTubePlayerUri(videoId, seek),
       }
     }
   }
