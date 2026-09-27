@@ -9,7 +9,6 @@ import {
   type NativeStackScreenProps,
 } from '#/lib/routes/types'
 import {s} from '#/lib/styles'
-import {TextLink} from '#/view/com/util/Link'
 import {Text} from '#/view/com/util/text/Text'
 import {ScrollView} from '#/view/com/util/Views'
 import * as Layout from '#/components/Layout'
@@ -28,11 +27,7 @@ export const PrivacyPolicyScreen = (_props: Props) => {
           <Text style={pal.text}>
             <Trans>
               The Privacy Policy has been moved to{' '}
-              <TextLink
-                style={pal.link}
-                href="https://bsky.social/about/support/privacy-policy"
-                text="bsky.social/about/support/privacy-policy"
-              />
+              bsky.social/about/support/privacy-policy
             </Trans>
           </Text>
         </View>

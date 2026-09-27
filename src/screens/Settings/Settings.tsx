@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Alert, LayoutAnimation, Linking, Pressable, View} from 'react-native'
+import {Alert, LayoutAnimation, Pressable, View} from 'react-native'
 import {useReducedMotion} from 'react-native-reanimated'
 import {removeNuxs} from '@bsky/sdk'
 import {moderateProfile} from '@bsky/sdk/moderation'
@@ -7,7 +7,7 @@ import {Trans, useLingui} from '@lingui/react/macro'
 import {useNavigation} from '@react-navigation/native'
 import {type NativeStackScreenProps} from '@react-navigation/native-stack'
 
-import {HELP_DESK_URL, HITSLOP_10} from '#/lib/constants'
+import {HITSLOP_10} from '#/lib/constants'
 import {useAccountSwitcher} from '#/lib/hooks/useAccountSwitcher'
 import {useApplyPullRequestOTAUpdate} from '#/lib/hooks/useOTAUpdates'
 import {
@@ -254,16 +254,12 @@ export function SettingsScreen({}: Props) {
               <Trans>Beta features</Trans>
             </SettingsList.ItemText>
           </SettingsList.LinkItem>
-          <SettingsList.PressableItem
-            onPress={() => void Linking.openURL(HELP_DESK_URL)}
-            label={l`Help`}
-            accessibilityHint={l`Opens helpdesk in browser`}>
+          <SettingsList.Item>
             <SettingsList.ItemIcon icon={CircleQuestionIcon} />
             <SettingsList.ItemText>
               <Trans>Help</Trans>
             </SettingsList.ItemText>
-            <SettingsList.Chevron />
-          </SettingsList.PressableItem>
+          </SettingsList.Item>
           <SettingsList.LinkItem to="/settings/about" label={l`About`}>
             <SettingsList.ItemIcon icon={BubbleInfoIcon} />
             <SettingsList.ItemText>

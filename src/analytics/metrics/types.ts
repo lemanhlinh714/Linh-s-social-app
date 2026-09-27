@@ -90,6 +90,7 @@ export type Events = {
     item:
       | 'home'
       | 'search'
+      | 'followSuggestions'
       | 'chat'
       | 'notifications'
       | 'profile'

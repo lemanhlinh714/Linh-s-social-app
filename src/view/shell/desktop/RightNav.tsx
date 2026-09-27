@@ -5,9 +5,9 @@ import {useLingui} from '@lingui/react'
 import {Trans} from '@lingui/react/macro'
 import {useNavigation} from '@react-navigation/native'
 
-import {FEEDBACK_FORM_URL, HELP_DESK_URL} from '#/lib/constants'
 import {useSession} from '#/state/session'
 import {useLogoVariant} from '#/view/icons/useLogoVariant'
+import {FollowSuggestions} from '#/view/shell/desktop/FollowSuggestions'
 import {DesktopSearch} from '#/view/shell/desktop/Search'
 import {SidebarTrendingTopics} from '#/view/shell/desktop/SidebarTrendingTopics'
 import {
@@ -44,7 +44,7 @@ function useWebQueryParams() {
 export function DesktopRightNav({routeName}: {routeName: string}) {
   const t = useTheme()
   const {_} = useLingui()
-  const {hasSession, currentAccount} = useSession()
+  const {hasSession} = useSession()
   const logoVariant = useLogoVariant()
   const gutters = useGutters(['base', 0, 'base', 'wide'])
   const isSearchScreen = routeName === 'Search'
@@ -94,42 +94,22 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
       )}
 
       {showExploreScreenDuplicatedContent && <SidebarTrendingTopics />}
+      {hasSession && <FollowSuggestions />}
 
       <Text style={[a.leading_snug, t.atoms.text_contrast_low]}>
         {hasSession && (
           <>
-            <InlineLinkText
-              to={FEEDBACK_FORM_URL({
-                email: currentAccount?.email,
-                handle: currentAccount?.handle,
-              })}
-              style={[t.atoms.text_contrast_medium]}
-              label={_(msg`Feedback`)}>
+            <Text style={[t.atoms.text_contrast_medium]}>
               {_(msg`Feedback`)}
-            </InlineLinkText>
+            </Text>
             <Text style={[t.atoms.text_contrast_low]}>{' ∙ '}</Text>
           </>
         )}
-        <InlineLinkText
-          to="https://bsky.social/about/support/privacy-policy"
-          style={[t.atoms.text_contrast_medium]}
-          label={_(msg`Privacy`)}>
-          {_(msg`Privacy`)}
-        </InlineLinkText>
+        <Text style={[t.atoms.text_contrast_medium]}>{_(msg`Privacy`)}</Text>
         <Text style={[t.atoms.text_contrast_low]}>{' ∙ '}</Text>
-        <InlineLinkText
-          to="https://bsky.social/about/support/tos"
-          style={[t.atoms.text_contrast_medium]}
-          label={_(msg`Terms`)}>
-          {_(msg`Terms`)}
-        </InlineLinkText>
+        <Text style={[t.atoms.text_contrast_medium]}>{_(msg`Terms`)}</Text>
         <Text style={[t.atoms.text_contrast_low]}>{' ∙ '}</Text>
-        <InlineLinkText
-          label={_(msg`Help`)}
-          to={HELP_DESK_URL}
-          style={[t.atoms.text_contrast_medium]}>
-          {_(msg`Help`)}
-        </InlineLinkText>
+        <Text style={[t.atoms.text_contrast_medium]}>{_(msg`Help`)}</Text>
       </Text>
 
       {logoVariant === 'kawaii' && (

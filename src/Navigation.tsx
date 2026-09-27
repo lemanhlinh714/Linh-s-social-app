@@ -77,6 +77,7 @@ import {CustomFeedScreen} from '#/screens/CustomFeed'
 import {CustomFeedLikedByScreen} from '#/screens/CustomFeed/CustomFeedLikedBy'
 import {SharedPreferencesTesterScreen} from '#/screens/E2E/SharedPreferencesTesterScreen'
 import {FindContactsFlowScreen} from '#/screens/FindContactsFlowScreen'
+import {FollowSuggestionsScreen} from '#/screens/FollowSuggestionsScreen'
 import HashtagScreen from '#/screens/Hashtag'
 import {LogScreen} from '#/screens/Log'
 import {MessagesScreen} from '#/screens/Messages/ChatList'
@@ -173,6 +174,11 @@ function commonScreens(Stack: typeof Flat, unreadCountLabel?: string) {
         name="Lists"
         component={ListsScreen}
         options={{title: title(msg`Lists`), requireAuth: true}}
+      />
+      <Stack.Screen
+        name="FollowSuggestions"
+        component={FollowSuggestionsScreen}
+        options={{title: title(msg`Follow`), requireAuth: true}}
       />
       <Stack.Screen
         name="Moderation"

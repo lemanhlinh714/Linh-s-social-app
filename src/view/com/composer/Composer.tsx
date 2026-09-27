@@ -1523,6 +1523,8 @@ export const ComposePost = ({
                 {allPostsWithinLimit ? (
                   composerState.draftId ? (
                     <Trans>Save changes?</Trans>
+                  ) : i18n.locale === 'vi' ? (
+                    'Lưu bản nháp?'
                   ) : (
                     <Trans>Save draft?</Trans>
                   )
@@ -1537,6 +1539,8 @@ export const ComposePost = ({
                       You have unsaved changes to this draft, would you like to
                       save them?
                     </Trans>
+                  ) : i18n.locale === 'vi' ? (
+                    'Bạn có muốn lưu bài viết này thành bản nháp để chỉnh sửa sau không?'
                   ) : (
                     <Trans>
                       Would you like to save this as a draft to edit later?
@@ -1550,12 +1554,22 @@ export const ComposePost = ({
             <Prompt.Actions>
               {allPostsWithinLimit && (
                 <Prompt.Action
-                  cta={composerState.draftId ? l`Save changes` : l`Save draft`}
+                  cta={
+                    composerState.draftId
+                      ? l`Save changes`
+                      : i18n.locale === 'vi'
+                        ? 'Lưu bản nháp'
+                        : l`Save draft`
+                  }
                   onPress={() => void handleSaveDraft()}
                   color="primary"
                 />
               )}
-              <Prompt.Cancel cta={l`Keep editing`} />
+              <Prompt.Cancel
+                cta={
+                  i18n.locale === 'vi' ? 'Tiếp tục chỉnh sửa' : l`Keep editing`
+                }
+              />
               <Prompt.Action
                 cta={l`Discard`}
                 onPress={handleDiscard}
@@ -1570,7 +1584,9 @@ export const ComposePost = ({
           title={l`Skip empty posts?`}
           description={l`Your thread has empty posts that will be skipped. The remaining posts will be published as a thread.`}
           confirmButtonCta={l`Post anyway`}
-          cancelButtonCta={l`Keep editing`}
+          cancelButtonCta={
+            i18n.locale === 'vi' ? 'Tiếp tục chỉnh sửa' : l`Keep editing`
+          }
           onConfirm={handleConfirmSkipEmpty}
         />
       </KeyboardAvoidingView>
