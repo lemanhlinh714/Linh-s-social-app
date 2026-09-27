@@ -16,6 +16,7 @@ import {forceLTR} from '#/lib/strings/bidi'
 import {NON_BREAKING_SPACE} from '#/lib/strings/constants'
 import {sanitizeDisplayName} from '#/lib/strings/display-names'
 import {sanitizeHandle} from '#/lib/strings/handles'
+import {logger} from '#/logger'
 import {useProfileShadow} from '#/state/cache/profile-shadow'
 import {useProfileFollowMutationQueue} from '#/state/queries/profile'
 import {useSession} from '#/state/session'
@@ -39,6 +40,7 @@ import {PlusLarge_Stroke2_Corner0_Rounded as Plus} from '#/components/icons/Plus
 import {Link as InternalLink, type LinkProps} from '#/components/Link'
 import * as Pills from '#/components/Pills'
 import {ProfileBadges} from '#/components/ProfileBadges'
+import {ProfileHoverCard} from '#/components/ProfileHoverCard'
 import {RichText} from '#/components/RichText'
 import * as Toast from '#/components/Toast'
 import {Text} from '#/components/Typography'
@@ -68,6 +70,7 @@ export function Default({
       <Card
         profile={profile}
         moderationOpts={moderationOpts}
+        disableAvatarNavigation
         logContext={logContext}
         position={position}
         contextProfileDid={contextProfileDid}
@@ -79,12 +82,14 @@ export function Default({
 export function Card({
   profile,
   moderationOpts,
+  disableAvatarNavigation = false,
   logContext = 'ProfileCard',
   position,
   contextProfileDid,
 }: {
   profile: bsky.profile.AnyProfileView
   moderationOpts: ModerationOpts
+  disableAvatarNavigation?: boolean
   logContext?: 'ProfileCard' | 'StarterPackProfilesList'
   position?: number
   contextProfileDid?: string
@@ -92,7 +97,11 @@ export function Card({
   return (
     <Outer>
       <Header>
-        <Avatar profile={profile} moderationOpts={moderationOpts} />
+        <Avatar
+          profile={profile}
+          moderationOpts={moderationOpts}
+          disableNavigation={disableAvatarNavigation}
+        />
         <NameAndHandle profile={profile} moderationOpts={moderationOpts} />
         <FollowButton
           profile={profile}
@@ -160,6 +169,8 @@ export function Avatar({
   moderationOpts,
   onPress,
   disabledPreview,
+  disableHoverCard,
+  disableNavigation,
   liveOverride,
   size = 40,
 }: {
@@ -167,6 +178,8 @@ export function Avatar({
   moderationOpts: ModerationOpts
   onPress?: () => void
   disabledPreview?: boolean
+  disableHoverCard?: boolean
+  disableNavigation?: boolean
   liveOverride?: boolean
   size?: number
 }) {
@@ -187,6 +200,8 @@ export function Avatar({
       size={size}
       profile={profile}
       moderation={moderation.ui('avatar')}
+      disableHoverCard={disableHoverCard}
+      disableNavigation={disableNavigation}
       onBeforePress={onPress}
       live={liveOverride ?? live}
     />
@@ -220,14 +235,29 @@ export function NameAndHandle({
 }) {
   if (inline) {
     return (
-      <InlineNameAndHandle profile={profile} moderationOpts={moderationOpts} />
+      <ProfileHoverCard
+        did={profile.did}
+        style={[a.flex_shrink, web({cursor: 'pointer'})]}>
+        <InlineNameAndHandle
+          profile={profile}
+          moderationOpts={moderationOpts}
+        />
+      </ProfileHoverCard>
     )
   } else {
     return (
-      <View style={[a.flex_1]}>
-        <Name profile={profile} moderationOpts={moderationOpts} />
-        <Handle profile={profile} />
-      </View>
+      <ProfileHoverCard
+        did={profile.did}
+        style={[a.flex_1, web({cursor: 'pointer'})]}>
+        <View style={[a.flex_1]}>
+          <Name
+            profile={profile}
+            moderationOpts={moderationOpts}
+            disableHoverCard
+          />
+          <Handle profile={profile} />
+        </View>
+      </ProfileHoverCard>
     )
   }
 }
@@ -288,18 +318,20 @@ export function Name({
   moderationOpts,
   style,
   textStyle,
+  disableHoverCard = false,
 }: {
   profile: bsky.profile.AnyProfileView
   moderationOpts: ModerationOpts
   style?: StyleProp<ViewStyle>
   textStyle?: StyleProp<TextStyle>
+  disableHoverCard?: boolean
 }) {
   const moderation = moderateProfile(profile, moderationOpts)
   const name = sanitizeDisplayName(
     profile.displayName || sanitizeHandle(profile.handle),
     moderation.ui('displayName'),
   )
-  return (
+  const content = (
     <View style={[a.flex_row, a.align_center, a.max_w_full, style]}>
       <Text
         emoji
@@ -316,6 +348,16 @@ export function Name({
       </Text>
       <ProfileBadges profile={profile} size="md" style={[a.pl_xs]} />
     </View>
+  )
+
+  return disableHoverCard ? (
+    content
+  ) : (
+    <ProfileHoverCard
+      did={profile.did}
+      style={[a.flex_shrink, web({cursor: 'pointer'})]}>
+      {content}
+    </ProfileHoverCard>
   )
 }
 
@@ -411,14 +453,18 @@ export function Description({
   )
     return null
   return (
-    <View style={[a.pt_xs]}>
-      <RichText
-        value={rt}
-        style={style}
-        numberOfLines={numberOfLines}
-        disableLinks
-      />
-    </View>
+    <ProfileHoverCard
+      did={profile.did}
+      style={[a.w_full, web({cursor: 'pointer'})]}>
+      <View style={[a.pt_xs]}>
+        <RichText
+          value={rt}
+          style={style}
+          numberOfLines={numberOfLines}
+          disableLinks
+        />
+      </View>
+    </ProfileHoverCard>
   )
 }
 
@@ -509,7 +555,11 @@ export function FollowButtonInner({
     } catch (e) {
       const err = e as Error
       if (err?.name !== 'AbortError') {
-        Toast.show(l`An issue occurred, please try again.`, {
+        logger.error('Failed to follow profile', {
+          did: profile.did,
+          message: String(err),
+        })
+        Toast.show(l`An issue occurred, please try again. ${err.toString()}`, {
           type: 'error',
         })
       }

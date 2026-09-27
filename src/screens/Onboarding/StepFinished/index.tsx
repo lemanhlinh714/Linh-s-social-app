@@ -27,7 +27,6 @@ import {
   useActiveStarterPack,
   useSetActiveStarterPack,
 } from '#/state/shell/landing'
-import {useProgressGuideControls} from '#/state/shell/progress-guide'
 import {
   OnboardingControls,
   OnboardingHeaderSlot,
@@ -59,7 +58,6 @@ export function StepFinished() {
   const activeStarterPack = useActiveStarterPack()
   const setActiveStarterPack = useSetActiveStarterPack()
   const setHasCheckedForStarterPack = useSetHasCheckedForStarterPack()
-  const {startProgressGuide} = useProgressGuideControls()
 
   const finishOnboarding = useCallback(async () => {
     setSaving(true)
@@ -206,7 +204,6 @@ export function StepFinished() {
     setSaving(false)
     setActiveStarterPack(undefined)
     setHasCheckedForStarterPack(true)
-    startProgressGuide('follow-10')
     dispatch({type: 'finish'})
     onboardDispatch({type: 'finish'})
     ax.metric('onboarding:finished:nextPressed', {
@@ -240,7 +237,6 @@ export function StepFinished() {
     requestNotificationsPermission,
     setActiveStarterPack,
     setHasCheckedForStarterPack,
-    startProgressGuide,
   ])
 
   return (
