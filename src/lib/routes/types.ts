@@ -76,6 +76,7 @@ export type CommonNavigatorParams = {
   AboutSettings: undefined
   AppIconSettings: undefined
   FindContactsSettings: undefined
+  FollowSuggestions: undefined
   InviteScanner: undefined
   Search: SearchParams
   Hashtag: {tag: string; author?: string}

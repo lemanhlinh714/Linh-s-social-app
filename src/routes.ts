@@ -89,4 +89,5 @@ export const router = new Router<AllNavigatableRoutes>({
   VideoFeed: '/video-feed',
   Bookmarks: '/saved',
   FindContactsFlow: '/find-contacts',
+  FollowSuggestions: '/connect-people',
 })

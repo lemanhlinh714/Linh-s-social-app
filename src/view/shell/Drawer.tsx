@@ -1,18 +1,11 @@
 import {type ComponentProps, type JSX, memo, useCallback} from 'react'
-import {
-  Linking,
-  Pressable,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import {Pressable, ScrollView, TouchableOpacity, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {msg, plural} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
 import {Plural, Trans} from '@lingui/react/macro'
 import {StackActions, useNavigation} from '@react-navigation/native'
 
-import {FEEDBACK_FORM_URL, HELP_DESK_URL} from '#/lib/constants'
 import {type PressableScale} from '#/lib/custom-animations/PressableScale'
 import {useNavigationTabState} from '#/lib/hooks/useNavigationTabState'
 import {getTabState, TabState} from '#/lib/routes/helpers'
@@ -291,19 +284,6 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
     setDrawerOpen(false)
   }, [navigation, setDrawerOpen, ax])
 
-  const onPressFeedback = useCallback(() => {
-    Linking.openURL(
-      FEEDBACK_FORM_URL({
-        email: currentAccount?.email,
-        handle: currentAccount?.handle,
-      }),
-    )
-  }, [currentAccount])
-
-  const onPressHelp = useCallback(() => {
-    Linking.openURL(HELP_DESK_URL)
-  }, [])
-
   // rendering
   // =
 
@@ -383,10 +363,7 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
         </View>
       </ScrollView>
 
-      <DrawerFooter
-        onPressFeedback={onPressFeedback}
-        onPressHelp={onPressHelp}
-      />
+      <DrawerFooter />
       <InviteFriendsDialog control={inviteFriendsControl} />
     </View>
   )
@@ -394,13 +371,7 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
 DrawerContent = memo(DrawerContent)
 export {DrawerContent}
 
-let DrawerFooter = ({
-  onPressFeedback,
-  onPressHelp,
-}: {
-  onPressFeedback: () => void
-  onPressHelp: () => void
-}): React.ReactNode => {
+let DrawerFooter = ({}: {}): React.ReactNode => {
   const {_} = useLingui()
   const insets = useSafeAreaInsets()
   return (
@@ -423,7 +394,7 @@ let DrawerFooter = ({
         size="small"
         variant="solid"
         color="secondary"
-        onPress={onPressFeedback}>
+        disabled>
         <ButtonIcon icon={Message} position="left" />
         <ButtonText>
           <Trans>Feedback</Trans>
@@ -434,7 +405,7 @@ let DrawerFooter = ({
         size="small"
         variant="outline"
         color="secondary"
-        onPress={onPressHelp}
+        disabled
         style={{
           backgroundColor: 'transparent',
         }}>
@@ -754,24 +725,17 @@ function MenuItem({icon, label, count, bold, onPress}: MenuItemProps) {
 }
 
 function ExtraLinks() {
-  const {_} = useLingui()
   const t = useTheme()
   const logoVariant = useLogoVariant()
 
   return (
     <View style={[a.flex_col, a.gap_md, a.flex_wrap]}>
-      <InlineLinkText
-        style={[a.text_md]}
-        label={_(msg`Terms of Service`)}
-        to="https://bsky.social/about/support/tos">
+      <Text style={[a.text_md]}>
         <Trans>Terms of Service</Trans>
-      </InlineLinkText>
-      <InlineLinkText
-        style={[a.text_md]}
-        to="https://bsky.social/about/support/privacy-policy"
-        label={_(msg`Privacy Policy`)}>
+      </Text>
+      <Text style={[a.text_md]}>
         <Trans>Privacy Policy</Trans>
-      </InlineLinkText>
+      </Text>
       {logoVariant === 'kawaii' && (
         <Text style={t.atoms.text_contrast_medium}>
           <Trans>

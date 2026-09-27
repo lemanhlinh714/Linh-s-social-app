@@ -28,7 +28,7 @@ export function DraftsButton({
   canSaveDraft: boolean
   textLength: number
 }) {
-  const {t: l} = useLingui()
+  const {t: l, i18n} = useLingui()
   const ax = useAnalytics()
   const draftsDialogControl = Dialog.useDialogControl()
   const savePromptControl = Prompt.usePromptControl()
@@ -87,6 +87,8 @@ export function DraftsButton({
             {canSaveDraft ? (
               isEditingDraft ? (
                 <Trans>Save changes?</Trans>
+              ) : i18n.locale === 'vi' ? (
+                'Lưu bản nháp?'
               ) : (
                 <Trans>Save draft?</Trans>
               )
@@ -102,6 +104,8 @@ export function DraftsButton({
                 You have unsaved changes. Would you like to save them before
                 viewing your drafts?
               </Trans>
+            ) : i18n.locale === 'vi' ? (
+              'Bạn có muốn lưu bài viết này thành bản nháp trước khi xem các bản nháp không?'
             ) : (
               <Trans>
                 Would you like to save this as a draft before viewing your
@@ -118,12 +122,20 @@ export function DraftsButton({
         <Prompt.Actions>
           {canSaveDraft && (
             <Prompt.Action
-              cta={isEditingDraft ? l`Save changes` : l`Save draft`}
+              cta={
+                isEditingDraft
+                  ? l`Save changes`
+                  : i18n.locale === 'vi'
+                    ? 'Lưu bản nháp'
+                    : l`Save draft`
+              }
               onPress={() => void handleSaveAndOpen()}
               color="primary"
             />
           )}
-          <Prompt.Cancel cta={l`Keep editing`} />
+          <Prompt.Cancel
+            cta={i18n.locale === 'vi' ? 'Tiếp tục chỉnh sửa' : l`Keep editing`}
+          />
           <Prompt.Action
             cta={l`Discard`}
             onPress={handleDiscardAndOpen}

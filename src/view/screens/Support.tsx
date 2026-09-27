@@ -2,14 +2,12 @@ import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
 import {Trans} from '@lingui/react/macro'
 
-import {HELP_DESK_URL} from '#/lib/constants'
 import {usePalette} from '#/lib/hooks/usePalette'
 import {
   type CommonNavigatorParams,
   type NativeStackScreenProps,
 } from '#/lib/routes/types'
 import {s} from '#/lib/styles'
-import {TextLink} from '#/view/com/util/Link'
 import {Text} from '#/view/com/util/text/Text'
 import {ViewHeader} from '#/view/com/util/ViewHeader'
 import {CenteredView} from '#/view/com/util/Views'
@@ -29,13 +27,7 @@ export const SupportScreen = (_props: Props) => {
         </Text>
         <Text style={[pal.text, s.p20]}>
           <Trans>
-            The support form has been moved. If you need help, please{' '}
-            <TextLink
-              href={HELP_DESK_URL}
-              text={_(msg`click here`)}
-              style={pal.link}
-            />{' '}
-            or visit {HELP_DESK_URL} to get in touch with us.
+            The support form is not available yet. Please check back later.
           </Trans>
         </Text>
       </CenteredView>

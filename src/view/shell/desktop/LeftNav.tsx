@@ -62,6 +62,10 @@ import {
   Message_Stroke2_Corner0_Rounded as MessageIcon,
   Message_Stroke2_Corner0_Rounded_Filled as MessageFilledIcon,
 } from '#/components/icons/Message'
+import {
+  PersonPlus_Filled_Stroke2_Corner0_Rounded as PersonPlusFilledIcon,
+  PersonPlus_Stroke2_Corner0_Rounded as PersonPlusIcon,
+} from '#/components/icons/Person'
 import {PlusLarge_Stroke2_Corner0_Rounded as PlusIcon} from '#/components/icons/Plus'
 import {
   SettingsGear2_Filled_Corner0_Rounded as SettingsFilledIcon,
@@ -736,6 +740,16 @@ export function DesktopLeftNav({routeName}: {routeName: string}) {
             icons={{
               inactive: MagnifyingGlassIcon,
               active: MagnifyingGlassFilledIcon,
+            }}
+          />
+          <NavItem
+            label="Theo dõi"
+            href="/connect-people"
+            navItem="followSuggestions"
+            minimal={leftNavMinimal}
+            icons={{
+              inactive: PersonPlusIcon,
+              active: PersonPlusFilledIcon,
             }}
           />
           <NavItem

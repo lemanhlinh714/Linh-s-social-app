@@ -6,7 +6,6 @@ import Animated, {FadeIn, LayoutAnimationConfig} from 'react-native-reanimated'
 import {tokens} from '@bsky.app/alf'
 import {Trans, useLingui} from '@lingui/react/macro'
 
-import {FEEDBACK_FORM_URL} from '#/lib/constants'
 import {logger} from '#/logger'
 import {useServiceQuery} from '#/state/queries/service'
 import {useStarterPackQuery} from '#/state/queries/starter-packs'
@@ -26,7 +25,6 @@ import {atoms as a, native, useBreakpoints, useTheme} from '#/alf'
 import {AppLanguageDropdown} from '#/components/AppLanguageDropdown'
 import {Divider} from '#/components/Divider'
 import {LinearGradientBackground} from '#/components/LinearGradientBackground'
-import {InlineLinkText} from '#/components/Link'
 import {ScreenTransition} from '#/components/ScreenTransition'
 import {Text} from '#/components/Typography'
 import {useAnalytics} from '#/analytics'
@@ -237,12 +235,9 @@ export function Signup({onPressBack}: {onPressBack: () => void}) {
                             {paddingInline: tokens.space.sm},
                           ]}>
                           <Trans>Having trouble?</Trans>{' '}
-                          <InlineLinkText
-                            label={l`Contact support`}
-                            to={FEEDBACK_FORM_URL({email: state.email})}
-                            style={[!gtMobile && a.text_md]}>
+                          <Text style={!gtMobile && a.text_md}>
                             <Trans>Contact support</Trans>
-                          </InlineLinkText>
+                          </Text>
                         </Text>
                       </View>
                     </View>

@@ -9,7 +9,6 @@ import {
   type NativeStackScreenProps,
 } from '#/lib/routes/types'
 import {s} from '#/lib/styles'
-import {TextLink} from '#/view/com/util/Link'
 import {Text} from '#/view/com/util/text/Text'
 import {ScrollView} from '#/view/com/util/Views'
 import * as Layout from '#/components/Layout'
@@ -27,11 +26,7 @@ export const TermsOfServiceScreen = (_props: Props) => {
         <View style={[s.p20]}>
           <Text style={pal.text}>
             <Trans>The Terms of Service have been moved to</Trans>{' '}
-            <TextLink
-              style={pal.link}
-              href="https://bsky.social/about/support/tos"
-              text="bsky.social/about/support/tos"
-            />
+            bsky.social/about/support/tos
           </Text>
         </View>
         <View style={s.footerSpacer} />

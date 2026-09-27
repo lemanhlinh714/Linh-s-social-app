@@ -6848,7 +6848,7 @@ msgstr "Báo chí"
 #: src/view/com/composer/Composer.tsx:1607
 #: src/view/com/composer/drafts/DraftsButton.tsx:135
 msgid "Keep editing"
-msgstr ""
+msgstr "Tiếp tục chỉnh sửa"
 
 #: src/components/activity-notifications/SubscribeProfileDialog.tsx:227
 msgid "Keep me posted"
@@ -10589,12 +10589,12 @@ msgstr ""
 #: src/view/com/composer/Composer.tsx:1587
 #: src/view/com/composer/drafts/DraftsButton.tsx:125
 msgid "Save draft"
-msgstr ""
+msgstr "Lưu bản nháp"
 
 #: src/view/com/composer/Composer.tsx:1561
 #: src/view/com/composer/drafts/DraftsButton.tsx:95
 msgid "Save draft?"
-msgstr ""
+msgstr "Lưu bản nháp?"
 
 #: src/components/Lightbox/chrome/ImageMenu.tsx:99
 #: src/components/MediaPreview.tsx:237
@@ -14440,11 +14440,11 @@ msgstr ""
 
 #: src/view/com/composer/drafts/DraftsButton.tsx:110
 msgid "Would you like to save this as a draft before viewing your drafts?"
-msgstr ""
+msgstr "Bạn có muốn lưu bài viết này thành bản nháp trước khi xem các bản nháp không?"
 
 #: src/view/com/composer/Composer.tsx:1575
 msgid "Would you like to save this as a draft to edit later?"
-msgstr ""
+msgstr "Bạn có muốn lưu bài viết này thành bản nháp để chỉnh sửa sau không?"
 
 #: src/view/screens/Profile.tsx:446
 #: src/view/screens/Profile.tsx:447
