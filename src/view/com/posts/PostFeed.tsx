@@ -398,11 +398,10 @@ let PostFeed = ({
     }
   }, [pollInterval, checkForNew])
 
-  const followProgressGuide = useProgressGuide('follow-10')
   const followAndLikeProgressGuide = useProgressGuide('like-10-and-follow-7')
 
   const showProgressInterstitial =
-    (followProgressGuide || followAndLikeProgressGuide) && !rightNavVisible
+    followAndLikeProgressGuide && !rightNavVisible
 
   const {trendingVideoDisabled} = useTrendingSettings()
 

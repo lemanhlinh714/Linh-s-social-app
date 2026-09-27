@@ -1,4 +1,11 @@
-import {createContext, useContext, useMemo, useRef, useState} from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
 
@@ -18,6 +25,7 @@ export enum ProgressGuideAction {
 }
 
 type ProgressGuideName = 'like-10-and-follow-7' | 'follow-10'
+type StartableProgressGuideName = 'like-10-and-follow-7'
 
 /**
  * Progress Guides that extend this interface must specify their name in the `guide` field, so it can be used as a discriminated union
@@ -46,7 +54,7 @@ const ProgressGuideContext = createContext<ProgressGuide>(undefined)
 ProgressGuideContext.displayName = 'ProgressGuideContext'
 
 const ProgressGuideControlContext = createContext<{
-  startProgressGuide(guide: ProgressGuideName): void
+  startProgressGuide(guide: StartableProgressGuideName): void
   endProgressGuide(): void
   captureAction(action: ProgressGuideAction, count?: number): void
 }>({
@@ -72,15 +80,25 @@ export function Provider({children}: React.PropsWithChildren<{}>) {
   const ax = useAnalytics()
   const {_} = useLingui()
   const {data: preferences} = usePreferencesQuery()
-  const {mutateAsync, variables, isPending} =
+  const {mutate, mutateAsync, variables, isPending} =
     useSetActiveProgressGuideMutation()
+  const hasLegacyFollowGuide =
+    preferences?.bskyAppState?.activeProgressGuide?.guide === 'follow-10'
+
+  useEffect(() => {
+    if (hasLegacyFollowGuide && !isPending) {
+      mutate(undefined)
+    }
+  }, [hasLegacyFollowGuide, isPending, mutate])
 
   const activeProgressGuide = useMemo(() => {
     const rawProgressGuide = (
       isPending ? variables : preferences?.bskyAppState?.activeProgressGuide
     ) as ProgressGuide
 
-    if (!rawProgressGuide) return undefined
+    if (!rawProgressGuide || rawProgressGuide.guide === 'follow-10') {
+      return undefined
+    }
 
     // ensure the unspecced attributes have the correct types
     // clone then mutate
@@ -115,19 +133,11 @@ export function Provider({children}: React.PropsWithChildren<{}>) {
 
   const controls = useMemo(() => {
     return {
-      startProgressGuide(guide: ProgressGuideName) {
+      startProgressGuide(guide: StartableProgressGuideName) {
         if (guide === 'like-10-and-follow-7') {
           const guideObj = {
             guide: 'like-10-and-follow-7',
             numLikes: 0,
-            numFollows: 0,
-            isComplete: false,
-          } satisfies ProgressGuide
-          setLocalGuideState(guideObj)
-          mutateAsync(guideObj)
-        } else if (guide === 'follow-10') {
-          const guideObj = {
-            guide: 'follow-10',
             numFollows: 0,
             isComplete: false,
           } satisfies ProgressGuide

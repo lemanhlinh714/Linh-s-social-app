@@ -41,6 +41,13 @@ export function AutocompleteItemProfile({
           profile={item.profile}
           moderationOpts={moderationOpts}
         />
+        <ProfileCard.FollowButton
+          profile={item.profile}
+          moderationOpts={moderationOpts}
+          logContext="ProfileCard"
+          withIcon={false}
+          size="small"
+        />
       </ProfileCard.Header>
     </SiftItem>
   )

@@ -1,6 +1,10 @@
 import {useCallback, useMemo} from 'react'
 import {moderateProfile, type ModerationOpts} from '@bsky/sdk/moderation'
-import {keepPreviousData, useQuery} from '@tanstack/react-query'
+import {
+  keepPreviousData,
+  type QueryClient,
+  useQuery,
+} from '@tanstack/react-query'
 
 import {isJustAMute, moduiContainsHideableOffense} from '#/lib/moderation'
 import {useModerationOpts} from '#/state/preferences/moderation-opts'
@@ -104,7 +108,6 @@ export function useAutocomplete({
     }
 
     const results = [...query.data]
-
     if (showSearchFallback && q) {
       results.unshift({
         key: `search-${q}`,
@@ -120,6 +123,23 @@ export function useAutocomplete({
     query: q,
     items,
     isFetching: query.isFetching,
+  }
+}
+
+export function* findAllProfilesInQueryData(
+  queryClient: QueryClient,
+  did: string,
+) {
+  const queryDatas = queryClient.getQueriesData<AutocompleteItem[]>({
+    queryKey: ['autocomplete'],
+  })
+  for (const [_queryKey, queryData] of queryDatas) {
+    if (!queryData) continue
+    for (const item of queryData) {
+      if (item.type === 'profile' && item.profile.did === did) {
+        yield item.profile
+      }
+    }
   }
 }
 

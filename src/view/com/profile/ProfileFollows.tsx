@@ -28,6 +28,8 @@ import {type app} from '#/lexicons'
 import {List} from '../util/List'
 import {ProfileCardWithFollowBtn} from './ProfileCard'
 
+const PINNED_ADMIN_HANDLE = 'lelinh1.bsky.social'
+
 function renderItem({
   item,
   index,
@@ -95,7 +97,17 @@ export function ProfileFollows({name}: {name: string}) {
 
   const follows = useMemo(() => {
     if (data?.pages) {
-      return data.pages.flatMap(page => page.follows)
+      const profiles = data.pages.flatMap(page => page.follows)
+      const pinnedAdminIndex = profiles.findIndex(
+        profile => profile.handle === PINNED_ADMIN_HANDLE,
+      )
+      if (pinnedAdminIndex <= 0) return profiles
+
+      return [
+        profiles[pinnedAdminIndex],
+        ...profiles.slice(0, pinnedAdminIndex),
+        ...profiles.slice(pinnedAdminIndex + 1),
+      ]
     }
     return []
   }, [data])

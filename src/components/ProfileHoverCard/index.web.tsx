@@ -108,6 +108,7 @@ const HIDE_DURATION = 200
 
 export function ProfileHoverCardInner(props: ProfileHoverCardProps) {
   const navigation = useNavigation<NavigationProp>()
+  const floatingCardRef = useRef<HTMLDivElement | null>(null)
 
   const {refs, floatingStyles} = useFloating({
     middleware: floatingMiddlewares,
@@ -300,9 +301,18 @@ export function ProfileHoverCardInner(props: ProfileHoverCardProps) {
     dispatch('unhovered-card')
   }, [dispatch])
 
-  const onPress = useCallback(() => {
-    dispatch('pressed')
-  }, [dispatch])
+  const onPress = useCallback(
+    (event?: React.MouseEvent) => {
+      if (
+        event?.target instanceof Node &&
+        floatingCardRef.current?.contains(event.target)
+      ) {
+        return
+      }
+      dispatch('pressed')
+    },
+    [dispatch],
+  )
 
   const isVisible =
     currentState.stage === 'showing' ||
@@ -328,10 +338,17 @@ export function ProfileHoverCardInner(props: ProfileHoverCardProps) {
       {isVisible && (
         <Portal>
           <div
-            ref={refs.setFloating}
+            ref={node => {
+              floatingCardRef.current = node
+              refs.setFloating(node)
+            }}
             style={floatingStyles}
             onPointerEnter={onPointerEnterCard}
-            onPointerLeave={onPointerLeaveCard}>
+            onPointerLeave={onPointerLeaveCard}
+            onPointerDown={event => event.stopPropagation()}
+            onMouseDown={event => event.stopPropagation()}
+            onMouseUp={event => event.stopPropagation()}
+            onClick={event => event.stopPropagation()}>
             <div style={{willChange: 'transform', ...animationStyle}}>
               <Card did={props.did} hide={onPress} navigation={navigation} />
             </div>
@@ -409,6 +426,11 @@ let Card = ({
 }
 Card = memo(Card)
 
+function preventFollowMouseFocus(event: React.MouseEvent) {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
 function Inner({
   profile,
   moderationOpts,
@@ -481,27 +503,44 @@ function Inner({
               <ButtonText>{_(msg`View profile`)}</ButtonText>
             </Link>
           ) : (
-            <Button
-              size="small"
-              color={profileShadow.viewer?.following ? 'secondary' : 'primary'}
-              variant="solid"
-              label={
-                profileShadow.viewer?.following
-                  ? _(msg`Following`)
-                  : _(msg`Follow`)
-              }
-              style={[a.rounded_full]}
-              onPress={profileShadow.viewer?.following ? unfollow : follow}>
-              <ButtonIcon
-                position="left"
-                icon={profileShadow.viewer?.following ? Check : Plus}
-              />
-              <ButtonText>
-                {profileShadow.viewer?.following
-                  ? _(msg`Following`)
-                  : _(msg`Follow`)}
-              </ButtonText>
-            </Button>
+            <View
+              // @ts-expect-error web-only prop: keep autocomplete input focused while clicking the portal.
+              onMouseDown={preventFollowMouseFocus}>
+              <Button
+                size="small"
+                color={
+                  profileShadow.viewer?.following ? 'secondary' : 'primary'
+                }
+                variant="solid"
+                onPressIn={event => {
+                  event.stopPropagation()
+                }}
+                label={
+                  profileShadow.viewer?.following
+                    ? _(msg`Following`)
+                    : _(msg`Follow`)
+                }
+                style={[a.rounded_full]}
+                onPress={event => {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  if (profileShadow.viewer?.following) {
+                    unfollow()
+                  } else {
+                    follow()
+                  }
+                }}>
+                <ButtonIcon
+                  position="left"
+                  icon={profileShadow.viewer?.following ? Check : Plus}
+                />
+                <ButtonText>
+                  {profileShadow.viewer?.following
+                    ? _(msg`Following`)
+                    : _(msg`Follow`)}
+                </ButtonText>
+              </Button>
+            </View>
           ))}
       </View>
 
