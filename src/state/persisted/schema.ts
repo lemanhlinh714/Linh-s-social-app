@@ -1,8 +1,7 @@
 import {isDidString} from '@atproto/lex'
 import {z} from 'zod'
 
-import {deviceLanguageCodes, deviceLocales} from '#/locale/deviceLocales'
-import {findSupportedAppLanguage} from '#/locale/helpers'
+import {deviceLanguageCodes} from '#/locale/deviceLocales'
 import {logger} from '#/logger'
 import {PlatformInfo} from '../../../modules/expo-bluesky-swiss-army'
 
@@ -103,6 +102,7 @@ const schema = z.object({
      */
     appLanguage: z.string(),
   }),
+  languagePrefsDefaultsVersion: z.number().optional(),
   requireAltTextEnabled: z.boolean(), // should move to server
   largeAltBadgeEnabled: z.boolean().optional(),
   externalEmbeds: z
@@ -155,18 +155,16 @@ export const defaults: Schema = {
     lastEmailConfirm: undefined,
   },
   languagePrefs: {
-    primaryLanguage: deviceLanguageCodes[0] || 'en',
-    contentLanguages: deviceLanguageCodes || [],
+    primaryLanguage: 'vi',
+    contentLanguages: ['en', 'vi', 'ja'],
     postLanguage: deviceLanguageCodes[0] || 'en',
     postLanguageHistory: (deviceLanguageCodes || [])
       .concat(['en', 'ja', 'pt', 'de'])
       .slice(0, 6),
     // try full language tag first, then fallback to language code
-    appLanguage: findSupportedAppLanguage([
-      deviceLocales.at(0)?.languageTag,
-      deviceLanguageCodes[0],
-    ]),
+    appLanguage: 'vi',
   },
+  languagePrefsDefaultsVersion: 1,
   requireAltTextEnabled: false,
   largeAltBadgeEnabled: false,
   externalEmbeds: {},

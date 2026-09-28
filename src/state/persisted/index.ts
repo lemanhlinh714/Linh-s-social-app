@@ -9,7 +9,7 @@ import {
 } from '#/state/persisted/schema'
 import {device} from '#/storage'
 import {type PersistedApi} from './types'
-import {normalizeData} from './util'
+import {migrateLanguagePreferences, normalizeData} from './util'
 
 export type {PersistedAccount, Schema} from '#/state/persisted/schema'
 export {defaults} from '#/state/persisted/schema'
@@ -21,7 +21,11 @@ let _state: Schema = defaults
 export async function init() {
   const stored = await readFromStorage()
   if (stored) {
-    _state = stored
+    const migration = migrateLanguagePreferences(stored)
+    _state = migration.data
+    if (migration.migrated) {
+      await writeToStorage(_state)
+    }
   }
 }
 init satisfies PersistedApi['init']
