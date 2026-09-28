@@ -234,7 +234,7 @@ export function createGetPopularFeedsQueryKey(
 export function useGetPopularFeedsQuery(options?: GetPopularFeedsOptions) {
   const {hasSession} = useSession()
   const client = useAppviewClient()
-  const limit = options?.limit || 10
+  const limit = options?.limit || 15
   const {data: preferences} = usePreferencesQuery()
   const queryClient = useQueryClient()
   const moderationOpts = useModerationOpts()

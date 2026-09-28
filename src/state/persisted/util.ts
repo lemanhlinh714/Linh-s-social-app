@@ -4,6 +4,26 @@ import {dedupArray} from '#/lib/functions'
 import {logger} from '#/logger'
 import {type Schema} from '#/state/persisted/schema'
 
+export function migrateLanguagePreferences(data: Schema) {
+  if ((data.languagePrefsDefaultsVersion ?? 0) >= 1) {
+    return {data, migrated: false}
+  }
+
+  return {
+    data: {
+      ...data,
+      languagePrefsDefaultsVersion: 1,
+      languagePrefs: {
+        ...data.languagePrefs,
+        primaryLanguage: 'vi',
+        contentLanguages: ['en', 'vi', 'ja'],
+        appLanguage: 'vi',
+      },
+    },
+    migrated: true,
+  }
+}
+
 export function normalizeData(data: Schema) {
   const next = {...data}
 

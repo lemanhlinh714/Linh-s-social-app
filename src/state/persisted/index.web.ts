@@ -9,7 +9,7 @@ import {
   tryStringify,
 } from '#/state/persisted/schema'
 import {type PersistedApi} from './types'
-import {normalizeData} from './util'
+import {migrateLanguagePreferences, normalizeData} from './util'
 
 export type {PersistedAccount, Schema} from '#/state/persisted/schema'
 export {defaults} from '#/state/persisted/schema'
@@ -29,7 +29,11 @@ export async function init() {
   window.onstorage = onStorage
   const stored = readFromStorage()
   if (stored) {
-    _state = stored
+    const migration = migrateLanguagePreferences(stored)
+    _state = migration.data
+    if (migration.migrated) {
+      writeToStorage(_state)
+    }
   }
 }
 init satisfies PersistedApi['init']
