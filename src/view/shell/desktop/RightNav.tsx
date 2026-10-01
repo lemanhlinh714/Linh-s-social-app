@@ -82,6 +82,8 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
            */
           width: width + gutters.paddingLeft + 2,
           maxHeight: '100vh',
+          overflowY: 'auto',
+          scrollbarWidth: 'thin',
         }),
       ]}>
       {!isSearchScreen && <DesktopSearch />}

@@ -1,6 +1,8 @@
+import {View} from 'react-native'
 import {type ModerationOpts} from '@bsky/sdk/moderation'
 import {useLingui} from '@lingui/react/macro'
 
+import {atoms as a} from '#/alf'
 import {Button, ButtonIcon} from '#/components/Button'
 import {TimesLarge_Stroke2_Corner0_Rounded as DismissIcon} from '#/components/icons/Times'
 import * as ProfileCard from '#/components/ProfileCard'
@@ -40,15 +42,24 @@ export function FollowSuggestionRow({
   return (
     <ProfileCard.Outer>
       <ProfileCard.Header>
-        <ProfileCard.Avatar
+        <View style={[{width: 40, height: 40, flexShrink: 0}]}>
+          <ProfileCard.Avatar
+            profile={profile}
+            moderationOpts={moderationOpts}
+            size={40}
+          />
+        </View>
+        <ProfileCard.Link
           profile={profile}
-          moderationOpts={moderationOpts}
-          size={40}
-        />
-        <ProfileCard.NameAndHandle
-          profile={profile}
-          moderationOpts={moderationOpts}
-        />
+          style={[
+            a.flex_1,
+            {minWidth: 0, overflow: 'hidden', alignItems: 'stretch'},
+          ]}>
+          <ProfileCard.NameAndHandle
+            profile={profile}
+            moderationOpts={moderationOpts}
+          />
+        </ProfileCard.Link>
         <Button
           label={l`Dismiss this suggestion`}
           color="secondary"
@@ -81,10 +92,12 @@ export function FollowSuggestionRow({
           }}
         />
       </ProfileCard.Header>
-      <ProfileCard.Description
-        profile={profile}
-        numberOfLines={compact ? 1 : 2}
-      />
+      <ProfileCard.Link profile={profile}>
+        <ProfileCard.Description
+          profile={profile}
+          numberOfLines={compact ? 1 : 2}
+        />
+      </ProfileCard.Link>
     </ProfileCard.Outer>
   )
 }

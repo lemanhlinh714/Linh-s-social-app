@@ -1,4 +1,4 @@
-import {type JSX} from 'react'
+import {type JSX, useState} from 'react'
 import {View} from 'react-native'
 import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
@@ -7,8 +7,7 @@ import {HITSLOP_10} from '#/lib/constants'
 import {useSession} from '#/state/session'
 import {useShellLayout} from '#/state/shell/shell-layout'
 import {HomeHeaderLayoutMobile} from '#/view/com/home/HomeHeaderLayoutMobile'
-import {Logo} from '#/view/icons/Logo'
-import {useLogoVariant} from '#/view/icons/useLogoVariant'
+import {HomeHeaderLogo} from '#/view/com/home/HomeHeaderLogo'
 import {atoms as a, useBreakpoints, useGutters, useTheme} from '#/alf'
 import {ButtonIcon} from '#/components/Button'
 import {Hashtag_Stroke2_Corner0_Rounded as FeedsIcon} from '#/components/icons/Hashtag'
@@ -19,6 +18,7 @@ import {useAnalytics} from '#/analytics'
 export function HomeHeaderLayout(props: {
   children: React.ReactNode
   tabBarAnchor: JSX.Element | null | undefined
+  onPressLogo: () => void
 }) {
   const {gtMobile} = useBreakpoints()
   if (!gtMobile) {
@@ -31,35 +31,30 @@ export function HomeHeaderLayout(props: {
 function HomeHeaderLayoutDesktopAndTablet({
   children,
   tabBarAnchor,
+  onPressLogo,
 }: {
   children: React.ReactNode
   tabBarAnchor: JSX.Element | null | undefined
+  onPressLogo: () => void
 }) {
   const t = useTheme()
   const {headerHeight} = useShellLayout()
   const {hasSession} = useSession()
   const {_} = useLingui()
   const ax = useAnalytics()
-  const logoVariant = useLogoVariant()
   const gutters = useGutters([0, 'base'])
+  const [logoHeight, setLogoHeight] = useState(0)
 
   return (
     <>
       {hasSession && (
-        <Layout.Center>
-          <View
-            style={[a.flex_row, a.align_center, gutters, a.pt_md, t.atoms.bg]}>
+        <Layout.Center
+          style={[a.sticky, a.z_20, t.atoms.bg, {top: 0}]}
+          onLayout={e => setLogoHeight(e.nativeEvent.layout.height)}>
+          <View style={[a.flex_row, a.align_center, gutters, a.pt_md]}>
             <View style={{width: 34}} />
             <View style={[a.flex_1, a.align_center, a.justify_center]}>
-              <Logo
-                width={
-                  logoVariant === 'kawaii'
-                    ? 60
-                    : logoVariant === 'japan'
-                      ? 34
-                      : 28
-                }
-              />
+              <HomeHeaderLogo size={30} onPress={onPressLogo} />
             </View>
             <Link
               to="/feeds"
@@ -80,9 +75,17 @@ function HomeHeaderLayoutDesktopAndTablet({
       )}
       {tabBarAnchor}
       <Layout.Center
-        style={[a.sticky, a.z_10, a.align_center, t.atoms.bg, {top: 0}]}
+        style={[
+          a.sticky,
+          a.z_10,
+          a.align_center,
+          t.atoms.bg,
+          {top: hasSession ? logoHeight : 0},
+        ]}
         onLayout={e => {
-          headerHeight.set(e.nativeEvent.layout.height)
+          headerHeight.set(
+            e.nativeEvent.layout.height + (hasSession ? logoHeight : 0),
+          )
         }}>
         {children}
       </Layout.Center>

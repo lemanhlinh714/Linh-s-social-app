@@ -16,7 +16,7 @@ import {DISCOVER_FEED_URI, VIDEO_FEED_URIS} from '#/lib/constants'
 import {useOpenComposer} from '#/lib/hooks/useOpenComposer'
 import {getRootNavigation, getTabState, TabState} from '#/lib/routes/helpers'
 import {type AllNavigatorParams} from '#/lib/routes/types'
-import {listenSoftReset} from '#/state/events'
+import {listenScrollToTop, listenSoftReset} from '#/state/events'
 import {FeedFeedbackProvider, useFeedFeedback} from '#/state/feed-feedback'
 import {useSetHomeBadge} from '#/state/home-badge'
 import {type FeedSourceInfo} from '#/state/queries/feed'
@@ -119,6 +119,22 @@ export function FeedPage({
     }
     return listenSoftReset(onSoftReset)
   }, [onSoftReset, isPageFocused])
+
+  const onScrollToTop = useCallback(() => {
+    const isScreenFocused =
+      getTabState(getRootNavigation(navigation).getState(), 'Home') ===
+      TabState.InsideAtRoot
+    if (isScreenFocused && isPageFocused) {
+      scrollToTop()
+    }
+  }, [navigation, isPageFocused, scrollToTop])
+
+  useEffect(() => {
+    if (!isPageFocused) {
+      return
+    }
+    return listenScrollToTop(onScrollToTop)
+  }, [onScrollToTop, isPageFocused])
 
   const onPressCompose = useCallback(() => {
     openComposer({logContext: 'Fab'})

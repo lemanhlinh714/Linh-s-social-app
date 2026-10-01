@@ -1,7 +1,8 @@
-import {useCallback, useMemo} from 'react'
+import {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import {useNavigation} from '@react-navigation/native'
 
 import {type NavigationProp} from '#/lib/routes/types'
+import {emitScrollToTop} from '#/state/events'
 import {type FeedSourceInfo} from '#/state/queries/feed'
 import {useSession} from '#/state/session'
 import {type RenderTabBarFnProps} from '#/view/com/pager/Pager'
@@ -18,6 +19,15 @@ export function HomeHeader(
   const {feeds, onSelect: onSelectProp} = props
   const {hasSession} = useSession()
   const navigation = useNavigation<NavigationProp>()
+  const [didScrollToTop, setDidScrollToTop] = useState(false)
+  const previousPage = useRef(props.selectedPage)
+
+  useEffect(() => {
+    if (previousPage.current !== props.selectedPage) {
+      previousPage.current = props.selectedPage
+      setDidScrollToTop(false)
+    }
+  }, [props.selectedPage])
 
   const hasPinnedCustom = useMemo<boolean>(() => {
     if (!hasSession) return false
@@ -39,8 +49,24 @@ export function HomeHeader(
     navigation.navigate('Feeds')
   }, [navigation])
 
+  const onPressLogo = useCallback(() => {
+    if (didScrollToTop) {
+      setDidScrollToTop(false)
+      props.onPressSelected()
+    } else {
+      setDidScrollToTop(true)
+      emitScrollToTop()
+    }
+  }, [didScrollToTop, props.onPressSelected])
+
+  const onPressSelected = useCallback(() => {
+    setDidScrollToTop(false)
+    props.onPressSelected()
+  }, [props.onPressSelected])
+
   const onSelect = useCallback(
     (index: number) => {
+      setDidScrollToTop(false)
       if (!hasPinnedCustom && index === items.length - 1) {
         onPressFeedsLink()
       } else if (onSelectProp) {
@@ -51,10 +77,12 @@ export function HomeHeader(
   )
 
   return (
-    <HomeHeaderLayout tabBarAnchor={props.tabBarAnchor}>
+    <HomeHeaderLayout
+      tabBarAnchor={props.tabBarAnchor}
+      onPressLogo={onPressLogo}>
       <TabBar
         key={items.join(',')}
-        onPressSelected={props.onPressSelected}
+        onPressSelected={onPressSelected}
         selectedPage={props.selectedPage}
         onSelect={onSelect}
         testID={props.testID}
