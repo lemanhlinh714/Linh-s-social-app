@@ -14,6 +14,14 @@ export function listenSoftReset(fn: () => void): UnlistenFn {
   return () => emitter.off('soft-reset', fn)
 }
 
+export function emitScrollToTop() {
+  emitter.emit('scroll-to-top')
+}
+export function listenScrollToTop(fn: () => void): UnlistenFn {
+  emitter.on('scroll-to-top', fn)
+  return () => emitter.off('scroll-to-top', fn)
+}
+
 export function emitSessionDropped() {
   emitter.emit('session-dropped')
 }
