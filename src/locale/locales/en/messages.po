@@ -3679,8 +3679,8 @@ msgstr ""
 #: src/view/shell/bottom-bar/BottomBar.tsx:355
 #: src/view/shell/bottom-bar/BottomBarWeb.tsx:240
 #: src/view/shell/bottom-bar/BottomBarWeb.tsx:245
-#: src/view/shell/NavSignupCard.tsx:48
-#: src/view/shell/NavSignupCard.tsx:53
+#: src/view/shell/NavSignupCard.tsx:50
+#: src/view/shell/NavSignupCard.tsx:55
 msgid "Create account"
 msgstr ""
 
@@ -6857,7 +6857,7 @@ msgstr "Join request rescinded."
 
 #: src/components/StarterPack/QrCode.tsx:64
 #: src/view/com/auth/LoggedOut.tsx:219
-#: src/view/shell/NavSignupCard.tsx:41
+#: src/view/shell/NavSignupCard.tsx:43
 msgid "Join the conversation"
 msgstr ""
 
@@ -11594,8 +11594,8 @@ msgstr ""
 #: src/view/shell/bottom-bar/BottomBar.tsx:364
 #: src/view/shell/bottom-bar/BottomBarWeb.tsx:250
 #: src/view/shell/bottom-bar/BottomBarWeb.tsx:255
-#: src/view/shell/NavSignupCard.tsx:58
-#: src/view/shell/NavSignupCard.tsx:63
+#: src/view/shell/NavSignupCard.tsx:60
+#: src/view/shell/NavSignupCard.tsx:65
 msgid "Sign in"
 msgstr ""
 
