@@ -36,6 +36,24 @@ export function canParseUrl(url: string | URL, base?: string | URL): boolean {
   }
 }
 
+export function hasExternalLinkTarget(value: string): boolean {
+  const trimmed = value.trim()
+  if (!trimmed) return false
+
+  try {
+    const normalized = /^[a-z][a-z\d+.-]*:\/\//i.test(trimmed)
+      ? trimmed
+      : `https://${trimmed}`
+    const url = new URL(normalized)
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
+      return url.hostname.length > 0
+    }
+    return url.host.length > 0 || url.pathname.length > 0
+  } catch {
+    return false
+  }
+}
+
 export function isValidDomain(str: string): boolean {
   return !!TLDs.find(tld => {
     let i = str.lastIndexOf(tld)
