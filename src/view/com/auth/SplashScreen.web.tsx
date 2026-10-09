@@ -7,8 +7,7 @@ import {Trans} from '@lingui/react/macro'
 import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
 import {ErrorBoundary} from '#/view/com/util/ErrorBoundary'
 import {Logo} from '#/view/icons/Logo'
-import {Logotype} from '#/view/icons/Logotype'
-import {useLogoVariant} from '#/view/icons/useLogoVariant'
+import {SpacedogWordmark} from '#/view/icons/SpacedogWordmark'
 import {
   AppClipOverlay,
   postAppClipMessage,
@@ -45,10 +44,6 @@ export const SplashScreen = ({
     }
   }, [])
 
-  const logoVariant = useLogoVariant()
-  const kawaii = logoVariant === 'kawaii'
-  const japanLogo = logoVariant === 'japan'
-
   return (
     <>
       {onDismiss && (
@@ -81,13 +76,11 @@ export const SplashScreen = ({
           ]}>
           <ErrorBoundary>
             <View style={[a.justify_center, a.align_center]}>
-              <Logo width={kawaii ? 300 : japanLogo ? 120 : 92} fill="sky" />
+              <Logo width={92} />
 
-              {!kawaii && (
-                <View style={[a.pb_sm, a.pt_5xl]}>
-                  <Logotype width={161} fill={t.atoms.text.color} />
-                </View>
-              )}
+              <View style={[a.pb_sm, a.pt_5xl]}>
+                <SpacedogWordmark width={161} fill={t.atoms.text.color} />
+              </View>
 
               <Text
                 style={[

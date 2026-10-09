@@ -15,10 +15,10 @@ import Animated, {
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {type SvgProps} from 'react-native-svg'
 import {scheduleOnRN} from 'react-native-worklets'
-import {Image} from 'expo-image'
+import {Image, type ImageProps} from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 
-import {Logotype} from '#/view/icons/Logotype'
+import {SpacedogWordmark} from '#/view/icons/SpacedogWordmark'
 import {atoms as a} from '#/alf'
 // @ts-expect-error
 import logoImagePointer from '../assets/logo.png'
@@ -41,7 +41,7 @@ export const Logo = forwardRef(function LogoImpl(props: SvgProps, ref) {
       // @ts-expect-error it's fiiiiine
       ref={ref}
       source={{uri: logoImageUri}}
-      style={[{width, height: width}, props.style]}
+      style={[{width, height: width}, props.style as ImageProps['style']]}
     />
   )
 })
@@ -190,7 +190,7 @@ export function Splash(props: React.PropsWithChildren<Props>) {
                 opacity: 0,
               },
             ]}>
-            <Logotype fill="#fff" width={90} />
+            <SpacedogWordmark fill="#fff" width={90} />
           </Animated.View>
         </View>
       )}
