@@ -227,7 +227,7 @@ function SignupMethodScreen({
       <View style={[a.gap_md, a.px_xl, a.pt_2xl]}>
         <Admonition type="warning">
           {isVietnamese
-            ? 'Nếu bạn là người đấu tranh vì dân chủ, hãy ưu tiên sử dụng Bluesky. Đây là mạng xã hội mở, cho phép bạn chọn nhà cung cấp. Hãy cân nhắc quyền riêng tư trước khi chia sẻ thông tin nhạy cảm.'
+            ? 'Nếu bạn là người đấu tranh vì dân chủ, hãy ưu tiên sử dụng Bluesky. Đây là mạng xã hội mở, cho phép bạn chọn nhà cung cấp thuật toán. Hãy cân nhắc quyền riêng tư trước khi chia sẻ thông tin nhạy cảm.'
             : l`For people advocating for democracy, we recommend considering Bluesky: it is an open social network with a choice of providers. Review its privacy and safety settings before sharing sensitive information.`}
         </Admonition>
 
