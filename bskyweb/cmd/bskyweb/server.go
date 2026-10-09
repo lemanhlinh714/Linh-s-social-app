@@ -270,6 +270,9 @@ func serve(cctx *cli.Context) error {
 	}
 
 	e.GET("/iframe/*", echo.WrapHandler(staticHandler))
+	e.GET("/favicon.ico", func(c echo.Context) error {
+		return c.Redirect(http.StatusMovedPermanently, "/static/favicon.png")
+	})
 	e.GET("/static/*", echo.WrapHandler(http.StripPrefix("/static/", staticHandler)), func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			c.Response().Before(func() {
