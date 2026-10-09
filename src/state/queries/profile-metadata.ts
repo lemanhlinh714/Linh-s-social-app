@@ -1,6 +1,7 @@
 import {type AtIdentifierString, toDatetimeString} from '@atproto/syntax'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 
+import {hasExternalLinkTarget} from '#/lib/strings/url-helpers'
 import {useAppviewClient, usePdsClient, useSession} from '#/state/session'
 import {type app, com} from '#/lexicons'
 
@@ -50,10 +51,14 @@ export function useProfileMetadataMutation() {
     }) => {
       if (!currentAccount) throw new Error('Not authenticated')
 
+      const validLinks = links
+        .map(link => ({label: link.label.trim(), url: link.url.trim()}))
+        .filter(link => hasExternalLinkTarget(link.url))
+
       const record = {
         $type: 'app.linh.profileMetadata',
         ...(location ? {location} : {}),
-        links: links.map(link => ({
+        links: validLinks.map(link => ({
           label: link.label,
           url: link.url as app.linh.profileMetadata.ExternalLink['url'],
         })),

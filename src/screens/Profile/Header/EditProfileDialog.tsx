@@ -7,6 +7,7 @@ import {Plural, Trans} from '@lingui/react/macro'
 import {MAX_DESCRIPTION, MAX_DISPLAY_NAME, urls} from '#/lib/constants'
 import {cleanError} from '#/lib/strings/errors'
 import {isOverMaxGraphemeCount} from '#/lib/strings/helpers'
+import {hasExternalLinkTarget} from '#/lib/strings/url-helpers'
 import {logger} from '#/logger'
 import {type ImageMeta} from '#/state/gallery'
 import {useProfileUpdateMutation} from '#/state/queries/profile'
@@ -208,7 +209,10 @@ function DialogInner({
         newUserAvatar,
         newUserBanner,
       })
-      await updateMetadata({location: location.trim(), links: externalLinks})
+      const links = externalLinks
+        .map(link => ({label: link.label.trim(), url: link.url.trim()}))
+        .filter(link => hasExternalLinkTarget(link.url))
+      await updateMetadata({location: location.trim(), links})
       control.close(() => onUpdate?.())
       Toast.show(_(msg({message: 'Profile updated', context: 'toast'})))
     } catch (e: any) {
@@ -436,10 +440,10 @@ function DialogInner({
             <Trans>External links</Trans>
           </TextField.LabelText>
           {externalLinks.map((link, index) => (
-            <View key={`${index}-${link.url}`} style={[a.gap_xs]}>
+            <View key={index} style={[a.gap_xs]}>
               <TextField.Root>
                 <Dialog.Input
-                  defaultValue={link.label}
+                  value={link.label}
                   onChangeText={label => {
                     setExternalLinks(links =>
                       links.map((item, itemIndex) =>
@@ -452,7 +456,7 @@ function DialogInner({
               </TextField.Root>
               <TextField.Root>
                 <Dialog.Input
-                  defaultValue={link.url}
+                  value={link.url}
                   onChangeText={url => {
                     setExternalLinks(links =>
                       links.map((item, itemIndex) =>

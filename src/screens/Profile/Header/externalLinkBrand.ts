@@ -10,6 +10,16 @@ export type ExternalLinkBrand =
   | 'tiktok'
   | 'shopee'
   | 'zalo'
+  | 'discord'
+  | 'reddit'
+  | 'telegram'
+  | 'threads'
+  | 'mastodon'
+  | 'twitch'
+  | 'pinterest'
+  | 'tumblr'
+  | 'snapchat'
+  | 'whatsapp'
   | 'generic'
 
 export function getExternalLinkBrand(url: string): ExternalLinkBrand {
@@ -33,6 +43,58 @@ export function getExternalLinkBrand(url: string): ExternalLinkBrand {
     if (hostname === 'soundcloud.com') return 'soundcloud'
     if (hostname === 'tiktok.com' || hostname.endsWith('.tiktok.com')) {
       return 'tiktok'
+    }
+    if (
+      hostname === 'discord.com' ||
+      hostname.endsWith('.discord.com') ||
+      hostname === 'discord.gg'
+    ) {
+      return 'discord'
+    }
+    if (
+      hostname === 'reddit.com' ||
+      hostname.endsWith('.reddit.com') ||
+      hostname === 'redd.it'
+    ) {
+      return 'reddit'
+    }
+    if (
+      hostname === 't.me' ||
+      hostname === 'telegram.me' ||
+      hostname === 'telegram.org'
+    ) {
+      return 'telegram'
+    }
+    if (hostname === 'threads.net' || hostname.endsWith('.threads.net')) {
+      return 'threads'
+    }
+    if (
+      hostname === 'mastodon.social' ||
+      hostname === 'mastodon.online' ||
+      hostname === 'mastodon.world' ||
+      hostname === 'mastodon.art' ||
+      hostname === 'mstdn.social'
+    ) {
+      return 'mastodon'
+    }
+    if (hostname === 'twitch.tv' || hostname.endsWith('.twitch.tv')) {
+      return 'twitch'
+    }
+    if (hostname === 'pinterest.com' || hostname === 'pin.it') {
+      return 'pinterest'
+    }
+    if (hostname === 'tumblr.com' || hostname.endsWith('.tumblr.com')) {
+      return 'tumblr'
+    }
+    if (
+      hostname === 'snapchat.com' ||
+      hostname.endsWith('.snapchat.com') ||
+      hostname === 't.snapchat.com'
+    ) {
+      return 'snapchat'
+    }
+    if (hostname === 'whatsapp.com' || hostname === 'wa.me') {
+      return 'whatsapp'
     }
     if (
       hostname === 'shopee.vn' ||
