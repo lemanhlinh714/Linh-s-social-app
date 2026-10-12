@@ -1,6 +1,6 @@
 import {forwardRef} from 'react'
 import {type SvgProps} from 'react-native-svg'
-import {Image, type ImageProps} from 'expo-image'
+import {Image} from 'expo-image'
 
 import {flatten} from '#/alf'
 

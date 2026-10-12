@@ -7,7 +7,9 @@ const {height: SCREEN_HEIGHT} = Dimensions.get('window')
 const IFRAME_HOST = IS_WEB
   ? window.location.host === 'localhost:8100'
     ? 'http://localhost:8100'
-    : 'https://bsky.app'
+    : __DEV__
+      ? 'https://bsky.app'
+      : window.location.origin
   : __DEV__ && !process.env.JEST_WORKER_ID
     ? 'http://localhost:8100'
     : 'https://bsky.app'

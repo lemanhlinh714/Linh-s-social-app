@@ -48,7 +48,7 @@ module.exports = function (_config) {
       name: 'Spacedog',
       slug: 'spacedog',
       scheme: 'spacedog',
-      owner: 'spacedogsocial',
+      owner: 'lelinh1',
       runtimeVersion: {
         policy: 'appVersion',
       },
@@ -424,6 +424,7 @@ module.exports = function (_config) {
       ],
       extra: {
         eas: {
+          projectId: 'e7f363cf-692d-4467-9c07-013b10bf8c91',
           build: {
             experimental: {
               ios: {
@@ -454,7 +455,6 @@ module.exports = function (_config) {
               },
             },
           },
-          projectId: '55bd077a-d905-4184-9c7f-94789ba0f302',
         },
       },
     },
