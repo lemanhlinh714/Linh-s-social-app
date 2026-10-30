@@ -21,7 +21,7 @@ import {useCloseAllActiveElements} from '#/state/util'
 import {Link} from '#/view/com/util/Link'
 import {UserAvatar} from '#/view/com/util/UserAvatar'
 import {Logo} from '#/view/icons/Logo'
-import {SpacedogWordmark} from '#/view/icons/SpacedogWordmark'
+import {BrandWordmark} from '#/view/icons/BrandWordmark'
 import {atoms as a, useTheme} from '#/alf'
 import {Button, ButtonText} from '#/components/Button'
 import {useDialogControl} from '#/components/Dialog'
@@ -229,7 +229,7 @@ export function BottomBarWeb() {
               ]}>
               <View style={[a.flex_row, a.align_center, a.gap_md]}>
                 <Logo allowVariants={false} width={32} />
-                <SpacedogWordmark width={80} fill={t.atoms.text.color} />
+                <BrandWordmark width={80} fill={t.atoms.text.color} />
               </View>
 
               <View style={[a.flex_row, a.flex_wrap, a.gap_sm]}>

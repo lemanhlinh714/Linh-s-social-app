@@ -7,8 +7,7 @@
 import {useEffect, useRef, useState} from 'react'
 
 import {atoms as a, flattenToCSS} from '#/alf'
-// @ts-expect-error
-import logoImagePointer from '../assets/logo.png'
+import {DandelionMark} from '#/view/icons/DandelionMark'
 
 const size = 100
 
@@ -81,14 +80,11 @@ export function Splash({
             // to compensate for the `top: -50px` below
             {transformOrigin: 'center calc(50% - 50px)'},
           ])}>
-          <img
-            src={logoImagePointer}
-            alt=""
-            style={flattenToCSS([
-              a.relative,
-              {width: size, height: size, top: -50},
-            ])}
-          />
+          <div
+            aria-hidden="true"
+            style={flattenToCSS([a.relative, {width: size, height: size, top: -50}])}>
+            <DandelionMark size={size} />
+          </div>
         </div>
       )}
     </>

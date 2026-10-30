@@ -45,9 +45,9 @@ module.exports = function (_config) {
   return {
     expo: {
       version: VERSION,
-      name: 'Spacedog',
-      slug: 'spacedog',
-      scheme: 'spacedog',
+      name: 'ABC social',
+      slug: 'abc-social',
+      scheme: 'abc-social',
       owner: 'lelinh1',
       runtimeVersion: {
         policy: 'appVersion',
@@ -75,7 +75,7 @@ module.exports = function (_config) {
             'Used to save images to your library.',
           NSPhotoLibraryUsageDescription:
             'Used for profile pictures, posts, and other kinds of content',
-          CFBundleSpokenName: 'Blue Sky',
+          CFBundleSpokenName: 'ABC social',
           CFBundleLocalizations: [
             'en',
             'an',
@@ -189,7 +189,7 @@ module.exports = function (_config) {
         adaptiveIcon: {
           foregroundImage: './assets/icon-android-foreground.png',
           monochromeImage: './assets/icon-android-monochrome.png',
-          backgroundColor: '#000000',
+          backgroundColor: '#082947',
         },
         googleServicesFile: './google-services.json',
         package: 'xyz.blueskyweb.app',
@@ -292,6 +292,7 @@ module.exports = function (_config) {
           },
         ],
         './plugins/starterPackAppClipExtension/withStarterPackAppClip.js',
+        './plugins/withLocalizedAppNames.js',
         './plugins/withGradleJVMHeapSizeIncrease.js',
         './plugins/withAndroidManifestLargeHeapPlugin.js',
         './plugins/withAndroidManifestFCMIconPlugin.js',

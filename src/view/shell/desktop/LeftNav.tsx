@@ -96,7 +96,7 @@ const LEFT_NAV_PWI_WIDTH = 245
 
 function ProfileCard({minimal}: {minimal: boolean}) {
   const {currentAccount, accounts} = useSession()
-  const {logoutEveryAccount} = useSessionApi()
+  const {logoutCurrentAccount} = useSessionApi()
   const {isLoading, data} = useProfilesQuery({
     handles: accounts.map(acc => acc.did),
   })
@@ -220,8 +220,8 @@ function ProfileCard({minimal}: {minimal: boolean}) {
       <Prompt.Basic
         control={signOutPromptControl}
         title={l`Sign out?`}
-        description={l`You will be signed out of all your accounts.`}
-        onConfirm={() => logoutEveryAccount('Settings')}
+        description={l`You will be signed out of this account.`}
+        onConfirm={() => logoutCurrentAccount('Settings')}
         confirmButtonCta={l`Sign out`}
         cancelButtonCta={l`Cancel`}
         confirmButtonColor="negative"

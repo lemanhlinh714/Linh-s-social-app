@@ -7,7 +7,7 @@ import {Trans} from '@lingui/react/macro'
 import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
 import {ErrorBoundary} from '#/view/com/util/ErrorBoundary'
 import {Logo} from '#/view/icons/Logo'
-import {SpacedogWordmark} from '#/view/icons/SpacedogWordmark'
+import {BrandWordmark} from '#/view/icons/BrandWordmark'
 import {
   AppClipOverlay,
   postAppClipMessage,
@@ -79,7 +79,7 @@ export const SplashScreen = ({
               <Logo width={92} />
 
               <View style={[a.pb_sm, a.pt_5xl]}>
-                <SpacedogWordmark width={161} fill={t.atoms.text.color} />
+                <BrandWordmark width={161} fill={t.atoms.text.color} />
               </View>
 
               <Text

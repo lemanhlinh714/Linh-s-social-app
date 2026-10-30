@@ -1,4 +1,4 @@
-import {forwardRef, useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {
   AccessibilityInfo,
   Image as RNImage,
@@ -13,15 +13,13 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {type SvgProps} from 'react-native-svg'
 import {scheduleOnRN} from 'react-native-worklets'
-import {Image, type ImageProps} from 'expo-image'
+import {Image} from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 
-import {SpacedogWordmark} from '#/view/icons/SpacedogWordmark'
+import {DandelionMark} from '#/view/icons/DandelionMark'
+import {BrandWordmark} from '#/view/icons/BrandWordmark'
 import {atoms as a} from '#/alf'
-// @ts-expect-error
-import logoImagePointer from '../assets/logo.png'
 // @ts-expect-error
 import splashImagePointer from '../assets/splash/splash.png'
 // @ts-expect-error
@@ -31,21 +29,6 @@ const splashImageUri = RNImage.resolveAssetSource(splashImagePointer)!.uri
 const darkSplashImageUri = RNImage.resolveAssetSource(
   darkSplashImagePointer,
 )!.uri
-const logoImageUri = RNImage.resolveAssetSource(logoImagePointer)!.uri
-
-export const Logo = forwardRef(function LogoImpl(props: SvgProps, ref) {
-  const width = 100
-  return (
-    <Image
-      accessibilityIgnoresInvertColors
-      // @ts-expect-error it's fiiiiine
-      ref={ref}
-      source={{uri: logoImageUri}}
-      style={[{width, height: width}, props.style as ImageProps['style']]}
-    />
-  )
-})
-
 type Props = {
   isReady: boolean
 }
@@ -163,9 +146,6 @@ export function Splash(props: React.PropsWithChildren<Props>) {
     AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion)
   }, [])
 
-  // special off-spec color for dark mode
-  const logoBg = isDarkMode ? '#0F1824' : '#fff'
-
   return (
     <View style={{flex: 1}} onLayout={onLayout}>
       {!isAnimationComplete && (
@@ -190,7 +170,7 @@ export function Splash(props: React.PropsWithChildren<Props>) {
                 opacity: 0,
               },
             ]}>
-            <SpacedogWordmark fill="#fff" width={90} />
+            <BrandWordmark fill="#fff" width={90} />
           </Animated.View>
         </View>
       )}
@@ -213,7 +193,7 @@ export function Splash(props: React.PropsWithChildren<Props>) {
                   alignItems: 'center',
                 },
               ]}>
-              <Logo fill={logoBg} />
+              <DandelionMark size={100} />
             </Animated.View>
           )}
         </>

@@ -1,9 +1,11 @@
 import {type StyleProp, type TextStyle} from 'react-native'
 
 import {useTheme} from '#/alf'
+import {getBrandName} from '#/lib/brand'
 import {Text} from '#/components/Typography'
+import {useLingui} from '@lingui/react/macro'
 
-export function SpacedogWordmark({
+export function BrandWordmark({
   fill,
   width = 64,
   style,
@@ -13,7 +15,9 @@ export function SpacedogWordmark({
   style?: StyleProp<TextStyle>
 }) {
   const t = useTheme()
-  const fontSize = width * 0.22
+  const {i18n} = useLingui()
+  const brandName = getBrandName(i18n.locale)
+  const fontSize = width * (brandName.length > 10 ? 0.16 : 0.2)
 
   return (
     <Text
@@ -26,7 +30,7 @@ export function SpacedogWordmark({
         },
         style,
       ]}>
-      Spacedog
+      {brandName}
     </Text>
   )
 }

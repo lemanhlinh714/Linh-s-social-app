@@ -83,6 +83,14 @@ export const CHAT_PROXY_DID: DidString =
 export const METRICS_API_HOST: string =
   process.env.EXPO_PUBLIC_METRICS_API_HOST || 'https://events.bsky.app'
 
+/** Supabase project URL used for lightweight account registration. */
+export const SUPABASE_URL: string =
+  process.env.EXPO_PUBLIC_SUPABASE_URL || ''
+
+/** Public Supabase key. RLS must protect all database access. */
+export const SUPABASE_PUBLISHABLE_KEY: string =
+  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || ''
+
 /**
  * Growthbook API host
  */
