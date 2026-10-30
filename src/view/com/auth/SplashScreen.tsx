@@ -8,7 +8,7 @@ import {Trans} from '@lingui/react/macro'
 
 import {useHaptics} from '#/lib/haptics'
 import {Logo} from '#/view/icons/Logo'
-import {SpacedogWordmark} from '#/view/icons/SpacedogWordmark'
+import {BrandWordmark} from '#/view/icons/BrandWordmark'
 import {atoms as a, useTheme} from '#/alf'
 import {Button, ButtonText} from '#/components/Button'
 // @ts-expect-error
@@ -68,7 +68,7 @@ export const SplashScreen = ({
         <View
           style={[a.justify_center, a.align_center, {gap: 6, paddingTop: 46}]}>
           <Logo width={76} fill={styles.logoFill} style={styles.logoShadow} />
-          <SpacedogWordmark
+          <BrandWordmark
             width={91}
             fill={styles.logoFill}
             style={styles.logoShadow}

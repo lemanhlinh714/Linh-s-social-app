@@ -1,9 +1,8 @@
-import {Image} from 'expo-image'
 import {useLingui} from '@lingui/react/macro'
 
 import {PressableScale} from '#/lib/custom-animations/PressableScale'
-
-const homeLogo = require('../../../../assets/images/home-logo.png')
+import {getBrandName} from '#/lib/brand'
+import {DandelionMark} from '#/view/icons/DandelionMark'
 
 export function HomeHeaderLogo({
   size,
@@ -12,21 +11,15 @@ export function HomeHeaderLogo({
   size: number
   onPress: () => void
 }) {
-  const {t: l} = useLingui()
+  const {t: l, i18n} = useLingui()
 
   return (
     <PressableScale
-      accessibilityLabel={l`Bluesky home`}
+      accessibilityLabel={l`${getBrandName(i18n.locale)} home`}
       accessibilityHint={l`Press once to scroll to the top, then press again to refresh the feed.`}
       hitSlop={10}
       onPress={onPress}>
-      <Image
-        source={homeLogo}
-        accessible={false}
-        accessibilityIgnoresInvertColors
-        contentFit="contain"
-        style={{width: size, height: size}}
-      />
+      <DandelionMark size={size} />
     </PressableScale>
   )
 }

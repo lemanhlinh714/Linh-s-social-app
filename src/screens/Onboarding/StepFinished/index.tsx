@@ -13,7 +13,6 @@ import {uploadBlob} from '#/lib/api'
 import {
   LINH_TEST_SAVED_FEED,
   TIMELINE_SAVED_FEED,
-  VIDEO_SAVED_FEED,
 } from '#/lib/constants'
 import {useRequestNotificationsPermission} from '#/lib/notifications/notifications'
 import {logger} from '#/logger'
@@ -118,10 +117,6 @@ export function StepFinished() {
             },
             {
               ...TIMELINE_SAVED_FEED,
-              id: TID.nextStr(),
-            },
-            {
-              ...VIDEO_SAVED_FEED,
               id: TID.nextStr(),
             },
           ]
