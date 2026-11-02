@@ -5,7 +5,12 @@ import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
 import {Trans} from '@lingui/react/macro'
 
-import {LINH_TEST_SAVED_FEED, TIMELINE_SAVED_FEED} from '#/lib/constants'
+import {
+  DISCOVER_FEED_URI,
+  LEGACY_LINH_TEST_FEED_URI,
+  TIMELINE_SAVED_FEED,
+  VN_POLITICS_SAVED_FEED,
+} from '#/lib/constants'
 import {useOverwriteSavedFeedsMutation} from '#/state/queries/preferences'
 import {type UsePreferencesQueryResponse} from '#/state/queries/preferences'
 import {CenteredView} from '#/view/com/util/Views'
@@ -29,18 +34,22 @@ export function NoFeedsPinned({
 
   const addRecommendedFeeds = useCallback(async () => {
     let skippedTimeline = false
-    let skippedLinhTest = false
+    let skippedDefaultFeed = false
     let remainingSavedFeeds = []
 
-    // remove first instance of both timeline and discover, since we're going to overwrite them
+    // Replace built-in default feeds while retaining user-added feeds.
     for (const savedFeed of preferences.savedFeeds) {
       if (savedFeed.type === 'timeline' && !skippedTimeline) {
         skippedTimeline = true
       } else if (
-        savedFeed.value === LINH_TEST_SAVED_FEED.value &&
-        !skippedLinhTest
+        [
+          VN_POLITICS_SAVED_FEED.value,
+          LEGACY_LINH_TEST_FEED_URI,
+          DISCOVER_FEED_URI,
+        ].includes(savedFeed.value) &&
+        !skippedDefaultFeed
       ) {
-        skippedLinhTest = true
+        skippedDefaultFeed = true
       } else {
         remainingSavedFeeds.push(savedFeed)
       }
@@ -48,7 +57,7 @@ export function NoFeedsPinned({
 
     const toSave = [
       {
-        ...LINH_TEST_SAVED_FEED,
+        ...VN_POLITICS_SAVED_FEED,
         pinned: true,
         id: TID.nextStr(),
       },
