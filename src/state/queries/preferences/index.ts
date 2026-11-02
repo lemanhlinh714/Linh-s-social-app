@@ -26,10 +26,10 @@ import {type LabelPreference} from '@bsky/sdk/moderation'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 
 import {
-  DISCOVER_FEED_URI,
-  LINH_TEST_SAVED_FEED,
   PROD_DEFAULT_FEED,
+  TIMELINE_SAVED_FEED,
   VIDEO_FEED_URIS,
+  VN_POLITICS_SAVED_FEED,
 } from '#/lib/constants'
 import {replaceEqualDeep} from '#/lib/functions'
 import {getAge} from '#/lib/strings/time'
@@ -46,11 +46,11 @@ import {
 import {createQueryKey} from '#/state/queries/util'
 import {useAppviewClient, useChatClient, usePdsClient} from '#/state/session'
 import {applyLabelersToClient, saveLabelers} from '#/state/session/moderation'
-import {account} from '#/storage'
 import {useAgeAssurance} from '#/ageAssurance'
 import {makeAgeRestrictedModerationPrefs} from '#/ageAssurance/util'
 import {useAnalytics} from '#/analytics'
 import {app} from '#/lexicons'
+import {account} from '#/storage'
 
 export * from '#/state/queries/preferences/const'
 export * from '#/state/queries/preferences/moderation'
@@ -106,44 +106,31 @@ export function usePreferencesQuery() {
          * response types structurally with no cast at this seam.
          */
         let savedFeeds = res.savedFeeds.filter(f => f.type !== 'unknown')
-        const shouldUnpinVideoFeed =
-          !account.get([did, 'videoFeedUnpinMigrationComplete'])
-        const existingLinhTestFeed = savedFeeds.find(
-          feed => feed.value === LINH_TEST_SAVED_FEED.value,
-        )
-        const migratedSavedFeeds = [
-          {
-            ...(existingLinhTestFeed ?? LINH_TEST_SAVED_FEED),
-            id: existingLinhTestFeed?.id ?? TID.nextStr(),
-            pinned: true,
-          },
-          ...savedFeeds.filter(
-            feed =>
-              feed.value !== LINH_TEST_SAVED_FEED.value &&
-              feed.value !== DISCOVER_FEED_URI,
-          ),
-        ].map(feed =>
-          shouldUnpinVideoFeed &&
-          feed.pinned &&
-          VIDEO_FEED_URIS.includes(feed.value)
-            ? {...feed, pinned: false}
-            : feed,
-        )
-        const hasPinnedVideoFeed = savedFeeds.some(
-          feed => feed.pinned && VIDEO_FEED_URIS.includes(feed.value),
-        )
-        const needsFeedMigration =
-          !existingLinhTestFeed ||
-          !existingLinhTestFeed.pinned ||
-          savedFeeds[0]?.value !== LINH_TEST_SAVED_FEED.value ||
-          savedFeeds.some(feed => feed.value === DISCOVER_FEED_URI) ||
-          (shouldUnpinVideoFeed && hasPinnedVideoFeed)
-        if (needsFeedMigration) {
+        const migrationDone =
+          (account.get([did, 'savedFeedDefaultsMigrationVersion']) ?? 0) >= 1
+        if (!migrationDone) {
+          // Keep only Following + VN Politics pinned; Video stays saved but unpinned.
+          const existingFollowing = savedFeeds.find(f => f.type === 'timeline')
+          const existingVnPolitics = savedFeeds.find(
+            f => f.value === VN_POLITICS_SAVED_FEED.value,
+          )
+          const videoFeeds = savedFeeds
+            .filter(f => VIDEO_FEED_URIS.includes(f.value))
+            .map(f => ({...f, pinned: false}))
+          const migratedSavedFeeds = [
+            {
+              ...VN_POLITICS_SAVED_FEED,
+              id: existingVnPolitics?.id ?? TID.nextStr(),
+            },
+            {
+              ...TIMELINE_SAVED_FEED,
+              id: existingFollowing?.id ?? TID.nextStr(),
+            },
+            ...videoFeeds,
+          ]
           await client.call(overwriteSavedFeeds, migratedSavedFeeds)
           savedFeeds = migratedSavedFeeds
-        }
-        if (shouldUnpinVideoFeed) {
-          account.set([did, 'videoFeedUnpinMigrationComplete'], true)
+          account.set([did, 'savedFeedDefaultsMigrationVersion'], 1)
         }
 
         const preferences: UsePreferencesQueryResponse = {

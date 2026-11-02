@@ -10,10 +10,7 @@ import {Trans} from '@lingui/react/macro'
 import {useQueryClient} from '@tanstack/react-query'
 
 import {uploadBlob} from '#/lib/api'
-import {
-  LINH_TEST_SAVED_FEED,
-  TIMELINE_SAVED_FEED,
-} from '#/lib/constants'
+import {TIMELINE_SAVED_FEED, VN_POLITICS_SAVED_FEED} from '#/lib/constants'
 import {useRequestNotificationsPermission} from '#/lib/notifications/notifications'
 import {logger} from '#/logger'
 import {useSetHasCheckedForStarterPack} from '#/state/preferences/used-starter-packs'
@@ -112,7 +109,7 @@ export function StepFinished() {
           // Default feeds that every user should have pinned when landing in the app
           const feedsToSave: app.bsky.actor.defs.SavedFeed[] = [
             {
-              ...LINH_TEST_SAVED_FEED,
+              ...VN_POLITICS_SAVED_FEED,
               id: TID.nextStr(),
             },
             {
@@ -120,18 +117,6 @@ export function StepFinished() {
               id: TID.nextStr(),
             },
           ]
-
-          // Any starter pack feeds will be pinned _after_ the defaults
-          if (starterPack && starterPack.feeds?.length) {
-            feedsToSave.push(
-              ...starterPack.feeds.map(f => ({
-                type: 'feed' as const,
-                value: f.uri,
-                pinned: true,
-                id: TID.nextStr(),
-              })),
-            )
-          }
 
           await pdsClient.call(overwriteSavedFeeds, feedsToSave)
         })(),

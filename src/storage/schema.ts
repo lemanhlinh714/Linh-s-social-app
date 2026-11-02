@@ -97,8 +97,8 @@ export type Account = {
    */
   recentGifs?: Gif[]
 
-  /** Whether the saved Video feed has been unpinned for this account. */
-  videoFeedUnpinMigrationComplete?: boolean
+  /** Version of the one-time saved-feed defaults migration. */
+  savedFeedDefaultsMigrationVersion?: number
 
   /**
    * Cached from preferences (`bskyAppState.isBetaUser`) so the GrowthBook
