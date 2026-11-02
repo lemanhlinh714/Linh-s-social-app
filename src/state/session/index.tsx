@@ -13,6 +13,7 @@ import {type Client} from '@atproto/lex'
 import {type SessionData} from '@atproto/lex-password-session'
 
 import * as persisted from '#/state/persisted'
+import {registerAccountDid} from './register-account'
 import {useCloseAllActiveElements} from '#/state/util'
 import {useGlobalDialogsControlContext} from '#/components/dialogs/Context'
 import {AnalyticsContext, useAnalyticsBase, utils} from '#/analytics'
@@ -322,6 +323,7 @@ export function Provider({children}: React.PropsWithChildren<{}>) {
         newBundle: bundle,
         newAccount: account,
       })
+      void registerAccountDid(account)
       ax.metric(
         'account:loggedIn',
         {logContext, withPassword: true},
@@ -436,6 +438,7 @@ export function Provider({children}: React.PropsWithChildren<{}>) {
         newBundle: bundle,
         newAccount: account,
       })
+      void registerAccountDid(account)
       addSessionDebugLog({
         type: 'method:end',
         method: 'resumeSession',

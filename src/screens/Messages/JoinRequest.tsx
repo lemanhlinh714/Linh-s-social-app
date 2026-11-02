@@ -11,7 +11,8 @@ import {useModerationOpts} from '#/state/preferences/moderation-opts'
 import {useJoinLinkPreviewsQuery} from '#/state/queries/join-links'
 import {useActiveGroupChatJoinRequest} from '#/state/shell/landing'
 import {LoggedOutScreenState} from '#/view/com/auth/LoggedOut'
-import {LogomarkWithType} from '#/view/icons/LogomarkWithType'
+import {Logo} from '#/view/icons/Logo'
+import {BrandWordmark} from '#/view/icons/BrandWordmark'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf'
 import {AvatarBubbles} from '#/components/AvatarBubbles'
 import {Button, ButtonText} from '#/components/Button'
@@ -247,16 +248,11 @@ function Wrapper({children}: React.PropsWithChildren<unknown>) {
 
   return (
     <>
-      <LogomarkWithType
-        width={136}
-        fill={t.palette.primary_500}
-        style={[
-          a.absolute,
-          {
-            top: 40,
-          },
-        ]}
-      />
+      <View
+        style={[a.absolute, a.flex_row, a.align_center, a.gap_sm, {top: 40}]}>
+        <Logo width={34} height={34} />
+        <BrandWordmark width={106} fill={t.palette.primary_500} />
+      </View>
       <View
         style={[
           a.zoom_fade_in,

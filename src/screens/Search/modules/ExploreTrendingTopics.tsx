@@ -16,6 +16,7 @@ import {
   useGetTrendsQuery,
 } from '#/state/queries/trending/useGetTrendsQuery'
 import {useTrendingConfig} from '#/state/service-config'
+import {useSession} from '#/state/session'
 import {LoadingPlaceholder} from '#/view/com/util/LoadingPlaceholder'
 import {formatCount} from '#/view/com/util/numeric/format'
 import {atoms as a, useGutters, useTheme, type ViewStyleProp} from '#/alf'
@@ -37,9 +38,10 @@ import * as ModuleHeader from '../components/ModuleHeader'
 const IMAGE_SIZE = 56
 
 export function ExploreTrendingTopics() {
+  const {hasSession} = useSession()
   const {enabled} = useTrendingConfig()
   const {trendingDisabled} = useTrendingSettings()
-  return enabled && !trendingDisabled ? <Inner /> : null
+  return hasSession && enabled && !trendingDisabled ? <Inner /> : null
 }
 
 function Inner() {

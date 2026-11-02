@@ -140,3 +140,4 @@ docs/superpowers/
 
 # pnpm
 .pnpm-store/
+supabase/.temp/

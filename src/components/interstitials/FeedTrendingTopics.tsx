@@ -10,6 +10,7 @@ import {
 } from '#/state/preferences/trending'
 import {useGetTrendsQuery} from '#/state/queries/trending/useGetTrendsQuery'
 import {useTrendingConfig} from '#/state/service-config'
+import {useSession} from '#/state/session'
 import {LoadingPlaceholder} from '#/view/com/util/LoadingPlaceholder'
 import {formatCount} from '#/view/com/util/numeric/format'
 import {
@@ -41,11 +42,12 @@ export function FeedTrendingTopicsInterstitial({
 }: {
   feedSliceIndex: number
 }) {
+  const {hasSession} = useSession()
   const {enabled} = useTrendingConfig()
   const {trendingDisabled} = useTrendingSettings()
   const {rightNavVisible} = useLayoutBreakpoints()
 
-  return enabled && !trendingDisabled && !rightNavVisible ? (
+  return hasSession && enabled && !trendingDisabled && !rightNavVisible ? (
     <Inner feedSliceIndex={feedSliceIndex} />
   ) : null
 }

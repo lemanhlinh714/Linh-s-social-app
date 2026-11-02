@@ -29,6 +29,7 @@ import {
   DISCOVER_FEED_URI,
   LINH_TEST_SAVED_FEED,
   PROD_DEFAULT_FEED,
+  VIDEO_FEED_URIS,
 } from '#/lib/constants'
 import {replaceEqualDeep} from '#/lib/functions'
 import {getAge} from '#/lib/strings/time'
@@ -45,6 +46,7 @@ import {
 import {createQueryKey} from '#/state/queries/util'
 import {useAppviewClient, useChatClient, usePdsClient} from '#/state/session'
 import {applyLabelersToClient, saveLabelers} from '#/state/session/moderation'
+import {account} from '#/storage'
 import {useAgeAssurance} from '#/ageAssurance'
 import {makeAgeRestrictedModerationPrefs} from '#/ageAssurance/util'
 import {useAnalytics} from '#/analytics'
@@ -76,6 +78,7 @@ export function usePreferencesQuery() {
       if (!client.did) {
         return DEFAULT_LOGGED_OUT_PREFERENCES
       } else {
+        const did = client.did
         const res = await client.call(getPreferences)
 
         const labelerDids = res.moderationPrefs.labelers.map(l => l.did)
@@ -103,6 +106,8 @@ export function usePreferencesQuery() {
          * response types structurally with no cast at this seam.
          */
         let savedFeeds = res.savedFeeds.filter(f => f.type !== 'unknown')
+        const shouldUnpinVideoFeed =
+          !account.get([did, 'videoFeedUnpinMigrationComplete'])
         const existingLinhTestFeed = savedFeeds.find(
           feed => feed.value === LINH_TEST_SAVED_FEED.value,
         )
@@ -117,15 +122,28 @@ export function usePreferencesQuery() {
               feed.value !== LINH_TEST_SAVED_FEED.value &&
               feed.value !== DISCOVER_FEED_URI,
           ),
-        ]
+        ].map(feed =>
+          shouldUnpinVideoFeed &&
+          feed.pinned &&
+          VIDEO_FEED_URIS.includes(feed.value)
+            ? {...feed, pinned: false}
+            : feed,
+        )
+        const hasPinnedVideoFeed = savedFeeds.some(
+          feed => feed.pinned && VIDEO_FEED_URIS.includes(feed.value),
+        )
         const needsFeedMigration =
           !existingLinhTestFeed ||
           !existingLinhTestFeed.pinned ||
           savedFeeds[0]?.value !== LINH_TEST_SAVED_FEED.value ||
-          savedFeeds.some(feed => feed.value === DISCOVER_FEED_URI)
+          savedFeeds.some(feed => feed.value === DISCOVER_FEED_URI) ||
+          (shouldUnpinVideoFeed && hasPinnedVideoFeed)
         if (needsFeedMigration) {
           await client.call(overwriteSavedFeeds, migratedSavedFeeds)
           savedFeeds = migratedSavedFeeds
+        }
+        if (shouldUnpinVideoFeed) {
+          account.set([did, 'videoFeedUnpinMigrationComplete'], true)
         }
 
         const preferences: UsePreferencesQueryResponse = {

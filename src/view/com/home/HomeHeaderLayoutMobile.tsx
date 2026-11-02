@@ -59,7 +59,13 @@ export function HomeHeaderLayoutMobile({
           </Layout.Header.Slot>
 
           <View style={[a.flex_1, a.align_center]}>
-            <View style={{width: 30, height: 30}} />
+            <HomeHeaderLogo
+              size={30}
+              onPress={() => {
+                playHaptic('Light')
+                onPressLogo()
+              }}
+            />
           </View>
 
           <Layout.Header.Slot>
@@ -88,29 +94,6 @@ export function HomeHeaderLayoutMobile({
         </Layout.Header.Outer>
         {children}
       </Animated.View>
-      <View
-        pointerEvents="box-none"
-        style={[
-          a.fixed,
-          a.z_20,
-          t.atoms.bg,
-          a.align_center,
-          a.justify_center,
-          {
-            top: IS_LIQUID_GLASS ? insets.top : 0,
-            left: 0,
-            right: 0,
-            height: 48,
-          },
-        ]}>
-        <HomeHeaderLogo
-          size={30}
-          onPress={() => {
-            playHaptic('Light')
-            onPressLogo()
-          }}
-        />
-      </View>
     </>
   )
 }

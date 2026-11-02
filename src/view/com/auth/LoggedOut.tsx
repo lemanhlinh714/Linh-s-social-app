@@ -192,6 +192,7 @@ export function LoggedOut({onDismiss}: {onDismiss?: () => void}) {
         {screenState === ScreenState.S_ChooseSignupMethod ? (
           <SignupMethodScreen
             onBack={() => setScreenState(signupChoiceReturnState)}
+            onPressLogin={() => setScreenState(ScreenState.S_Login)}
             onContinueToBluesky={onContinueToBluesky}
           />
         ) : undefined}
@@ -205,14 +206,18 @@ export function LoggedOut({onDismiss}: {onDismiss?: () => void}) {
 
 function SignupMethodScreen({
   onBack,
+  onPressLogin,
   onContinueToBluesky,
 }: {
   onBack: () => void
+  onPressLogin: () => void
   onContinueToBluesky: () => void
 }) {
   const {i18n, t: l} = useLingui()
   const isVietnamese = i18n.locale === 'vi'
   const [showAppNotice, setShowAppNotice] = useState(false)
+  const [showBlueskySignupNotice, setShowBlueskySignupNotice] =
+    useState(false)
 
   return (
     <LoggedOutLayout
@@ -225,12 +230,6 @@ function SignupMethodScreen({
       }
       scrollable>
       <View style={[a.gap_md, a.px_xl, a.pt_2xl]}>
-        <Admonition type="warning">
-          {isVietnamese
-            ? 'Nếu bạn là người đấu tranh vì dân chủ, hãy ưu tiên sử dụng Bluesky. Đây là mạng xã hội mở, cho phép bạn chọn nhà cung cấp. Hãy cân nhắc quyền riêng tư trước khi chia sẻ thông tin nhạy cảm.'
-            : l`For people advocating for democracy, we recommend considering Bluesky: it is an open social network with a choice of providers. Review its privacy and safety settings before sharing sensitive information.`}
-        </Admonition>
-
         <Button
           testID="createBlueskyAccountButton"
           label={
@@ -240,11 +239,24 @@ function SignupMethodScreen({
           }
           color="primary"
           size="large"
-          onPress={onContinueToBluesky}>
+          onPress={() => {
+            onContinueToBluesky()
+            setShowBlueskySignupNotice(true)
+          }}>
           <ButtonText>
             {isVietnamese ? 'Tạo bằng Bluesky' : l`Create with Bluesky`}
           </ButtonText>
         </Button>
+
+        {showBlueskySignupNotice && (
+          <Admonition type="tip">
+            <Text>
+              {isVietnamese
+                ? 'Hãy đăng ký trong cửa sổ Bluesky vừa mở. Khi đăng ký xong, đóng cửa sổ đó, quay lại đây, chọn Đăng nhập và nhập tài khoản Bluesky của bạn. App chưa thể tự nhận kết quả đăng ký từ cửa sổ Bluesky.'
+                : l`Finish signing up in the Bluesky window. When you're done, close it, return here, choose Sign in, and enter your Bluesky account. This app can't automatically receive the signup result from that window.`}
+            </Text>
+          </Admonition>
+        )}
 
         <Button
           testID="createAppAccountButton"
@@ -272,6 +284,23 @@ function SignupMethodScreen({
             </Text>
           </Admonition>
         )}
+
+        <Button
+          testID="signupMethodLoginButton"
+          label={
+            isVietnamese
+              ? 'Đã có tài khoản? Đăng nhập'
+              : l`Already have an account? Sign in`
+          }
+          color="secondary"
+          size="large"
+          onPress={onPressLogin}>
+          <ButtonText>
+            {isVietnamese
+              ? 'Đã có tài khoản? Đăng nhập'
+              : l`Already have an account? Sign in`}
+          </ButtonText>
+        </Button>
 
         <Button
           label={isVietnamese ? 'Quay lại' : l`Back`}

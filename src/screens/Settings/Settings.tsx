@@ -22,8 +22,12 @@ import {clearStorage} from '#/state/persisted'
 import {useModerationOpts} from '#/state/preferences/moderation-opts'
 import {useDeleteActorDeclaration} from '#/state/queries/messages/actor-declaration'
 import {useProfileQuery, useProfilesQuery} from '#/state/queries/profile'
-import {usePdsClient} from '#/state/session'
-import {type SessionAccount, useSession, useSessionApi} from '#/state/session'
+import {
+  type SessionAccount,
+  usePdsClient,
+  useSession,
+  useSessionApi,
+} from '#/state/session'
 import {useOnboardingDispatch} from '#/state/shell'
 import {useLoggedOutViewControls} from '#/state/shell/logged-out'
 import {useCloseAllActiveElements} from '#/state/util'
@@ -77,7 +81,7 @@ export function SettingsScreen({}: Props) {
   const ax = useAnalytics()
   const {t: l} = useLingui()
   const reducedMotion = useReducedMotion()
-  const {logoutEveryAccount} = useSessionApi()
+  const {logoutCurrentAccount} = useSessionApi()
   const {accounts, currentAccount} = useSession()
   const switchAccountControl = useDialogControl()
   const signOutPromptControl = Prompt.usePromptControl()
@@ -302,8 +306,8 @@ export function SettingsScreen({}: Props) {
       <Prompt.Basic
         control={signOutPromptControl}
         title={l`Sign out?`}
-        description={l`You will be signed out of all your accounts.`}
-        onConfirm={() => logoutEveryAccount('Settings')}
+        description={l`You will be signed out of this account.`}
+        onConfirm={() => logoutCurrentAccount('Settings')}
         confirmButtonCta={l`Sign out`}
         cancelButtonCta={l`Cancel`}
         confirmButtonColor="negative"

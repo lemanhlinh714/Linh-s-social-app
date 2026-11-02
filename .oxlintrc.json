@@ -67,7 +67,9 @@
     "*.e2e.ts",
     "*.e2e.tsx",
     "eslint.config.mjs",
-    ".jscodeshift/**"
+    ".jscodeshift/**",
+    "_my_spaghetti_code/**",
+    "supabase/functions/**"
   ],
   "rules": {
     "constructor-super": "error",

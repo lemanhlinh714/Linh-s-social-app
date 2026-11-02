@@ -13,6 +13,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {EventEmitter} from 'eventemitter3'
 
 import {ScrollProvider} from '#/lib/ScrollContext'
+import {listenScrollToTop, listenSoftReset} from '#/state/events'
 import {useShellLayout} from '#/state/shell/shell-layout'
 import {IS_LIQUID_GLASS, IS_NATIVE, IS_WEB} from '#/env'
 
@@ -123,6 +124,16 @@ export function MainScrollProvider({children}: {children: React.ReactNode}) {
       })
     }
   })
+
+  useEffect(() => {
+    if (!IS_WEB) return
+    const unlistenScrollToTop = listenScrollToTop(() => setMode(false))
+    const unlistenSoftReset = listenSoftReset(() => setMode(false))
+    return () => {
+      unlistenScrollToTop()
+      unlistenSoftReset()
+    }
+  }, [setMode])
 
   const snapToClosestState = useCallback(
     (e: NativeScrollEvent) => {

@@ -7,6 +7,7 @@ import {Trans} from '@lingui/react/macro'
 
 import {useLoggedOutViewControls} from '#/state/shell/logged-out'
 import {useCloseAllActiveElements} from '#/state/util'
+import {getBrandName} from '#/lib/brand'
 import {atoms as a} from '#/alf'
 import {AppLanguageDropdown} from '#/components/AppLanguageDropdown'
 import {Button, ButtonText} from '#/components/Button'
@@ -16,7 +17,7 @@ import {Text} from '#/components/Typography'
 import logoImagePointer from '../../../assets/logo.png'
 
 let NavSignupCard = ({}: {}): React.ReactNode => {
-  const {_} = useLingui()
+  const {_, i18n} = useLingui()
   const {requestSwitchToAccount} = useLoggedOutViewControls()
   const closeAllActiveElements = useCloseAllActiveElements()
 
@@ -33,7 +34,7 @@ let NavSignupCard = ({}: {}): React.ReactNode => {
 
   return (
     <View style={[{maxWidth: 245}]}>
-      <Link to="/" label="Bluesky - Home">
+      <Link to="/" label={`${getBrandName(i18n.locale)} - Home`}>
         <Image source={logoImagePointer} style={{width: 32, height: 32}} />
       </Link>
 

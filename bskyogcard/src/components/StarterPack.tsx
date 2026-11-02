@@ -1,7 +1,7 @@
 /* eslint-disable bsky-internal/avoid-unwrapped-text */
 import {type AppBskyGraphDefs, AppBskyGraphStarterpack} from '@atproto/api'
 
-import {Butterfly} from './Butterfly.js'
+import {Dandelion} from './Dandelion.js'
 import {Img} from './Img.js'
 import * as bsky from '../types/bsky/index.js'
 
@@ -149,7 +149,7 @@ export function StarterPack(props: {
             justifyContent: 'center',
             padding: '30px 30px 10px',
           }}>
-          on <Butterfly width="65" style={{margin: '-7px 10px 0'}} /> Bluesky
+          on <Dandelion width="65" style={{margin: '-7px 10px 0'}} /> ABC social
         </div>
       </div>
     </div>

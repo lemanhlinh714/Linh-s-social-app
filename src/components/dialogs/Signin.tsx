@@ -6,8 +6,9 @@ import {Trans} from '@lingui/react/macro'
 
 import {useLoggedOutViewControls} from '#/state/shell/logged-out'
 import {useCloseAllActiveElements} from '#/state/util'
+import {getBrandName} from '#/lib/brand'
 import {Logo} from '#/view/icons/Logo'
-import {Logotype} from '#/view/icons/Logotype'
+import {BrandWordmark} from '#/view/icons/BrandWordmark'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf'
 import {Button, ButtonText} from '#/components/Button'
 import * as Dialog from '#/components/Dialog'
@@ -27,7 +28,7 @@ export function SigninDialog() {
 
 function SigninDialogInner({}: {control: Dialog.DialogOuterProps['control']}) {
   const t = useTheme()
-  const {_} = useLingui()
+  const {_, i18n} = useLingui()
   const {gtMobile} = useBreakpoints()
   const {requestSwitchToAccount} = useLoggedOutViewControls()
   const closeAllActiveElements = useCloseAllActiveElements()
@@ -44,7 +45,7 @@ function SigninDialogInner({}: {control: Dialog.DialogOuterProps['control']}) {
 
   return (
     <Dialog.ScrollableInner
-      label={_(msg`Sign in to Bluesky or create a new account`)}
+      label={_(msg`Sign in to ${getBrandName(i18n.locale)} or create a new account`)}
       style={[gtMobile ? {width: 'auto', maxWidth: 420} : a.w_full]}>
       <View style={[!IS_NATIVE && a.p_2xl]}>
         <View
@@ -57,7 +58,7 @@ function SigninDialogInner({}: {control: Dialog.DialogOuterProps['control']}) {
           ]}>
           <Logo allowVariants={false} width={36} />
           <View style={{paddingTop: 6}}>
-            <Logotype width={120} fill={t.atoms.text.color} />
+            <BrandWordmark width={120} fill={t.atoms.text.color} />
           </View>
         </View>
 

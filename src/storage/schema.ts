@@ -97,6 +97,9 @@ export type Account = {
    */
   recentGifs?: Gif[]
 
+  /** Whether the saved Video feed has been unpinned for this account. */
+  videoFeedUnpinMigrationComplete?: boolean
+
   /**
    * Cached from preferences (`bskyAppState.isBetaUser`) so the GrowthBook
    * `isBetaUser` attribute can be set synchronously at analytics init, before

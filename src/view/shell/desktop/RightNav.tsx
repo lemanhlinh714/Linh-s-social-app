@@ -88,15 +88,24 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
       ]}>
       {!isSearchScreen && <DesktopSearch />}
 
+      <SidebarAdBanner />
+
       {hasSession && (
         <>
-          <SidebarAdBanner />
           <ProgressGuideList />
         </>
       )}
 
-      {showExploreScreenDuplicatedContent && <SidebarTrendingTopics />}
+      {hasSession && showExploreScreenDuplicatedContent && (
+        <SidebarTrendingTopics />
+      )}
       {hasSession && <FollowSuggestions />}
+
+      {!hasSession && leftNavMinimal && (
+        <View style={[a.w_full, {height: 32}]}>
+          <AppLanguageDropdown />
+        </View>
+      )}
 
       <Text style={[a.leading_snug, t.atoms.text_contrast_low]}>
         {hasSession && (
@@ -127,11 +136,6 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
         </Text>
       )}
 
-      {!hasSession && leftNavMinimal && (
-        <View style={[a.w_full, {height: 32}]}>
-          <AppLanguageDropdown />
-        </View>
-      )}
     </View>
   )
 }
