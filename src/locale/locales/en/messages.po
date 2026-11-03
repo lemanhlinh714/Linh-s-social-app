@@ -1310,7 +1310,7 @@ msgstr "Add people with a link"
 msgid "Add Reaction"
 msgstr ""
 
-#: src/screens/Home/NoFeedsPinned.tsx:100
+#: src/screens/Home/NoFeedsPinned.tsx:109
 msgid "Add recommended feeds"
 msgstr ""
 
@@ -1888,7 +1888,7 @@ msgid "Appearance"
 msgstr ""
 
 #: src/screens/Feeds/NoSavedFeedsOfAnyType.tsx:52
-#: src/screens/Home/NoFeedsPinned.tsx:94
+#: src/screens/Home/NoFeedsPinned.tsx:103
 msgid "Apply default recommended feeds"
 msgstr ""
 
@@ -2428,8 +2428,8 @@ msgstr ""
 msgid "Browse more suggestions on the Explore page"
 msgstr ""
 
-#: src/screens/Home/NoFeedsPinned.tsx:104
-#: src/screens/Home/NoFeedsPinned.tsx:110
+#: src/screens/Home/NoFeedsPinned.tsx:113
+#: src/screens/Home/NoFeedsPinned.tsx:119
 msgid "Browse other feeds"
 msgstr ""
 
@@ -3168,7 +3168,7 @@ msgstr ""
 msgid "Community Guidelines"
 msgstr ""
 
-#: src/screens/Onboarding/StepFinished/index.tsx:322
+#: src/screens/Onboarding/StepFinished/index.tsx:307
 msgid "Complete onboarding and start using your account"
 msgstr ""
 
@@ -5363,7 +5363,7 @@ msgctxt "search"
 msgid "Filters"
 msgstr "Filters"
 
-#: src/screens/Onboarding/StepFinished/index.tsx:328
+#: src/screens/Onboarding/StepFinished/index.tsx:313
 msgid "Finalizing"
 msgstr ""
 
@@ -7111,7 +7111,7 @@ msgstr ""
 msgid "Let's get your password reset!"
 msgstr ""
 
-#: src/screens/Onboarding/StepFinished/index.tsx:330
+#: src/screens/Onboarding/StepFinished/index.tsx:315
 msgid "Let's go!"
 msgstr ""
 
@@ -7463,7 +7463,7 @@ msgstr ""
 msgid "Looks like you haven't saved any feeds! Use our recommendations or browse more below."
 msgstr ""
 
-#: src/screens/Home/NoFeedsPinned.tsx:84
+#: src/screens/Home/NoFeedsPinned.tsx:93
 msgid "Looks like you unpinned all your feeds. But don't worry, you can add some below 😄"
 msgstr ""
 
@@ -8142,8 +8142,8 @@ msgstr ""
 #: src/screens/Login/ForgotPasswordForm.tsx:154
 #: src/screens/Login/SetNewPasswordForm.tsx:176
 #: src/screens/Login/SetNewPasswordForm.tsx:182
-#: src/screens/Onboarding/StepFinished/index.tsx:323
-#: src/screens/Onboarding/StepFinished/index.tsx:332
+#: src/screens/Onboarding/StepFinished/index.tsx:308
+#: src/screens/Onboarding/StepFinished/index.tsx:317
 #: src/screens/Settings/components/AddAppPasswordDialog.tsx:157
 #: src/screens/Settings/components/AddAppPasswordDialog.tsx:165
 #: src/screens/Signup/BackNextButtons.tsx:68
@@ -11693,8 +11693,8 @@ msgstr "Since"
 #: src/components/contacts/screens/VerifyNumber.tsx:208
 #: src/screens/Onboarding/StepFindContactsIntro/index.tsx:86
 #: src/screens/Onboarding/StepFindContactsIntro/index.tsx:90
-#: src/screens/Onboarding/StepFinished/index.tsx:288
-#: src/screens/Onboarding/StepFinished/index.tsx:310
+#: src/screens/Onboarding/StepFinished/index.tsx:273
+#: src/screens/Onboarding/StepFinished/index.tsx:295
 #: src/screens/Onboarding/StepSuggestedAccounts/index.tsx:285
 #: src/screens/Onboarding/StepSuggestedStarterpacks/index.tsx:105
 #: src/screens/StarterPack/Wizard/index.tsx:202
@@ -11710,8 +11710,8 @@ msgstr ""
 msgid "Skip empty posts?"
 msgstr "Skip empty posts?"
 
-#: src/screens/Onboarding/StepFinished/index.tsx:281
-#: src/screens/Onboarding/StepFinished/index.tsx:307
+#: src/screens/Onboarding/StepFinished/index.tsx:266
+#: src/screens/Onboarding/StepFinished/index.tsx:292
 msgid "Skip introduction and start using your account"
 msgstr ""
 
@@ -14494,7 +14494,7 @@ msgstr ""
 msgid "Who can verify?"
 msgstr ""
 
-#: src/screens/Home/NoFeedsPinned.tsx:80
+#: src/screens/Home/NoFeedsPinned.tsx:89
 #: src/screens/Messages/ChatList.tsx:409
 #: src/screens/Messages/Inbox.tsx:190
 msgid "Whoops!"
