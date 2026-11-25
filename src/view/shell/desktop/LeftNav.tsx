@@ -46,10 +46,15 @@ import {
   BookmarkFilled as BookmarkFilledIcon,
 } from '#/components/icons/Bookmark'
 import {BulletList_Stroke2_Corner0_Rounded as ListIcon} from '#/components/icons/BulletList'
+import {BulletList_Filled_Corner0_Rounded as ListFilledIcon} from '#/components/icons/BulletList'
+import {CircleQuestion_Stroke2_Corner2_Rounded as CircleQuestionIcon} from '#/components/icons/CircleQuestion'
 import {type Props as SVGIconProps} from '#/components/icons/common'
 import {DotGrid3x1_Stroke2_Corner0_Rounded as EllipsisIcon} from '#/components/icons/DotGrid'
 import {EditBig_Stroke2_Corner2_Rounded as EditBigIcon} from '#/components/icons/EditBig'
-import {Hashtag_Stroke2_Corner0_Rounded as HashtagIcon} from '#/components/icons/Hashtag'
+import {
+  Hashtag_Filled_Corner0_Rounded as HashtagFilledIcon,
+  Hashtag_Stroke2_Corner0_Rounded as HashtagIcon,
+} from '#/components/icons/Hashtag'
 import {
   HomeOpen_Filled_Corner0_Rounded as HomeFilledIcon,
   HomeOpen_Stoke2_Corner0_Rounded as HomeIcon,
@@ -89,6 +94,7 @@ import {PlatformInfo} from '../../../../modules/expo-bluesky-swiss-army'
 
 const LARGE_ELEMENT_SIZE = 48
 const NAV_ICON_WIDTH = 28
+const ADMIN_DID = 'did:plc:gphlz3v6t7p2fi5uniuploi7'
 
 export const LEFT_NAV_STANDARD_WIDTH = 240
 export const LEFT_NAV_MINIMAL_WIDTH = 80
@@ -534,65 +540,40 @@ function NavItem({
   )
 }
 
-function MoreNavItem({minimal}: {minimal: boolean}) {
+function AdminContactNavItem({minimal}: {minimal: boolean}) {
   const {t: l} = useLingui()
   const t = useTheme()
   const navigation = useNavigation<NavigationProp>()
-  const ax = useAnalytics()
 
   return (
-    <Menu.Root>
-      <Menu.Trigger label={l`More`}>
-        {({props, control}) => (
-          <PressableWithHover
-            {...props}
-            style={[
-              a.flex_row,
-              a.align_center,
-              a.p_md,
-              a.rounded_full,
-              a.gap_sm,
-              a.outline_inset_1,
-              a.transition_color,
-              a.w_full,
-            ]}
-            hoverStyle={t.atoms.bg_contrast_25}>
-            <EllipsisIcon width={NAV_ICON_WIDTH} style={t.atoms.text} />
-            {!minimal && (
-              <Text style={[a.text_xl, control.isOpen && a.font_bold]}>
-                <Trans>More</Trans>
-              </Text>
-            )}
-          </PressableWithHover>
-        )}
-      </Menu.Trigger>
-      <Menu.Outer>
-        <Menu.Item
-          label={l`Feeds`}
-          style={{minHeight: 56, paddingVertical: 14}}
-          onPress={() => {
-            ax.metric('nav:click', {item: 'feeds', surface: 'leftNav'})
-            navigation.navigate('Feeds')
-          }}>
-          <Menu.ItemIcon icon={HashtagIcon} />
-          <Menu.ItemText style={a.text_lg}>
-            <Trans>Feeds</Trans>
-          </Menu.ItemText>
-        </Menu.Item>
-        <Menu.Item
-          label={l`Lists`}
-          style={{minHeight: 56, paddingVertical: 14}}
-          onPress={() => {
-            ax.metric('nav:click', {item: 'lists', surface: 'leftNav'})
-            navigation.navigate('Lists')
-          }}>
-          <Menu.ItemIcon icon={ListIcon} />
-          <Menu.ItemText style={a.text_lg}>
-            <Trans>Lists</Trans>
-          </Menu.ItemText>
-        </Menu.Item>
-      </Menu.Outer>
-    </Menu.Root>
+    <PressableWithHover
+      style={[
+        a.flex_row,
+        a.align_center,
+        a.p_md,
+        a.rounded_full,
+        a.gap_sm,
+        a.outline_inset_1,
+        a.transition_color,
+      ]}
+      hoverStyle={t.atoms.bg_contrast_25}
+      onPress={() => navigation.navigate('Profile', {name: ADMIN_DID})}
+      accessibilityRole="button"
+      accessibilityLabel={l`Liên hệ quản trị viên`}
+      accessibilityHint={l`Mở hồ sơ quản trị viên để liên hệ`}>
+      <View style={[a.align_center, a.justify_center, {width: 24, height: 24}]}>
+        <CircleQuestionIcon
+          aria-hidden={true}
+          width={NAV_ICON_WIDTH}
+          style={t.atoms.text}
+        />
+      </View>
+      {!minimal && (
+        <Text style={[a.text_xl]}>
+          <Trans>Liên hệ quản trị viên</Trans>
+        </Text>
+      )}
+    </PressableWithHover>
   )
 }
 
@@ -800,6 +781,21 @@ export function DesktopLeftNav({routeName}: {routeName: string}) {
               active: UserCircleFilledIcon,
             }}
           />
+          <AdminContactNavItem minimal={leftNavMinimal} />
+          <NavItem
+            label={l`Feeds`}
+            href="/feeds"
+            navItem="feeds"
+            minimal={leftNavMinimal}
+            icons={{inactive: HashtagIcon, active: HashtagFilledIcon}}
+          />
+          <NavItem
+            label={l`Lists`}
+            href="/lists"
+            navItem="lists"
+            minimal={leftNavMinimal}
+            icons={{inactive: ListIcon, active: ListFilledIcon}}
+          />
           <NavItem
             label={l`Settings`}
             href="/settings"
@@ -810,7 +806,6 @@ export function DesktopLeftNav({routeName}: {routeName: string}) {
               active: SettingsFilledIcon,
             }}
           />
-          <MoreNavItem minimal={leftNavMinimal} />
 
           <ComposeBtn minimal={leftNavMinimal} />
         </>

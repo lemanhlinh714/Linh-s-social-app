@@ -6,8 +6,8 @@ import {Trans} from '@lingui/react/macro'
 
 import {useWebMediaQueries} from '#/lib/hooks/useWebMediaQueries'
 import {ErrorBoundary} from '#/view/com/util/ErrorBoundary'
-import {Logo} from '#/view/icons/Logo'
 import {BrandWordmark} from '#/view/icons/BrandWordmark'
+import {Logo} from '#/view/icons/Logo'
 import {
   AppClipOverlay,
   postAppClipMessage,

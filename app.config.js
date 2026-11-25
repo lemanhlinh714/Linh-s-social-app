@@ -45,7 +45,7 @@ module.exports = function (_config) {
   return {
     expo: {
       version: VERSION,
-      name: 'ABC social',
+      name: 'Railway social',
       slug: 'abc-social',
       scheme: 'abc-social',
       owner: 'lelinh1',
@@ -75,7 +75,7 @@ module.exports = function (_config) {
             'Used to save images to your library.',
           NSPhotoLibraryUsageDescription:
             'Used for profile pictures, posts, and other kinds of content',
-          CFBundleSpokenName: 'ABC social',
+          CFBundleSpokenName: 'Railway social',
           CFBundleLocalizations: [
             'en',
             'an',
@@ -325,12 +325,12 @@ module.exports = function (_config) {
             ios: {
               enableFullScreenImage_legacy: true, // iOS only
               backgroundColor: '#000000', // primary_500
-              image: './assets/splash/splash.png',
+              image: './assets/splash/splash-flower.png',
               resizeMode: 'cover',
               dark: {
                 enableFullScreenImage_legacy: true, // iOS only
                 backgroundColor: '#000000', // primary_900
-                image: './assets/splash/splash-dark.png',
+                image: './assets/splash/splash-dark-flower.png',
                 resizeMode: 'cover',
               },
             },

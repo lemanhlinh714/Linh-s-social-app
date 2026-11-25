@@ -20,13 +20,11 @@ const withExtensionInfoPlist = (config, {extensionName}) => {
     )
 
     /** @type {Record<string, string>} */
-    const extPlist = plist.default.parse(
-      fs.readFileSync(plistPath).toString(),
-    )
+    const extPlist = plist.default.parse(fs.readFileSync(plistPath).toString())
 
     extPlist['MainAppScheme'] = config.scheme
     extPlist['CFBundleName'] = '$(PRODUCT_NAME)'
-    extPlist['CFBundleDisplayName'] = 'ABC social Notifications'
+    extPlist['CFBundleDisplayName'] = 'Railway social Notifications'
     extPlist['CFBundleIdentifier'] = '$(PRODUCT_BUNDLE_IDENTIFIER)'
     extPlist['CFBundleVersion'] = '$(CURRENT_PROJECT_VERSION)'
     extPlist['CFBundleExecutable'] = '$(EXECUTABLE_NAME)'

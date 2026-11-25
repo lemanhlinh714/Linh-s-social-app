@@ -1,8 +1,8 @@
-import {View, type StyleProp, type ViewStyle} from 'react-native'
-
-import {flatten} from '#/alf'
-import {getBrandName} from '#/lib/brand'
+import {type StyleProp, View, type ViewStyle} from 'react-native'
 import {useLingui} from '@lingui/react/macro'
+
+import {getBrandName} from '#/lib/brand'
+import {flatten} from '#/alf'
 import {DandelionMark} from './DandelionMark'
 
 type Props = {
@@ -26,7 +26,12 @@ export function Logo({width = 32, height = width, size, style}: Props) {
       accessibilityLabel={getBrandName(i18n.locale)}
       accessibilityHint=""
       style={[
-        {width: resolvedWidth, height: resolvedHeight, alignItems: 'center', justifyContent: 'center'},
+        {
+          width: resolvedWidth,
+          height: resolvedHeight,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
         flatten(style as never),
       ]}>
       <DandelionMark size={resolvedSize} />

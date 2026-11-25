@@ -1,7 +1,7 @@
 import {useLingui} from '@lingui/react/macro'
 
-import {PressableScale} from '#/lib/custom-animations/PressableScale'
 import {getBrandName} from '#/lib/brand'
+import {PressableScale} from '#/lib/custom-animations/PressableScale'
 import {DandelionMark} from '#/view/icons/DandelionMark'
 
 export function HomeHeaderLogo({

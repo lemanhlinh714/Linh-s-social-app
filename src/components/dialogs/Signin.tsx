@@ -4,11 +4,11 @@ import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
 import {Trans} from '@lingui/react/macro'
 
+import {getBrandName} from '#/lib/brand'
 import {useLoggedOutViewControls} from '#/state/shell/logged-out'
 import {useCloseAllActiveElements} from '#/state/util'
-import {getBrandName} from '#/lib/brand'
-import {Logo} from '#/view/icons/Logo'
 import {BrandWordmark} from '#/view/icons/BrandWordmark'
+import {Logo} from '#/view/icons/Logo'
 import {atoms as a, useBreakpoints, useTheme} from '#/alf'
 import {Button, ButtonText} from '#/components/Button'
 import * as Dialog from '#/components/Dialog'
@@ -45,7 +45,9 @@ function SigninDialogInner({}: {control: Dialog.DialogOuterProps['control']}) {
 
   return (
     <Dialog.ScrollableInner
-      label={_(msg`Sign in to ${getBrandName(i18n.locale)} or create a new account`)}
+      label={_(
+        msg`Sign in to ${getBrandName(i18n.locale)} or create a new account`,
+      )}
       style={[gtMobile ? {width: 'auto', maxWidth: 420} : a.w_full]}>
       <View style={[!IS_NATIVE && a.p_2xl]}>
         <View

@@ -7,8 +7,8 @@ import {useLingui} from '@lingui/react'
 import {Trans} from '@lingui/react/macro'
 
 import {useHaptics} from '#/lib/haptics'
-import {Logo} from '#/view/icons/Logo'
 import {BrandWordmark} from '#/view/icons/BrandWordmark'
+import {Logo} from '#/view/icons/Logo'
 import {atoms as a, useTheme} from '#/alf'
 import {Button, ButtonText} from '#/components/Button'
 // @ts-expect-error

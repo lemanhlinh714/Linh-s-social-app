@@ -17,6 +17,7 @@ import {
 import {useProfileQuery} from '#/state/queries/profile'
 import {type SessionAccount, useSession} from '#/state/session'
 import {useOnboardingState} from '#/state/shell'
+import {AdminContactAnnouncement} from '#/components/dialogs/nuxs/AdminContactAnnouncement'
 import {
   enabled as isGroupChatsAnnouncementEnabled,
   GroupChatsAnnouncement,
@@ -39,7 +40,12 @@ type Context = {
 const queuedNuxs: {
   id: Nux
   enabled?: (props: EnabledCheckProps) => boolean
+  saveOnDismiss?: boolean
 }[] = [
+  {
+    id: Nux.AdminContactAnnouncement,
+    saveOnDismiss: true,
+  },
   {
     id: Nux.GroupChatsAnnouncement,
     enabled: isGroupChatsAnnouncementEnabled,
@@ -113,8 +119,21 @@ function Inner({
 
   const dismissActiveNux = useCallback(() => {
     if (!activeNux) return
+
+    if (queuedNuxs.some(nux => nux.id === activeNux && nux.saveOnDismiss)) {
+      saveNux({
+        id: activeNux,
+        completed: true,
+        data: undefined,
+      }).catch(e => {
+        logger.error(`NUX dialogs: failed to upsert '${activeNux}' NUX`, {
+          safeMessage: e,
+        })
+      })
+    }
+
     setActiveNux(undefined)
-  }, [activeNux, setActiveNux])
+  }, [activeNux, saveNux, setActiveNux])
 
   useEffect(() => {
     if (!__DEV__ || typeof window === 'undefined') return
@@ -161,15 +180,17 @@ function Inner({
       snoozeNuxDialog()
 
       // immediately update remote data (affects next reload)
-      saveNux({
-        id,
-        completed: true,
-        data: undefined,
-      }).catch(e => {
-        logger.error(`NUX dialogs: failed to upsert '${id}' NUX`, {
-          safeMessage: e.message,
+      if (!queuedNuxs.some(nux => nux.id === id && nux.saveOnDismiss)) {
+        saveNux({
+          id,
+          completed: true,
+          data: undefined,
+        }).catch(e => {
+          logger.error(`NUX dialogs: failed to upsert '${id}' NUX`, {
+            safeMessage: e,
+          })
         })
-      })
+      }
 
       break
     }
@@ -195,6 +216,9 @@ function Inner({
   return (
     <Context.Provider value={ctx}>
       {/*For example, activeNux === Nux.NeueTypography && <NeueTypography />*/}
+      {activeNux === Nux.AdminContactAnnouncement && (
+        <AdminContactAnnouncement />
+      )}
       {activeNux === Nux.GroupChatsAnnouncement && <GroupChatsAnnouncement />}
       {/*
         Mounted unconditionally: it gates the announcement on `activeNux`

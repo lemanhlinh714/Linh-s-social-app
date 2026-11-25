@@ -2,15 +2,15 @@
 
 {% block head_title %}
 {%- if feedView -%}
-  {{ feedView.DisplayName }} by @{{ feedView.Creator.Handle }} | ABC social Feed
+  {{ feedView.DisplayName }} by @{{ feedView.Creator.Handle }} | Railway social Feed
 {%- else -%}
-  ABC social
+  Railway social
 {%- endif -%}
 {% endblock %}
 
 {% block html_head_extra -%}
 {%- if feedView -%}
-  <meta property="og:site_name" content="ABC social">
+  <meta property="og:site_name" content="Railway social">
   <meta property="og:type" content="website">
   {%- if requestURI %}
   <meta property="og:url" content="{{ requestURI }}">

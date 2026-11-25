@@ -149,7 +149,8 @@ export function StarterPack(props: {
             justifyContent: 'center',
             padding: '30px 30px 10px',
           }}>
-          on <Dandelion width="65" style={{margin: '-7px 10px 0'}} /> ABC social
+          on <Dandelion width="65" style={{margin: '-7px 10px 0'}} /> Railway
+          social
         </div>
       </div>
     </div>

@@ -5,9 +5,9 @@
  */
 
 import {useEffect, useRef, useState} from 'react'
+import {MessageSquare} from 'lucide-react-native'
 
 import {atoms as a, flattenToCSS} from '#/alf'
-import {DandelionMark} from '#/view/icons/DandelionMark'
 
 const size = 100
 
@@ -82,8 +82,11 @@ export function Splash({
           ])}>
           <div
             aria-hidden="true"
-            style={flattenToCSS([a.relative, {width: size, height: size, top: -50}])}>
-            <DandelionMark size={size} />
+            style={flattenToCSS([
+              a.relative,
+              {width: size, height: size, top: -50},
+            ])}>
+            <MessageSquare size={size} color="#F0F066" strokeWidth={1.5} />
           </div>
         </div>
       )}
