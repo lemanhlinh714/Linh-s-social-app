@@ -2,11 +2,9 @@ import {useEffect, useState} from 'react'
 import {View} from 'react-native'
 import {msg} from '@lingui/core/macro'
 import {useLingui} from '@lingui/react'
-import {Trans} from '@lingui/react/macro'
 import {useNavigation} from '@react-navigation/native'
 
 import {useSession} from '#/state/session'
-import {useLogoVariant} from '#/view/icons/useLogoVariant'
 import {FollowSuggestions} from '#/view/shell/desktop/FollowSuggestions'
 import {DesktopSearch} from '#/view/shell/desktop/Search'
 import {SidebarTrendingTopics} from '#/view/shell/desktop/SidebarTrendingTopics'
@@ -19,7 +17,6 @@ import {
 } from '#/alf'
 import {AppLanguageDropdown} from '#/components/AppLanguageDropdown'
 import {CENTER_COLUMN_OFFSET} from '#/components/Layout'
-import {InlineLinkText} from '#/components/Link'
 import {ProgressGuideList} from '#/components/ProgressGuide/List'
 import {Text} from '#/components/Typography'
 import {SidebarAdBanner} from '#/features/advertising/SidebarAdBanner'
@@ -45,7 +42,6 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
   const t = useTheme()
   const {_} = useLingui()
   const {hasSession} = useSession()
-  const logoVariant = useLogoVariant()
   const gutters = useGutters(['base', 0, 'base', 'wide'])
   const isSearchScreen = routeName === 'Search'
   const isMessagesRelatedScreen = routeName.startsWith('Messages')
@@ -122,20 +118,6 @@ export function DesktopRightNav({routeName}: {routeName: string}) {
         <Text style={[t.atoms.text_contrast_low]}>{' ∙ '}</Text>
         <Text style={[t.atoms.text_contrast_medium]}>{_(msg`Help`)}</Text>
       </Text>
-
-      {logoVariant === 'kawaii' && (
-        <Text style={[t.atoms.text_contrast_medium, {marginTop: 12}]}>
-          <Trans>
-            Logo by{' '}
-            <InlineLinkText
-              label={_(msg`Logo by @sawaratsuki.bsky.social`)}
-              to="/profile/sawaratsuki.bsky.social">
-              @sawaratsuki.bsky.social
-            </InlineLinkText>
-          </Trans>
-        </Text>
-      )}
-
     </View>
   )
 }

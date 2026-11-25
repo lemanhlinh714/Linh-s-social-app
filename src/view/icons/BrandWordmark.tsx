@@ -1,9 +1,9 @@
 import {type StyleProp, type TextStyle} from 'react-native'
-
-import {useTheme} from '#/alf'
-import {getBrandName} from '#/lib/brand'
-import {Text} from '#/components/Typography'
 import {useLingui} from '@lingui/react/macro'
+
+import {getBrandName} from '#/lib/brand'
+import {useTheme} from '#/alf'
+import {Text} from '#/components/Typography'
 
 export function BrandWordmark({
   fill,

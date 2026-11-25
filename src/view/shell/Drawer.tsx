@@ -20,7 +20,6 @@ import {type SessionAccount, useSession} from '#/state/session'
 import {useSetDrawerOpen} from '#/state/shell'
 import {formatCount} from '#/view/com/util/numeric/format'
 import {UserAvatar} from '#/view/com/util/UserAvatar'
-import {useLogoVariant} from '#/view/icons/useLogoVariant'
 import {NavSignupCard} from '#/view/shell/NavSignupCard'
 import {atoms as a, tokens, useTheme, web} from '#/alf'
 import {Button, ButtonIcon, ButtonText} from '#/components/Button'
@@ -33,7 +32,7 @@ import {
 } from '#/components/icons/Bell'
 import {Bookmark, BookmarkFilled} from '#/components/icons/Bookmark'
 import {BulletList_Stroke2_Corner0_Rounded as List} from '#/components/icons/BulletList'
-import {DotGrid3x1_Stroke2_Corner0_Rounded as Ellipsis} from '#/components/icons/DotGrid'
+import {CircleQuestion_Stroke2_Corner2_Rounded as CircleQuestionIcon} from '#/components/icons/CircleQuestion'
 import {Hashtag_Stroke2_Corner0_Rounded as Hashtag} from '#/components/icons/Hashtag'
 import {
   HomeOpen_Filled_Corner0_Rounded as HomeFilled,
@@ -52,8 +51,6 @@ import {
   UserCircle_Filled_Corner0_Rounded as UserCircleFilled,
   UserCircle_Stroke2_Corner0_Rounded as UserCircle,
 } from '#/components/icons/UserCircle'
-import {InlineLinkText} from '#/components/Link'
-import * as Menu from '#/components/Menu'
 import {OTAChannelNotice} from '#/components/OTAChannelNotice'
 import {ProfileBadges} from '#/components/ProfileBadges'
 import {Text} from '#/components/Typography'
@@ -63,6 +60,7 @@ import {InviteFriendsDialog} from '#/features/inviteFriends'
 import {useActorStatus} from '#/features/liveNow'
 
 const iconWidth = 26
+const ADMIN_DID = 'did:plc:gphlz3v6t7p2fi5uniuploi7'
 
 let DrawerProfileCard = ({
   account,
@@ -284,6 +282,11 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
     setDrawerOpen(false)
   }, [navigation, setDrawerOpen, ax])
 
+  const onPressAdminContact = useCallback(() => {
+    navigation.navigate('Profile', {name: ADMIN_DID})
+    setDrawerOpen(false)
+  }, [navigation, setDrawerOpen])
+
   // rendering
   // =
 
@@ -344,11 +347,10 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
               isActive={isAtMyProfile}
               onPress={onPressProfile}
             />
+            <AdminContactMenuItem onPress={onPressAdminContact} />
+            <FeedsMenuItem onPress={onPressFeeds} />
+            <ListsMenuItem onPress={onPressLists} />
             <SettingsMenuItem onPress={onPressSettings} />
-            <MoreMenuItem
-              onPressFeeds={onPressFeeds}
-              onPressLists={onPressLists}
-            />
           </>
         ) : (
           <>
@@ -541,52 +543,31 @@ let NotificationsMenuItem = ({
 }
 NotificationsMenuItem = memo(NotificationsMenuItem)
 
-let MoreMenuItem = ({
-  onPressFeeds,
-  onPressLists,
-}: {
-  onPressFeeds: () => void
-  onPressLists: () => void
-}): React.ReactNode => {
+let FeedsMenuItem = ({onPress}: {onPress: () => void}): React.ReactNode => {
   const {_} = useLingui()
   const t = useTheme()
-
   return (
-    <Menu.Root>
-      <Menu.Trigger label={_(msg`More`)}>
-        {({props}) => (
-          <MenuItem
-            {...props}
-            icon={<Ellipsis style={[t.atoms.text]} width={30} />}
-            label={_(msg`More`)}
-            style={[a.py_lg]}
-          />
-        )}
-      </Menu.Trigger>
-      <Menu.Outer>
-        <Menu.Item
-          label={_(msg`Feeds`)}
-          style={{minHeight: 56, paddingVertical: 14}}
-          onPress={onPressFeeds}>
-          <Menu.ItemIcon icon={Hashtag} />
-          <Menu.ItemText style={a.text_lg}>
-            <Trans>Feeds</Trans>
-          </Menu.ItemText>
-        </Menu.Item>
-        <Menu.Item
-          label={_(msg`Lists`)}
-          style={{minHeight: 56, paddingVertical: 14}}
-          onPress={onPressLists}>
-          <Menu.ItemIcon icon={List} />
-          <Menu.ItemText style={a.text_lg}>
-            <Trans>Lists</Trans>
-          </Menu.ItemText>
-        </Menu.Item>
-      </Menu.Outer>
-    </Menu.Root>
+    <MenuItem
+      icon={<Hashtag style={[t.atoms.text]} width={iconWidth} />}
+      label={_(msg`Feeds`)}
+      onPress={onPress}
+    />
   )
 }
-MoreMenuItem = memo(MoreMenuItem)
+FeedsMenuItem = memo(FeedsMenuItem)
+
+let ListsMenuItem = ({onPress}: {onPress: () => void}): React.ReactNode => {
+  const {_} = useLingui()
+  const t = useTheme()
+  return (
+    <MenuItem
+      icon={<List style={[t.atoms.text]} width={iconWidth} />}
+      label={_(msg`Lists`)}
+      onPress={onPress}
+    />
+  )
+}
+ListsMenuItem = memo(ListsMenuItem)
 
 let BookmarksMenuItem = ({
   isActive,
@@ -638,6 +619,23 @@ let ProfileMenuItem = ({
   )
 }
 ProfileMenuItem = memo(ProfileMenuItem)
+
+let AdminContactMenuItem = ({
+  onPress,
+}: {
+  onPress: () => void
+}): React.ReactNode => {
+  const {_} = useLingui()
+  const t = useTheme()
+  return (
+    <MenuItem
+      icon={<CircleQuestionIcon style={[t.atoms.text]} width={iconWidth} />}
+      label={_(msg`Liên hệ quản trị viên`)}
+      onPress={onPress}
+    />
+  )
+}
+AdminContactMenuItem = memo(AdminContactMenuItem)
 
 let SettingsMenuItem = ({onPress}: {onPress: () => void}): React.ReactNode => {
   const {_} = useLingui()
@@ -725,9 +723,6 @@ function MenuItem({icon, label, count, bold, onPress}: MenuItemProps) {
 }
 
 function ExtraLinks() {
-  const t = useTheme()
-  const logoVariant = useLogoVariant()
-
   return (
     <View style={[a.flex_col, a.gap_md, a.flex_wrap]}>
       <Text style={[a.text_md]}>
@@ -736,19 +731,6 @@ function ExtraLinks() {
       <Text style={[a.text_md]}>
         <Trans>Privacy Policy</Trans>
       </Text>
-      {logoVariant === 'kawaii' && (
-        <Text style={t.atoms.text_contrast_medium}>
-          <Trans>
-            Logo by{' '}
-            <InlineLinkText
-              style={[a.text_md]}
-              to="/profile/sawaratsuki.bsky.social"
-              label="@sawaratsuki.bsky.social">
-              @sawaratsuki.bsky.social
-            </InlineLinkText>
-          </Trans>
-        </Text>
-      )}
     </View>
   )
 }

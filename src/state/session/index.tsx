@@ -13,7 +13,6 @@ import {type Client} from '@atproto/lex'
 import {type SessionData} from '@atproto/lex-password-session'
 
 import * as persisted from '#/state/persisted'
-import {registerAccountDid} from './register-account'
 import {useCloseAllActiveElements} from '#/state/util'
 import {useGlobalDialogsControlContext} from '#/components/dialogs/Context'
 import {AnalyticsContext, useAnalyticsBase, utils} from '#/analytics'
@@ -24,6 +23,7 @@ import {getPublicAppviewClient} from './clients'
 import {createSessionBundleAndCreateAccount} from './create-account'
 import {pickExpiryRescueCandidate} from './expiry-rescue'
 import {type Action, getInitialState, reducer, type State} from './reducer'
+import {registerAccountDid} from './register-account'
 import {
   type AtpSessionEvent,
   createSessionBundleAndLogin,

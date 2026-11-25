@@ -1,5 +1,12 @@
-import {createSinglePathSVG} from './TEMPLATE'
+import DownloadIcon, {__iconData} from 'lucide-react-native/icons/download'
 
-export const Download_Stroke2_Corner0_Rounded = createSinglePathSVG({
-  path: 'M12 3a1 1 0 0 1 1 1v8.086l1.793-1.793a1 1 0 1 1 1.414 1.414l-3.5 3.5a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 1 1 1.414-1.414L11 12.086V4a1 1 0 0 1 1-1ZM4 14a1 1 0 0 1 1 1v4h14v-4a1 1 0 1 1 2 0v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1Z',
-})
+import {createLucideIcon} from './createLucideIcon'
+
+export const Download_Stroke2_Corner0_Rounded = Object.assign(
+  createLucideIcon(DownloadIcon),
+  {
+    svgPaths: __iconData.node.map(([, attributes]) => String(attributes.d)),
+    svgViewBox: '0 0 24 24',
+    svgStrokeWidth: 2,
+  },
+)

@@ -4,12 +4,12 @@
 {%- if profileView -%}
   @{{ profileView.Handle }} on Bluesky
 {%- else -%}
-  ABC social
+  Railway social
 {%- endif -%}
 {% endblock %}
 
 {% block html_head_extra -%}
-  <meta property="og:site_name" content="ABC social">
+  <meta property="og:site_name" content="Railway social">
   <meta property="og:type" content="profile">
 {%- if requestURI %}
   {% if canonicalURL %}

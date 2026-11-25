@@ -17,8 +17,8 @@ import {scheduleOnRN} from 'react-native-worklets'
 import {Image} from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 
-import {DandelionMark} from '#/view/icons/DandelionMark'
 import {BrandWordmark} from '#/view/icons/BrandWordmark'
+import {DandelionMark} from '#/view/icons/DandelionMark'
 import {atoms as a} from '#/alf'
 // @ts-expect-error
 import splashImagePointer from '../assets/splash/splash.png'
