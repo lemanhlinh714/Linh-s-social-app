@@ -158,7 +158,7 @@ msgstr ""
 #. placeholder {0}: numUnreadNotifications ?? 0
 #: src/view/shell/bottom-bar/BottomBar.tsx:251
 #: src/view/shell/bottom-bar/BottomBar.tsx:283
-#: src/view/shell/Drawer.tsx:530
+#: src/view/shell/Drawer.tsx:532
 msgid "{0, plural, one {# unread item} other {# unread items}}"
 msgstr ""
 
@@ -461,7 +461,7 @@ msgstr "{count, plural, one {# new join request} other {# new join requests}}"
 msgid "{count, plural, one {# request} other {# requests}}"
 msgstr "{count, plural, one {# request} other {# requests}}"
 
-#: src/view/shell/desktop/LeftNav.tsx:482
+#: src/view/shell/desktop/LeftNav.tsx:488
 msgid "{count, plural, one {# unread item} other {# unread items}}"
 msgstr ""
 
@@ -844,13 +844,13 @@ msgstr ""
 
 #. placeholder {0}: formatCount(i18n, profile?.followersCount ?? 0)
 #. placeholder {1}: profile?.followersCount || 0
-#: src/view/shell/Drawer.tsx:148
+#: src/view/shell/Drawer.tsx:146
 msgid "<0>{0}</0> {1, plural, one {follower} other {followers}}"
 msgstr ""
 
 #. placeholder {0}: formatCount(i18n, profile?.followsCount ?? 0)
 #. placeholder {1}: profile?.followsCount || 0
-#: src/view/shell/Drawer.tsx:159
+#: src/view/shell/Drawer.tsx:157
 msgid "<0>{0}</0> {1, plural, one {following} other {following}}"
 msgstr ""
 
@@ -1207,8 +1207,8 @@ msgstr ""
 
 #: src/screens/Settings/Settings.tsx:596
 #: src/screens/Settings/Settings.tsx:599
-#: src/view/shell/desktop/LeftNav.tsx:274
-#: src/view/shell/desktop/LeftNav.tsx:277
+#: src/view/shell/desktop/LeftNav.tsx:280
+#: src/view/shell/desktop/LeftNav.tsx:283
 msgid "Add another account"
 msgstr ""
 
@@ -1349,7 +1349,7 @@ msgstr ""
 msgid "Add user to list"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:299
+#: src/ageAssurance/components/NoAccessScreen.tsx:300
 msgid "Add your birthdate"
 msgstr ""
 
@@ -1442,7 +1442,7 @@ msgstr ""
 msgid "Age assurance only takes a few minutes"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:451
+#: src/ageAssurance/components/NoAccessScreen.tsx:455
 msgid "Age assurance only takes a few minutes."
 msgstr "Age assurance only takes a few minutes."
 
@@ -2099,6 +2099,10 @@ msgstr ""
 msgid "Back to Chats"
 msgstr ""
 
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:49
+msgid "Bạn có góp ý về thuật toán hoặc muốn trao đổi công việc? Hãy liên hệ với tôi bất cứ lúc nào."
+msgstr "Bạn có góp ý về thuật toán hoặc muốn trao đổi công việc? Hãy liên hệ với tôi bất cứ lúc nào."
+
 #: src/components/moderation/ReportDialog/utils/useReportOptions.ts:218
 msgid "Banned activities or security violations"
 msgstr ""
@@ -2107,7 +2111,7 @@ msgstr ""
 msgid "Banned user returning"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:186
+#: src/ageAssurance/components/NoAccessScreen.tsx:187
 msgid "Based on your device's location, we think you're in <0>{geolocationString}</0>."
 msgstr "Based on your device's location, we think you're in <0>{geolocationString}</0>."
 
@@ -2115,7 +2119,7 @@ msgstr "Based on your device's location, we think you're in <0>{geolocationStrin
 msgid "Based on your device's location, we think you're in <0>{region}</0>."
 msgstr "Based on your device's location, we think you're in <0>{region}</0>."
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:196
+#: src/ageAssurance/components/NoAccessScreen.tsx:197
 msgid "Based on your network, we think you're in <0>{geolocationString}</0>. This estimate may be inaccurate if you're using a VPN."
 msgstr "Based on your network, we think you're in <0>{geolocationString}</0>. This estimate may be inaccurate if you're using a VPN."
 
@@ -2574,7 +2578,7 @@ msgstr "Camera access needed"
 #: src/view/com/composer/Composer.tsx:1867
 #: src/view/com/composer/photos/EditImageDialog.web.tsx:44
 #: src/view/com/composer/photos/EditImageDialog.web.tsx:53
-#: src/view/shell/desktop/LeftNav.tsx:226
+#: src/view/shell/desktop/LeftNav.tsx:232
 msgid "Cancel"
 msgstr ""
 
@@ -2705,8 +2709,8 @@ msgstr ""
 #: src/lib/hooks/useNotificationHandler.ts:133
 #: src/Navigation.tsx:521
 #: src/view/shell/bottom-bar/BottomBar.tsx:242
-#: src/view/shell/desktop/LeftNav.tsx:767
-#: src/view/shell/Drawer.tsx:498
+#: src/view/shell/desktop/LeftNav.tsx:748
+#: src/view/shell/Drawer.tsx:500
 msgid "Chat"
 msgstr ""
 
@@ -2961,11 +2965,11 @@ msgstr "Click here to add people to this group chat"
 msgid "Click here to create or manage an invite link for this group chat"
 msgstr "Click here to create or manage an invite link for this group chat"
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:329
+#: src/ageAssurance/components/NoAccessScreen.tsx:333
 msgid "Click here to delete your account"
 msgstr "Click here to delete your account"
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:320
+#: src/ageAssurance/components/NoAccessScreen.tsx:324
 msgid "Click here to log out"
 msgstr ""
 
@@ -2978,8 +2982,8 @@ msgstr "Click here to resend the email"
 msgid "Click here to restart the verification process."
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:121
-#: src/ageAssurance/components/NoAccessScreen.tsx:296
+#: src/ageAssurance/components/NoAccessScreen.tsx:122
+#: src/ageAssurance/components/NoAccessScreen.tsx:297
 msgid "Click here to update your birthdate"
 msgstr ""
 
@@ -3178,7 +3182,7 @@ msgstr ""
 
 #: src/lib/hotkeys/index.tsx:66
 #: src/view/com/feeds/ComposerPrompt.tsx:161
-#: src/view/shell/desktop/LeftNav.tsx:646
+#: src/view/shell/desktop/LeftNav.tsx:627
 msgid "Compose new post"
 msgstr ""
 
@@ -3242,7 +3246,7 @@ msgstr "Connecting…"
 msgid "Connection issue"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:406
+#: src/ageAssurance/components/NoAccessScreen.tsx:410
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:128
 #: src/components/ageAssurance/AgeAssuranceAppealDialog.tsx:31
 msgid "Contact our moderation team"
@@ -3690,8 +3694,8 @@ msgstr ""
 msgid "Create account"
 msgstr ""
 
-#: src/components/dialogs/Signin.tsx:88
 #: src/components/dialogs/Signin.tsx:90
+#: src/components/dialogs/Signin.tsx:92
 #: src/screens/Hashtag.tsx:238
 #: src/screens/Search/SearchResults.tsx:418
 #: src/view/com/auth/LoggedOut.tsx:225
@@ -3812,6 +3816,11 @@ msgstr ""
 #: src/screens/Onboarding/Layout.tsx:60
 msgid "Customizes your Bluesky experience"
 msgstr ""
+
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:66
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:71
+msgid "Đã hiểu"
+msgstr "Đã hiểu"
 
 #: src/components/moderation/ReportDialog/utils/useReportOptions.ts:202
 msgid "Dangerous challenges or activities"
@@ -4864,8 +4873,8 @@ msgstr ""
 
 #: src/Navigation.tsx:781
 #: src/screens/Search/Shell.tsx:549
-#: src/view/shell/desktop/LeftNav.tsx:736
-#: src/view/shell/Drawer.tsx:446
+#: src/view/shell/desktop/LeftNav.tsx:717
+#: src/view/shell/Drawer.tsx:448
 msgid "Explore"
 msgstr ""
 
@@ -5281,8 +5290,8 @@ msgstr ""
 msgid "Feed unavailable"
 msgstr ""
 
-#: src/view/shell/desktop/RightNav.tsx:114
-#: src/view/shell/Drawer.tsx:400
+#: src/view/shell/desktop/RightNav.tsx:110
+#: src/view/shell/Drawer.tsx:402
 msgid "Feedback"
 msgstr ""
 
@@ -5300,10 +5309,8 @@ msgstr ""
 #: src/screens/StarterPack/StarterPackScreen.tsx:194
 #: src/view/screens/Feeds.tsx:504
 #: src/view/screens/Profile.tsx:236
-#: src/view/shell/desktop/LeftNav.tsx:571
-#: src/view/shell/desktop/LeftNav.tsx:579
-#: src/view/shell/Drawer.tsx:568
-#: src/view/shell/Drawer.tsx:573
+#: src/view/shell/desktop/LeftNav.tsx:786
+#: src/view/shell/Drawer.tsx:552
 msgid "Feeds"
 msgstr ""
 
@@ -5644,7 +5651,7 @@ msgstr ""
 msgid "Food"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:108
+#: src/ageAssurance/components/NoAccessScreen.tsx:109
 msgid "For organizational accounts, use the birthdate of the person who is responsible for the account."
 msgstr ""
 
@@ -5758,7 +5765,7 @@ msgstr ""
 msgid "Get early access to experimental features we’re testing."
 msgstr "Get early access to experimental features we’re testing."
 
-#: src/view/shell/Drawer.tsx:404
+#: src/view/shell/Drawer.tsx:406
 msgid "Get help"
 msgstr ""
 
@@ -5955,8 +5962,8 @@ msgstr ""
 #: src/components/dms/ConvoMenu.tsx:262
 #: src/screens/Messages/components/MessagesListInfoPanel.tsx:102
 #: src/screens/Messages/ConversationSettings/MemberMenu.tsx:194
-#: src/view/shell/desktop/LeftNav.tsx:334
 #: src/view/shell/desktop/LeftNav.tsx:340
+#: src/view/shell/desktop/LeftNav.tsx:346
 msgid "Go to profile"
 msgstr ""
 
@@ -6164,8 +6171,8 @@ msgid "Held by Bluesky for 7 days to prevent abuse, then deleted"
 msgstr ""
 
 #: src/screens/Settings/Settings.tsx:264
-#: src/view/shell/desktop/RightNav.tsx:123
-#: src/view/shell/Drawer.tsx:413
+#: src/view/shell/desktop/RightNav.tsx:119
+#: src/view/shell/Drawer.tsx:415
 msgid "Help"
 msgstr ""
 
@@ -6182,11 +6189,11 @@ msgstr ""
 msgid "Hey there 👋"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:173
+#: src/ageAssurance/components/NoAccessScreen.tsx:174
 msgid "Hey there!"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:278
+#: src/ageAssurance/components/NoAccessScreen.tsx:279
 msgid "Hi there!"
 msgstr ""
 
@@ -6354,8 +6361,8 @@ msgstr ""
 #: src/Navigation.tsx:776
 #: src/Navigation.tsx:797
 #: src/view/shell/bottom-bar/BottomBar.tsx:196
-#: src/view/shell/desktop/LeftNav.tsx:726
-#: src/view/shell/Drawer.tsx:472
+#: src/view/shell/desktop/LeftNav.tsx:707
+#: src/view/shell/Drawer.tsx:474
 msgid "Home"
 msgstr ""
 
@@ -6439,7 +6446,7 @@ msgstr ""
 msgid "If you are not yet an adult according to the laws of your country, your parent or legal guardian must read these Terms on your behalf."
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:118
+#: src/ageAssurance/components/NoAccessScreen.tsx:119
 msgid "If you believe your birthdate is incorrect, you can update it by <0>clicking here</0>."
 msgstr ""
 
@@ -6575,7 +6582,7 @@ msgstr ""
 msgid "Imported on {0}"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:281
+#: src/ageAssurance/components/NoAccessScreen.tsx:282
 msgid "In order to provide an age-appropriate experience, we need to know your birthdate. This is a one-time thing, and your data will be kept private."
 msgstr ""
 
@@ -6747,7 +6754,7 @@ msgid "Invite code not accepted. Check that you input it correctly and try again
 msgstr ""
 
 #: src/screens/Profile/Header/ProfileHeaderStandard.tsx:360
-#: src/view/shell/Drawer.tsx:114
+#: src/view/shell/Drawer.tsx:112
 msgid "Invite friends"
 msgstr "Invite friends"
 
@@ -6942,12 +6949,12 @@ msgstr ""
 msgid "Larger"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:445
+#: src/ageAssurance/components/NoAccessScreen.tsx:449
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:179
 msgid "Last initiated {timeAgo} ago"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:443
+#: src/ageAssurance/components/NoAccessScreen.tsx:447
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:177
 msgid "Last initiated just now"
 msgstr ""
@@ -7118,6 +7125,12 @@ msgstr ""
 #: src/features/advertising/SidebarAdBanner.tsx:30
 msgid "Liên hệ để book quảng cáo"
 msgstr "Liên hệ để book quảng cáo"
+
+#: src/view/shell/desktop/LeftNav.tsx:562
+#: src/view/shell/desktop/LeftNav.tsx:573
+#: src/view/shell/Drawer.tsx:633
+msgid "Liên hệ quản trị viên"
+msgstr "Liên hệ quản trị viên"
 
 #: src/components/dialogs/Embed.tsx:160
 #: src/components/dialogs/Embed.tsx:162
@@ -7324,10 +7337,8 @@ msgstr ""
 #: src/view/screens/Lists.tsx:60
 #: src/view/screens/Profile.tsx:231
 #: src/view/screens/Profile.tsx:238
-#: src/view/shell/desktop/LeftNav.tsx:583
-#: src/view/shell/desktop/LeftNav.tsx:591
-#: src/view/shell/Drawer.tsx:577
-#: src/view/shell/Drawer.tsx:582
+#: src/view/shell/desktop/LeftNav.tsx:793
+#: src/view/shell/Drawer.tsx:565
 msgid "Lists"
 msgstr ""
 
@@ -7439,15 +7450,6 @@ msgstr ""
 
 #: src/components/AccountList.tsx:189
 msgid "Logged out"
-msgstr ""
-
-#: src/view/shell/desktop/RightNav.tsx:131
-msgid "Logo by @sawaratsuki.bsky.social"
-msgstr ""
-
-#: src/view/shell/desktop/RightNav.tsx:128
-#: src/view/shell/Drawer.tsx:741
-msgid "Logo by <0>@sawaratsuki.bsky.social</0>"
 msgstr ""
 
 #. placeholder {0}: isCashtag ? tag : `#${tag}`
@@ -7689,6 +7691,10 @@ msgstr ""
 msgid "Missing media"
 msgstr ""
 
+#: src/view/shell/desktop/LeftNav.tsx:563
+msgid "Mở hồ sơ quản trị viên để liên hệ"
+msgstr "Mở hồ sơ quản trị viên để liên hệ"
+
 #: src/Navigation.tsx:186
 #: src/screens/Moderation/index.tsx:102
 msgid "Moderation"
@@ -7760,13 +7766,6 @@ msgstr ""
 #: src/lib/moderation/useModerationCauseDescription.ts:45
 msgid "Moderator has chosen to set a general warning on the content."
 msgstr ""
-
-#: src/view/shell/desktop/LeftNav.tsx:545
-#: src/view/shell/desktop/LeftNav.tsx:563
-#: src/view/shell/Drawer.tsx:556
-#: src/view/shell/Drawer.tsx:561
-msgid "More"
-msgstr "More"
 
 #: src/view/shell/desktop/Feeds.tsx:106
 #: src/view/shell/desktop/Feeds.tsx:153
@@ -7964,7 +7963,7 @@ msgstr ""
 msgid "Navigates to the next screen"
 msgstr ""
 
-#: src/view/shell/Drawer.tsx:85
+#: src/view/shell/Drawer.tsx:83
 msgid "Navigates to your profile"
 msgstr ""
 
@@ -8097,7 +8096,7 @@ msgid "New post"
 msgstr ""
 
 #: src/view/com/feeds/FeedPage.tsx:195
-#: src/view/shell/desktop/LeftNav.tsx:657
+#: src/view/shell/desktop/LeftNav.tsx:638
 msgctxt "action"
 msgid "New post"
 msgstr ""
@@ -8516,8 +8515,8 @@ msgstr ""
 #: src/screens/Settings/Settings.tsx:208
 #: src/view/screens/Notifications.tsx:128
 #: src/view/shell/bottom-bar/BottomBar.tsx:279
-#: src/view/shell/desktop/LeftNav.tsx:756
-#: src/view/shell/Drawer.tsx:525
+#: src/view/shell/desktop/LeftNav.tsx:737
+#: src/view/shell/Drawer.tsx:527
 msgid "Notifications"
 msgstr ""
 
@@ -8938,7 +8937,7 @@ msgstr "Opens the find and invite friends settings"
 msgid "Opens the GIF picker dialog"
 msgstr "Opens the GIF picker dialog"
 
-#: src/view/shell/Drawer.tsx:116
+#: src/view/shell/Drawer.tsx:114
 msgid "Opens the invite friends sheet to share your profile"
 msgstr "Opens the invite friends sheet to share your profile"
 
@@ -9628,7 +9627,7 @@ msgstr ""
 msgid "Primary language"
 msgstr ""
 
-#: src/view/shell/desktop/RightNav.tsx:119
+#: src/view/shell/desktop/RightNav.tsx:115
 msgid "Privacy"
 msgstr ""
 
@@ -9654,7 +9653,7 @@ msgstr ""
 #: src/Navigation.tsx:350
 #: src/screens/Settings/AboutSettings.tsx:101
 #: src/view/screens/PrivacyPolicy.tsx:24
-#: src/view/shell/Drawer.tsx:737
+#: src/view/shell/Drawer.tsx:732
 msgid "Privacy Policy"
 msgstr ""
 
@@ -9674,14 +9673,14 @@ msgstr ""
 msgid "Processing..."
 msgstr ""
 
-#: src/view/screens/DebugMod.tsx:1160
+#: src/view/screens/DebugMod.tsx:1157
 msgid "profile"
 msgstr ""
 
 #: src/view/shell/bottom-bar/BottomBar.tsx:322
-#: src/view/shell/desktop/LeftNav.tsx:794
-#: src/view/shell/Drawer.tsx:84
-#: src/view/shell/Drawer.tsx:635
+#: src/view/shell/desktop/LeftNav.tsx:775
+#: src/view/shell/Drawer.tsx:82
+#: src/view/shell/Drawer.tsx:616
 msgid "Profile"
 msgstr ""
 
@@ -10703,8 +10702,8 @@ msgstr ""
 msgid "Saved"
 msgstr "Saved"
 
-#: src/view/shell/desktop/LeftNav.tsx:781
-#: src/view/shell/Drawer.tsx:610
+#: src/view/shell/desktop/LeftNav.tsx:762
+#: src/view/shell/Drawer.tsx:591
 msgctxt "link to bookmarks screen"
 msgid "Saved"
 msgstr ""
@@ -11161,7 +11160,7 @@ msgstr ""
 msgid "Send error report"
 msgstr "Send error report"
 
-#: src/view/shell/Drawer.tsx:393
+#: src/view/shell/Drawer.tsx:395
 msgid "Send feedback"
 msgstr ""
 
@@ -11234,7 +11233,7 @@ msgstr ""
 msgid "Set who can reply to your post"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:288
+#: src/ageAssurance/components/NoAccessScreen.tsx:289
 msgid "Set your birthdate below and we'll get you back to posting and exploring in no time!"
 msgstr ""
 
@@ -11252,8 +11251,8 @@ msgstr ""
 
 #: src/Navigation.tsx:227
 #: src/screens/Settings/Settings.tsx:106
-#: src/view/shell/desktop/LeftNav.tsx:804
-#: src/view/shell/Drawer.tsx:648
+#: src/view/shell/desktop/LeftNav.tsx:800
+#: src/view/shell/Drawer.tsx:646
 msgid "Settings"
 msgstr ""
 
@@ -11580,8 +11579,8 @@ msgstr ""
 msgid "Shows the content"
 msgstr ""
 
-#: src/components/dialogs/Signin.tsx:99
 #: src/components/dialogs/Signin.tsx:101
+#: src/components/dialogs/Signin.tsx:103
 #: src/screens/Hashtag.tsx:233
 #: src/screens/Login/index.tsx:143
 #: src/screens/Login/index.tsx:165
@@ -11618,12 +11617,12 @@ msgstr "Sign in as…"
 msgid "Sign in or create an account"
 msgstr ""
 
-#: src/components/dialogs/Signin.tsx:77
+#: src/components/dialogs/Signin.tsx:79
 msgid "Sign in or create your account to join the conversation!"
 msgstr ""
 
 #. placeholder {0}: getBrandName(i18n.locale)
-#: src/components/dialogs/Signin.tsx:48
+#: src/components/dialogs/Signin.tsx:49
 msgid "Sign in to {0} or create a new account"
 msgstr "Sign in to {0} or create a new account"
 
@@ -11654,9 +11653,9 @@ msgstr ""
 #: src/screens/SignupQueued.tsx:100
 #: src/screens/SignupQueued.tsx:103
 #: src/screens/Takendown.tsx:85
-#: src/view/shell/desktop/LeftNav.tsx:225
-#: src/view/shell/desktop/LeftNav.tsx:280
-#: src/view/shell/desktop/LeftNav.tsx:283
+#: src/view/shell/desktop/LeftNav.tsx:231
+#: src/view/shell/desktop/LeftNav.tsx:286
+#: src/view/shell/desktop/LeftNav.tsx:289
 msgid "Sign out"
 msgstr ""
 
@@ -11665,7 +11664,7 @@ msgid "Sign Out"
 msgstr ""
 
 #: src/screens/Settings/Settings.tsx:308
-#: src/view/shell/desktop/LeftNav.tsx:222
+#: src/view/shell/desktop/LeftNav.tsx:228
 msgid "Sign out?"
 msgstr ""
 
@@ -12160,16 +12159,16 @@ msgstr "Suspended accounts cannot participate in chat."
 #: src/screens/Settings/Settings.tsx:130
 #: src/screens/Settings/Settings.tsx:142
 #: src/screens/Settings/Settings.tsx:636
-#: src/view/shell/desktop/LeftNav.tsx:260
+#: src/view/shell/desktop/LeftNav.tsx:266
 msgid "Switch account"
 msgstr ""
 
-#: src/view/shell/desktop/LeftNav.tsx:122
+#: src/view/shell/desktop/LeftNav.tsx:128
 msgid "Switch accounts"
 msgstr ""
 
 #. placeholder {0}: sanitizeHandle( profile?.handle ?? account.handle, '@', )
-#: src/view/shell/desktop/LeftNav.tsx:362
+#: src/view/shell/desktop/LeftNav.tsx:368
 msgid "Switch to {0}"
 msgstr ""
 
@@ -12211,7 +12210,7 @@ msgstr ""
 msgid "Tap for more information"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:215
+#: src/ageAssurance/components/NoAccessScreen.tsx:216
 #: src/screens/Signup/StepInfo/index.tsx:337
 msgid "Tap here to update your location with GPS."
 msgstr "Tap here to update your location with GPS."
@@ -12306,7 +12305,7 @@ msgstr ""
 msgid "Temporarily deactivate your account"
 msgstr "Temporarily deactivate your account"
 
-#: src/view/shell/desktop/RightNav.tsx:121
+#: src/view/shell/desktop/RightNav.tsx:117
 msgid "Terms"
 msgstr ""
 
@@ -12316,7 +12315,7 @@ msgstr ""
 #: src/Navigation.tsx:355
 #: src/screens/Settings/AboutSettings.tsx:95
 #: src/view/screens/TermsOfService.tsx:24
-#: src/view/shell/Drawer.tsx:734
+#: src/view/shell/Drawer.tsx:729
 msgid "Terms of Service"
 msgstr ""
 
@@ -12342,7 +12341,7 @@ msgstr "Thanks for your feedback!"
 msgid "Thanks, you have successfully verified your email address. You can close this dialog."
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:235
+#: src/ageAssurance/components/NoAccessScreen.tsx:236
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:224
 msgid "Thanks! You're all set."
 msgstr ""
@@ -13062,6 +13061,10 @@ msgstr ""
 msgid "This will remove your post from this quote post for all users, and replace it with a placeholder."
 msgstr ""
 
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:40
+msgid "Thông tin liên hệ quản trị viên"
+msgstr "Thông tin liên hệ quản trị viên"
+
 #. Name for a feature flag (See numbered badges (1/3, 2/3, etc.) on posts in a thread by the same author.)
 #: src/analytics/features/index.ts:100
 msgid "Thread numbering"
@@ -13121,7 +13124,7 @@ msgstr ""
 msgid "To disable your email 2FA method, please verify your access to <0>{0}</0>"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:317
+#: src/ageAssurance/components/NoAccessScreen.tsx:321
 msgid "To log out, <0>click here</0>. Or if you’d prefer, you can <1>delete your account</1>."
 msgstr "To log out, <0>click here</0>. Or if you’d prefer, you can <1>delete your account</1>."
 
@@ -13136,6 +13139,10 @@ msgstr ""
 #: src/components/Post/Embed/VideoEmbed/VideoEmbedInner/VideoEmbedInnerNative.tsx:201
 msgid "Toggles the sound"
 msgstr ""
+
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:46
+msgid "Tôi là quản trị viên của Railway Social"
+msgstr "Tôi là quản trị viên của Railway Social"
 
 #: src/components/contacts/screens/VerifyNumber.tsx:127
 msgid "Too many attempts. Please wait a few minutes and try again."
@@ -13431,11 +13438,11 @@ msgstr ""
 msgid "Unfortunately, none of your subscribed labelers supports this report type."
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:265
+#: src/ageAssurance/components/NoAccessScreen.tsx:266
 msgid "Unfortunately, the birthdate you have saved to your profile makes you too young to access Bluesky."
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:249
+#: src/ageAssurance/components/NoAccessScreen.tsx:250
 msgid "Unfortunately, your declared age indicates that you are not old enough to access Bluesky in your region."
 msgstr ""
 
@@ -13630,7 +13637,7 @@ msgstr ""
 msgid "Update your email"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:210
+#: src/ageAssurance/components/NoAccessScreen.tsx:211
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:252
 #: src/components/dialogs/DeviceLocationRequestDialog.tsx:41
 #: src/components/dialogs/DeviceLocationRequestDialog.tsx:105
@@ -14383,7 +14390,7 @@ msgstr "We’re so excited to have you join us!"
 msgid "We're sorry, but based on the data shared by your device, you are not old enough to access Bluesky."
 msgstr "We're sorry, but based on the data shared by your device, you are not old enough to access Bluesky."
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:229
+#: src/ageAssurance/components/NoAccessScreen.tsx:230
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:218
 msgid "We're sorry, but based on your device's location, you are currently located in a region that requires age assurance."
 msgstr ""
@@ -14591,6 +14598,11 @@ msgstr "Wrong kind of conversation"
 msgid "www.mylivestream.tv"
 msgstr ""
 
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:57
+#: src/components/dialogs/nuxs/AdminContactAnnouncement.tsx:62
+msgid "Xem hồ sơ quản trị viên"
+msgstr "Xem hồ sơ quản trị viên"
+
 #: src/components/moderation/ReportDialog/index.tsx:994
 #: src/components/moderation/ReportDialog/index.tsx:1003
 msgctxt "Answer to a yes/no question"
@@ -14635,7 +14647,7 @@ msgstr ""
 msgid "You are a trusted verifier"
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:176
+#: src/ageAssurance/components/NoAccessScreen.tsx:177
 msgid "You are accessing Bluesky from a region that legally requires us to verify your age before allowing you to access the app."
 msgstr ""
 
@@ -14660,7 +14672,7 @@ msgstr ""
 msgid "You are currently blocked from using the Go Live feature. To appeal this moderation decision, please submit the form below."
 msgstr ""
 
-#: src/ageAssurance/components/NoAccessScreen.tsx:402
+#: src/ageAssurance/components/NoAccessScreen.tsx:406
 #: src/components/ageAssurance/AgeAssuranceAccountCard.tsx:124
 msgid "You are currently unable to access Bluesky's Age Assurance flow. Please <0>contact our moderation team</0> if you believe this is an error."
 msgstr ""
@@ -15025,7 +15037,7 @@ msgid "You requested to join"
 msgstr "You requested to join"
 
 #: src/screens/Settings/Settings.tsx:309
-#: src/view/shell/desktop/LeftNav.tsx:223
+#: src/view/shell/desktop/LeftNav.tsx:229
 msgid "You will be signed out of this account."
 msgstr "You will be signed out of this account."
 
