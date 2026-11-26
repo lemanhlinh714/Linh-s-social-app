@@ -45,9 +45,9 @@ module.exports = function (_config) {
   return {
     expo: {
       version: VERSION,
-      name: 'Railway social',
-      slug: 'abc-social',
-      scheme: 'abc-social',
+      name: 'Parley',
+      slug: 'parley',
+      scheme: 'parley',
       owner: 'lelinh1',
       runtimeVersion: {
         policy: 'appVersion',
@@ -75,7 +75,7 @@ module.exports = function (_config) {
             'Used to save images to your library.',
           NSPhotoLibraryUsageDescription:
             'Used for profile pictures, posts, and other kinds of content',
-          CFBundleSpokenName: 'Railway social',
+          CFBundleSpokenName: 'Parley',
           CFBundleLocalizations: [
             'en',
             'an',
