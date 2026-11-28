@@ -18,17 +18,12 @@ import {Image} from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 
 import {BrandWordmark} from '#/view/icons/BrandWordmark'
-import {DandelionMark} from '#/view/icons/DandelionMark'
 import {atoms as a} from '#/alf'
 // @ts-expect-error
-import splashImagePointer from '../assets/splash/splash.png'
-// @ts-expect-error
-import darkSplashImagePointer from '../assets/splash/splash-dark.png'
+import splashImagePointer from '../assets/logo.png'
 
 const splashImageUri = RNImage.resolveAssetSource(splashImagePointer)!.uri
-const darkSplashImageUri = RNImage.resolveAssetSource(
-  darkSplashImagePointer,
-)!.uri
+const darkSplashImageUri = splashImageUri
 type Props = {
   isReady: boolean
 }
@@ -37,7 +32,6 @@ export function Splash(props: React.PropsWithChildren<Props>) {
   'use no memo'
   const insets = useSafeAreaInsets()
   const intro = useSharedValue(0)
-  const outroLogo = useSharedValue(0)
   const outroApp = useSharedValue(0)
   const outroAppOpacity = useSharedValue(0)
   const [isAnimationComplete, setIsAnimationComplete] = useState(false)
@@ -53,29 +47,6 @@ export function Splash(props: React.PropsWithChildren<Props>) {
   const colorScheme = useColorScheme()
   const isDarkMode = colorScheme === 'dark'
 
-  const logoAnimation = useAnimatedStyle(() => {
-    const introScale = interpolate(intro.get(), [0, 1], [0.8, 1], 'clamp')
-    const outroScale =
-      reduceMotion === true
-        ? 1
-        : interpolate(outroLogo.get(), [0, 0.08, 1], [1, 0.8, 500], 'clamp')
-
-    const introOpacity = interpolate(intro.get(), [0, 1], [0, 1], 'clamp')
-    const outroOpacity = interpolate(
-      outroAppOpacity.get(),
-      [0, 0.1, 0.2, 1],
-      [1, 1, 0, 0],
-      'clamp',
-    )
-
-    return {
-      opacity: introOpacity * outroOpacity,
-      transform: [
-        {translateY: -(insets.top / 2)},
-        {scale: 0.1 * outroScale * introScale},
-      ],
-    }
-  })
   const bottomLogoAnimation = useAnimatedStyle(() => {
     return {
       opacity: interpolate(intro.get(), [0, 1], [0, 1], 'clamp'),
@@ -113,20 +84,17 @@ export function Splash(props: React.PropsWithChildren<Props>) {
               () => {
                 'worklet'
                 // set these values to check animation at specific point
-                outroLogo.set(
+                outroApp.set(
                   withTiming(
                     1,
-                    {duration: 1200, easing: Easing.in(Easing.cubic)},
+                    {
+                      duration: 1200,
+                      easing: Easing.inOut(Easing.cubic),
+                    },
                     () => {
                       scheduleOnRN(onFinish)
                     },
                   ),
-                )
-                outroApp.set(
-                  withTiming(1, {
-                    duration: 1200,
-                    easing: Easing.inOut(Easing.cubic),
-                  }),
                 )
                 outroAppOpacity.set(
                   withTiming(1, {
@@ -140,7 +108,7 @@ export function Splash(props: React.PropsWithChildren<Props>) {
         })
         .catch(() => {})
     }
-  }, [onFinish, intro, outroLogo, outroApp, outroAppOpacity, isReady])
+  }, [onFinish, intro, outroApp, outroAppOpacity, isReady])
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(setReduceMotion)
@@ -180,22 +148,6 @@ export function Splash(props: React.PropsWithChildren<Props>) {
           <Animated.View style={[{flex: 1}, appAnimation]}>
             {props.children}
           </Animated.View>
-
-          {!isAnimationComplete && (
-            <Animated.View
-              style={[
-                a.absolute,
-                a.inset_0,
-                logoAnimation,
-                {
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                },
-              ]}>
-              <DandelionMark size={100} />
-            </Animated.View>
-          )}
         </>
       )}
     </View>
