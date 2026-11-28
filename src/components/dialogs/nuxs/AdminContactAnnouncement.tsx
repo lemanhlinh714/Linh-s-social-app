@@ -43,7 +43,7 @@ export function AdminContactAnnouncement() {
         <View style={[a.gap_lg]}>
           <View style={[a.gap_sm]}>
             <Text style={[a.text_xl, a.font_bold]}>
-              <Trans>Tôi là quản trị viên của Railway Social</Trans>
+              <Trans>Tôi là quản trị viên của Parley</Trans>
             </Text>
             <Text style={[a.text_md]}>
               <Trans>

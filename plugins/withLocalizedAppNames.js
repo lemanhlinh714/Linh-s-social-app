@@ -5,8 +5,8 @@ const path = require('node:path')
 const {withDangerousMod} = require('@expo/config-plugins')
 
 const APP_NAMES = [
-  {locale: 'en', name: 'Railway social'},
-  {locale: 'vi', name: 'Railway social'},
+  {locale: 'en', name: 'Parley'},
+  {locale: 'vi', name: 'Parley'},
 ]
 
 module.exports = function withLocalizedAppNames(config) {
