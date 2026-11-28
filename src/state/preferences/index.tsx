@@ -1,4 +1,5 @@
 import {Provider as AltTextRequiredProvider} from './alt-text-required'
+import {Provider as AutoTranslateProvider} from './auto-translate'
 import {Provider as AutoplayProvider} from './autoplay'
 import {Provider as DisableHapticsProvider} from './disable-haptics'
 import {Provider as ExternalEmbedsProvider} from './external-embeds-prefs'
@@ -15,6 +16,10 @@ export {
   useRequireAltTextEnabled,
   useSetRequireAltTextEnabled,
 } from './alt-text-required'
+export {
+  useAutoTranslateEnabled,
+  useSetAutoTranslateEnabled,
+} from './auto-translate'
 export {useAutoplayDisabled, useSetAutoplayDisabled} from './autoplay'
 export {useHapticsDisabled, useSetHapticsDisabled} from './disable-haptics'
 export {
@@ -36,13 +41,15 @@ export function Provider({children}: React.PropsWithChildren<{}>) {
               <InAppBrowserProvider>
                 <DisableHapticsProvider>
                   <AutoplayProvider>
-                    <UsedStarterPacksProvider>
-                      <SubtitlesProvider>
-                        <TrendingSettingsProvider>
-                          <KawaiiProvider>{children}</KawaiiProvider>
-                        </TrendingSettingsProvider>
-                      </SubtitlesProvider>
-                    </UsedStarterPacksProvider>
+                    <AutoTranslateProvider>
+                      <UsedStarterPacksProvider>
+                        <SubtitlesProvider>
+                          <TrendingSettingsProvider>
+                            <KawaiiProvider>{children}</KawaiiProvider>
+                          </TrendingSettingsProvider>
+                        </SubtitlesProvider>
+                      </UsedStarterPacksProvider>
+                    </AutoTranslateProvider>
                   </AutoplayProvider>
                 </DisableHapticsProvider>
               </InAppBrowserProvider>

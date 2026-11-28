@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react'
+import {useCallback, useEffect, useMemo} from 'react'
 import {Platform, type StyleProp, type TextStyle, View} from 'react-native'
 import {Trans, useLingui} from '@lingui/react/macro'
 
@@ -15,7 +15,7 @@ import {
   languageName,
 } from '#/locale/helpers'
 import {LANGUAGES} from '#/locale/languages'
-import {useLanguagePrefs} from '#/state/preferences'
+import {useAutoTranslateEnabled, useLanguagePrefs} from '#/state/preferences'
 import {atoms as a, flatten, native, useTheme, web} from '#/alf'
 import {Button} from '#/components/Button'
 import {ArrowRight_Stroke2_Corner0_Rounded as ArrowRightIcon} from '#/components/icons/Arrow'
@@ -26,7 +26,7 @@ import {Loader} from '#/components/Loader'
 import * as Select from '#/components/Select'
 import {Text} from '#/components/Typography'
 import {useAnalytics} from '#/analytics'
-import {IS_WEB} from '#/env'
+import {IS_NATIVE, IS_TRANSLATION_SUPPORTED, IS_WEB} from '#/env'
 import {app} from '#/lexicons'
 import * as bsky from '#/types/bsky'
 
@@ -42,6 +42,7 @@ export function TranslatedPost({
   postTextStyle?: StyleProp<TextStyle>
 }) {
   const langPrefs = useLanguagePrefs()
+  const autoTranslateEnabled = useAutoTranslateEnabled()
   const {clearTranslation, translate, translationState} = useTranslate({
     key: post.uri,
   })
@@ -59,9 +60,29 @@ export function TranslatedPost({
     }
   }, [post, record, langPrefs])
   const needsTranslation = useMemo(() => {
-    if (hideTranslateLink) return false
-    return !isPostInLanguage(post, [langPrefs.primaryLanguage])
-  }, [hideTranslateLink, post, langPrefs.primaryLanguage])
+    return !isPostInLanguage(post, ['vi'])
+  }, [post])
+
+  useEffect(() => {
+    if (
+      IS_NATIVE &&
+      IS_TRANSLATION_SUPPORTED &&
+      autoTranslateEnabled &&
+      needsTranslation &&
+      translationState.status === 'idle'
+    ) {
+      void translate({
+        ...initialTranslationParams,
+        expectedTargetLanguage: 'vi',
+      })
+    }
+  }, [
+    autoTranslateEnabled,
+    initialTranslationParams,
+    needsTranslation,
+    translate,
+    translationState.status,
+  ])
 
   switch (translationState.status) {
     case 'loading':
@@ -90,7 +111,8 @@ export function TranslatedPost({
       )
     default:
       return (
-        needsTranslation && (
+        needsTranslation &&
+        !hideTranslateLink && (
           <TranslationLink
             translate={translate}
             initialTranslationParams={initialTranslationParams}

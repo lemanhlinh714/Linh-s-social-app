@@ -4,7 +4,12 @@ import {Trans} from '@lingui/react/macro'
 import {type NativeStackScreenProps} from '@react-navigation/native-stack'
 
 import {type CommonNavigatorParams} from '#/lib/routes/types'
-import {useAutoplayDisabled, useSetAutoplayDisabled} from '#/state/preferences'
+import {
+  useAutoplayDisabled,
+  useAutoTranslateEnabled,
+  useSetAutoplayDisabled,
+  useSetAutoTranslateEnabled,
+} from '#/state/preferences'
 import {
   useInAppBrowser,
   useSetInAppBrowser,
@@ -37,6 +42,8 @@ export function ContentAndMediaSettingsScreen({}: Props) {
   const ax = useAnalytics()
   const autoplayDisabledPref = useAutoplayDisabled()
   const setAutoplayDisabledPref = useSetAutoplayDisabled()
+  const autoTranslateEnabled = useAutoTranslateEnabled()
+  const setAutoTranslateEnabled = useSetAutoTranslateEnabled()
   const inAppBrowserPref = useInAppBrowser()
   const setUseInAppBrowser = useSetInAppBrowser()
   const {enabled: trendingEnabled} = useTrendingConfig()
@@ -108,6 +115,21 @@ export function ContentAndMediaSettingsScreen({}: Props) {
                 <SettingsList.ItemIcon icon={WindowIcon} />
                 <SettingsList.ItemText>
                   <Trans>Use in-app browser to open links</Trans>
+                </SettingsList.ItemText>
+                <Toggle.Platform />
+              </SettingsList.Item>
+            </Toggle.Item>
+          )}
+          {IS_NATIVE && (
+            <Toggle.Item
+              name="auto_translate"
+              label={_(msg`Automatically translate posts to Vietnamese`)}
+              value={autoTranslateEnabled}
+              onChange={setAutoTranslateEnabled}>
+              <SettingsList.Item>
+                <SettingsList.ItemIcon icon={BubblesIcon} />
+                <SettingsList.ItemText>
+                  <Trans>Automatically translate posts to Vietnamese</Trans>
                 </SettingsList.ItemText>
                 <Toggle.Platform />
               </SettingsList.Item>

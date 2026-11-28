@@ -325,12 +325,12 @@ module.exports = function (_config) {
             ios: {
               enableFullScreenImage_legacy: true, // iOS only
               backgroundColor: '#000000', // primary_500
-              image: './assets/splash/splash-flower.png',
+              image: './assets/logo.png',
               resizeMode: 'cover',
               dark: {
                 enableFullScreenImage_legacy: true, // iOS only
                 backgroundColor: '#000000', // primary_900
-                image: './assets/splash/splash-dark-flower.png',
+                image: './assets/logo.png',
                 resizeMode: 'cover',
               },
             },
@@ -340,7 +340,7 @@ module.exports = function (_config) {
               imageWidth: 102, // even division of 306px
               dark: {
                 backgroundColor: '#000000', // primary_900
-                image: './assets/splash/android-splash-logo-white.png',
+                image: './assets/logo.png',
                 imageWidth: 102,
               },
             },
